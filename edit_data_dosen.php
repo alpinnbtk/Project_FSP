@@ -22,11 +22,12 @@
         if ($row = $result->fetch_assoc()) {
             echo "<form method = 'POST' action = 'edit_data_dosen_proses.php' enctype = 'multipart/form-data'>";
             echo "<label>NPK Dosen : </label><input type = 'text' value = '". $row['npk']. "' name = 'txtNPK'><br>";
+            echo "<input type='hidden' name='npk_awal' value='".$row['npk']."'>";
             echo "<label>Nama Dosen : </label><input type = 'text' value = '". $row['nama']. "' name = 'txtNama'><br>";
             echo "<label>Foto Dosen : </label><br>";
             echo "<img src = 'foto_dosen/".$npk_dosen.".".$row['foto_extension']. "' alt = 'Foto Dosen'><br>";
             echo "<input type = 'file' name = 'fotoBaru'><br>";
-            echo "<button type = 'submit' name = 'btnEdit'>Ganti Foto</button>";
+            echo "<button type = 'submit' name = 'btnEdit'>Edit Data</button>";
             echo "</form>";
         } else {
             echo "Data tidak ditemukan";

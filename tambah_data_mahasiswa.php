@@ -16,18 +16,18 @@
 
         echo "<form method = 'POST' action = 'tambah_data_mahasiswa_proses.php?' enctype = 'multipart/form-data'>";
         echo "<label>NRP Mahasiswa : </label>
-              <input type = 'text' name = 'txtNRP'><br>";
+              <input type = 'text' name = 'txtNRP' required><br>";
         echo "<label>Nama Mahasiswa : </label>
-              <input type = 'text' name = 'txtNama'><br>";
+              <input type = 'text' name = 'txtNama' required><br>";
         echo "<label>Gender Mahasiswa : </label>
-              <select name = 'genderMhs'>
+              <select name = 'genderMhs' required>
                 <option value = 'Pria'>Pria</option>
                 <option value = 'Wanita'>Wanita</option>
               </select><br>";
         echo "<label>Tanggal Lahir : </label>
-              <input type = 'date' name = 'txtTanggalLahir'><br>";
+              <input type = 'date' name = 'txtTanggalLahir' required><br>";
         echo "<label>Angkatan Mahasiswa : </label>
-              <input type = 'text' name = 'txtAngkatan'><br>";
+              <input type = 'text' name = 'txtAngkatan' required><br>";
         echo "<label>Foto Mahasiswa : </label>
               <input type = 'file' name = 'fotoMahasiswa'><br>";
         echo "<input type = 'submit' name = 'btnSubmit'>";

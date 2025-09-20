@@ -29,6 +29,8 @@
         $stmt->close();
         $mysqli->close();
 
+        header("location: tabel_data_dosen.php");
+
     ?>
 </body>
 </html>

@@ -29,6 +29,7 @@
         $stmt->close();
         $mysqli->close();
 
+        header("location: tabel_data_mahasiswa.php");
     ?>
 </body>
 </html>

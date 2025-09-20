@@ -22,6 +22,7 @@
         if ($row = $result->fetch_assoc()) {
             echo "<form method = 'POST' action = 'edit_data_mahasiswa_proses.php' enctype = 'multipart/form-data'>";
             echo "<label>NRP Mahasiswa : </label><input type = 'text' value = '". $row['nrp']. "' name = 'txtNRP'><br>";
+            echo "<input type='hidden' name='nrp_awal' value='".$row['nrp']."'>";
             echo "<label>Nama Mahasiswa : </label><input type = 'text' value = '". $row['nama']. "' name = 'txtNama'><br>";
             echo "<label>Gender Mahasiswa : </label>
                   <select name = 'genderMhs'>\
@@ -36,7 +37,7 @@
             echo "<label>Angkatan Mahasiswa : </label><input type = 'text' value = '". $row['angkatan']. "' name = 'txtAngkatan'><br>";
             echo "<img src = 'foto_mahasiswa/".$nrp_mahasiswa.".".$row['foto_extention']. "' alt = 'Foto Mahasiswa'><br>";
             echo "<input type = 'file' name = 'fotoBaru'><br>";
-            echo "<button type = 'submit' name = 'btnEdit'>Ganti Foto</button>";
+            echo "<button type = 'submit' name = 'btnEdit'>Edit Data</button>";
             echo "</form>";
         } else {
             echo "Data tidak ditemukan";

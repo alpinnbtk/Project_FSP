@@ -75,7 +75,7 @@
                     echo "<td>".$row['angkatan']."</td>";
                     echo "<td><img src = 'foto_mahasiswa/".$row['nrp'].".".$row['foto_extention']."'</td>";
                     echo "<td><a href='edit_data_mahasiswa.php?nrp=".$row['nrp']."'>Ubah Data</a></td>";
-                    echo "<td><a href='hapus_data_mahasiswa.php?nrp=".$row['nrp']."'>Hapus Data</a></td>";
+                    echo "<td><a href='hapus_data_mahasiswa.php?nrp=".$row['nrp']."' onclick=\"return confirm('Apakah Anda yakin ingin menghapus data ini?');\">Hapus Data</a></td>";
                 echo "</tr>";
             }
             echo "</table>" ;

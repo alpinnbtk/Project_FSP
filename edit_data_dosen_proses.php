@@ -8,33 +8,45 @@
 <body>
     <h2> Edit Data Dosen</h2><br>
     <?php
+        $npk_awal = $_POST['npk_awal'];
         $mysqli = new mysqli("localhost", "root", "", "fullstack");
         if ($mysqli->connect_errno) {
             echo "Failed to connect to MySQL: " . $mysqli->connect_error;
             exit();
         }
 
-        $npk    = $_POST['txtNPK'];
+        $npk_baru    = $_POST['txtNPK'];
         $nama    = $_POST['txtNama'];   
         $foto     = $_FILES['fotoBaru']; 
 
         $ext = pathinfo($foto['name'], PATHINFO_EXTENSION);
 
-        $sql = "UPDATE dosen SET npk = ?, nama = ?, foto_extension = ? WHERE npk = ?";
-        $stmt = $mysqli->prepare($sql);
+        if (!empty($foto['name'])) {
+            $sql = "UPDATE dosen SET npk = ?, nama = ?, foto_extension = ? WHERE npk = ?";
+            $stmt = $mysqli->prepare($sql);
 
-        $stmt->bind_param('ssss', $npk, $nama, $ext, $npk);
+            $stmt->bind_param('ssss', $npk_baru, $nama, $ext, $npk_awal);
 
-        if (isset($foto) && file_exists("foto_dosen/".$npk.".".$ext)) {
-            unlink("foto_dosen/".$npk.".".$ext);
+            if (isset($foto) && file_exists("foto_dosen/".$npk_baru.".".$ext)) {
+                unlink("foto_dosen/".$npk_baru.".".$ext);
+            }
+            move_uploaded_file($foto['tmp_name'], "foto_dosen/".$npk_baru.".".$ext);
+        } 
+        else {
+            $sql = "UPDATE dosen SET npk = ?, nama = ? WHERE npk = ?";
+            $stmt = $mysqli->prepare($sql);
+
+            $stmt->bind_param('sss', $npk_baru, $nama, $npk_awal);
         }
-        move_uploaded_file($foto['tmp_name'], "foto_dosen/".$npk.".".$ext);
 
         if ($stmt->execute()) {
             echo "Data berhasil diubah!";
         } else {
             echo "Error: " . $stmt->error;
         }
+
+        echo "<a href = 'tabel_data_dosen.php'>Kembali ke Tabel Data</a>";
+        echo "<a href = 'edit_data_dosen.php'>Kembali ke Halaman Edit</a>";
 
         $stmt->close();
         $mysqli->close();
