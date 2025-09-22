@@ -9,6 +9,8 @@
     <h2> Hapus Data Dosen</h2><br>
     <?php
         $npk_dosen = $_GET['npk'];
+        $ext = $_GET['ext'];
+        
         $mysqli = new mysqli("localhost", "root", "", "fullstack");
         if ($mysqli->connect_errno) {
             echo "Failed to connect to MySQL: " . $mysqli->connect_error;
@@ -20,6 +22,10 @@
 
         $stmt->bind_param('i', $npk_dosen);
 
+        if (file_exists("foto_dosen/".$npk_dosen.".".$ext)) {
+            unlink("foto_dosen/".$npk_dosen.".".$ext);
+        }
+            
         if ($stmt->execute()) {
             echo "Data berhasil dihapus!";
         } else {

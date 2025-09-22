@@ -69,7 +69,7 @@
                     echo "<td>". $row['nama']."</td>";
                     echo "<td><img src = 'foto_dosen/".$row['npk'].".".$row['foto_extension']."'</td>";
                     echo "<td><a href='edit_data_dosen.php?npk=".$row['npk']."'>Ubah Data</a></td>";
-                    echo "<td><a href='hapus_data_dosen.php?npk=".$row['npk']."' onclick=\"return confirm('Apakah Anda yakin ingin menghapus data ini?');\">Hapus Data</a></td>";
+                    echo "<td><a href='hapus_data_dosen.php?npk=".$row['npk']."&ext=".$row['foto_extension']."' onclick=\"return confirm('Apakah Anda yakin ingin menghapus data ini?');\">Hapus Data</a></td>";
                 echo "</tr>";
             }
             echo "</table><br>" ;

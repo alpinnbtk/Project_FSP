@@ -9,6 +9,8 @@
     <h2> Hapus Data Mahasiswa</h2><br>
     <?php
         $nrp_mahasiswa = $_GET['nrp'];
+        $ext = $_GET['ext'];
+        
         $mysqli = new mysqli("localhost", "root", "", "fullstack");
         if ($mysqli->connect_errno) {
             echo "Failed to connect to MySQL: " . $mysqli->connect_error;
@@ -19,6 +21,10 @@
         $stmt = $mysqli->prepare($sql);
 
         $stmt->bind_param('i', $nrp_mahasiswa);
+
+        if (file_exists("foto_mahasiswa/".$nrp_mahasiswa.".".$ext)) {
+                unlink("foto_mahasiswa/".$nrp_mahasiswa.".".$ext);
+        }
 
         if ($stmt->execute()) {
             echo "Data berhasil dihapus!";
