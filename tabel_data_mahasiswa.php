@@ -78,7 +78,7 @@
                     echo "<td><a href='hapus_data_mahasiswa.php?nrp=".$row['nrp']."' onclick=\"return confirm('Apakah Anda yakin ingin menghapus data ini?');\">Hapus Data</a></td>";
                 echo "</tr>";
             }
-            echo "</table>" ;
+            echo "</table><br>" ;
             echo "<a href = 'tambah_data_mahasiswa.php'>Tambah Data Mahasiswa</a>";
         } else {
             echo "<p>Tidak ada data ditemukan.</p>";

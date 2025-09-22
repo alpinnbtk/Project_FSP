@@ -41,13 +41,13 @@
         }
 
         if ($stmt->execute()) {
-            echo "Data berhasil diubah!";
+            echo "Data berhasil diubah!<br>";
         } else {
-            echo "Error: " . $stmt->error;
+            echo "Error: ".$stmt->error."<br>";
         }
 
-        echo "<a href = 'tabel_data_mahasiswa.php'>Kembali ke Tabel Data</a>";
-        echo "<a href = 'edit_data_mahasiswa.php'>Kembali ke Halaman Edit</a>";
+        echo "<a href = 'tabel_data_mahasiswa.php'>Kembali ke Tabel Data</a><br>";
+        echo "<a href = 'edit_data_mahasiswa.php'>Kembali ke Halaman Edit</a><br>";
 
         $stmt->close();
         $mysqli->close();
