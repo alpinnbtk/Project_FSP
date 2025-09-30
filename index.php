@@ -1,24 +1,123 @@
+<?php
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Admin</title>
+    <title>Document</title>
+
+    <style>
+        body {
+            background: #f4f6f9;
+            font-family: Arial;
+        }
+
+        form {
+            background: #fff;
+            padding: 20px 30px;
+            border-radius: 10px;
+            text-align: center;
+            width: 300px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        label {
+            text-align: left;
+        }
+
+        input {
+            /* width: 100%; */
+            border-radius: 6px;
+            padding: 7px;
+            margin: 6px;
+
+        }
+
+        button {
+            background: #4CAF50;
+            color: white;
+            padding: 10px 120px;
+            border-radius: 6px;
+            margin: 6px;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #45a049;
+        }
+
+        p {
+            color: #FF0000;
+        }
+    </style>
 </head>
 
 <body>
-    <h2>Welcome Admin!</h2>
-    <p>Mau apaa??</p>
-    <ul>
-        <li><a href="tambah_data_dosen.php">Insert Dosen</a></li>
-        <li><a href="tabel_data_dosen.php">Tabel Dosen</a></li>
-    </ul>
+    <h2>Login</h2>
 
-    <ul>
-        <li><a href="tambah_data_mahasiswa.php">Insert Mahasiswa</a></li>
-        <li><a href="tabel_data_mahasiswa.php">Tabel Mahasiswa</a></li>
-    </ul>
+    <form method="POST">
+
+        <label>Username : </label>
+        <input type="text" name="username">
+
+        <br />
+
+        <label>Password : </label>
+        <input type="text" name="password">
+
+        <br />
+
+        <button type="submit" name="login">Login</button>
+
+        <?php
+        session_start();
+
+        $mysqli = new mysqli("localhost", "root", "", "fullstack");
+        if ($mysqli->connect_errno) {
+            echo "Failed to connect to MySQL: " . $mysqli->connect_error;
+        }
+
+        if (isset($_POST['login'])) {
+            $username = $_POST['username'];
+            $password = $_POST['password'];
+
+            $stmt = $mysqli->prepare("SELECT * FROM akun WHERE username LIKE ?");
+            $stmt->bind_param(
+                "s",
+                $username,
+            );
+
+            $stmt->execute();
+            $res = $stmt->get_result();
+
+            if ($row = $res->fetch_assoc()) {
+
+                if ($row['password'] == $password) {
+                    if ($row['isadmin'] == 0) {
+                        $_SESSION['username'] = $username;
+                        header('Location:ganti_password.php');
+                    } else {
+                        header('Location:dashboard_admin.php');
+                    }
+                } else {
+                    echo "<p>Password anda salah</p>";
+                }
+            } else {
+                echo "<p>User tidak terdaftar!</p>";
+            }
+        }
+
+        ?>
+
+    </form>
+
 </body>
 
 </html>

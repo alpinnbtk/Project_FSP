@@ -13,14 +13,57 @@ if ($mysqli->connect_errno) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Password</title>
+    <title>Document</title>
+
+    <style>
+        body {
+            background: #f4f6f9;
+            font-family: Arial;
+        }
+
+        form {
+            background: #fff;
+            padding: 20px 30px;
+            border-radius: 10px;
+            width: 400px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        label {
+            /* text-align: left; */
+        }
+
+        input {
+            /* width: 100%; */
+            border-radius: 6px;
+            padding: 7px;
+            margin: 6px;
+
+        }
+
+        button {
+            background: #4CAF50;
+            color: white;
+            padding: 10px 120px;
+            border-radius: 6px;
+            margin: 6px;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #45a049;
+        }
+    </style>
 </head>
 
 <body>
     <h2>Ganti Password</h2>
 
     <form method="POST" action="ganti_password_proses.php">
-        <label>Inputkan password sekarang : </label>
+        <label>Inputkan password : </label>
         <input type="text" name="pwdSekarang">
 
         <br>
