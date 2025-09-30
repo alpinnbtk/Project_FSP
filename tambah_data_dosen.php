@@ -5,9 +5,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tambah Data Dosen</title>
+
+    <style>
+        body {
+            background: #f4f6f9;
+            font-family: Arial;
+        }
+
+        form {
+            background: #fff;
+            padding: 20px 30px;
+            border-radius: 10px;
+            text-align: left;
+            width: 380px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        label {
+            text-align: left;
+        }
+
+        input {
+            border-radius: 6px;
+            padding: 7px;
+            margin: 6px;
+
+        }
+
+        .btnSubmit {
+            background: #4CAF50;
+            color: white;
+            padding: 10px 120px;
+            border-radius: 6px;
+            margin: 6px;
+            font-size: 16px;
+        }
+
+        .btnSubmit:hover {
+            background: #45a049;
+        }
+    </style>
 </head>
 
 <body>
+    <h2>Tambah Data Dosen</h2>
     <?php
     $mysqli = new mysqli("localhost", "root", "", "fullstack");
     if ($mysqli->connect_errno) {
@@ -15,39 +59,23 @@
         exit();
     }
 
-    $npk    = $_POST['txtNPK'];
-    $nama    = $_POST['txtNama'];
-    $foto     = $_FILES['fotoDosen'];
+    echo "<form method = 'POST' action = 'tambah_data_dosen_proses.php?' enctype = 'multipart/form-data'>";
+    echo "<label>NPK Dosen : </label>
+              <input type = 'text' name = 'txtNPK' required><br>";
+    echo "<label>Nama Dosen : </label>
+              <input type = 'text' name = 'txtNama' required><br>";
+    echo "<label>Foto Dosen : </label>
+              <input type = 'file' name = 'fotoDosen' accept='image/jpg, image/png'><br>";
+    echo "<input type = 'submit' name = 'btnSubmit' class='btnSubmit'>";
+    echo "</form>";
 
-    $ext = pathinfo($foto['name'], PATHINFO_EXTENSION);
-    $sql = "SELECT COUNT(*) FROM dosen WHERE npk = ? ";
-    $cek = $mysqli->prepare($sql);
-    $cek->bind_param('s', $npk);
-    $cek->execute();
-    $cek->bind_result($count);
-    $cek->fetch();
-    $cek->close();
-
-    if ($count > 0) {
-        header("Location: tambah_data_dosen.php?error=npk");
-        exit();
-    } else {
-        $sql = "INSERT INTO dosen (npk, nama, foto_extension)
-            VALUES (?, ?, ?)";
-        $stmt = $mysqli->prepare($sql);
-
-        $stmt->bind_param('sss', $npk, $nama, $ext);
-
-        move_uploaded_file($foto['tmp_name'], "foto_dosen/" . $npk . "." . $ext);
-
-        if ($stmt->execute()) {
-            echo "Data berhasil disimpan!";
-        } else {
-            header("Location: tambah_data_dosen.php?error=insert");
+    if (isset($_GET['error'])) {
+        if ($_GET['error'] == 'npk') {
+            echo "<div style='color:red; font-weight:bold;'>NPK sudah terdaftar sebelumnya!</div>";
+        } elseif ($_GET['error'] == 'insert') {
+            echo "<div style='color:red; font-weight:bold;'>Gagal menyimpan data!</div>";
         }
-        header("location: tabel_data_dosen.php");
     }
-
     ?>
 </body>
 
