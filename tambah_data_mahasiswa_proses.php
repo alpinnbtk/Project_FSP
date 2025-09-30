@@ -1,42 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tambah Data Mahasiswa</title>
 </head>
+
 <body>
     <?php
-        $mysqli = new mysqli("localhost", "root", "", "fullstack");
-        if ($mysqli->connect_errno) {
-            echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-            exit();
-        }
+    $mysqli = new mysqli("localhost", "root", "", "fullstack");
+    if ($mysqli->connect_errno) {
+        echo "Failed to connect to MySQL: " . $mysqli->connect_error;
+        exit();
+    }
 
-        $nrp    = $_POST['txtNRP'];
-        $nama    = $_POST['txtNama'];  
-        $gender = $_POST['genderMhs'];
-        $tanggal_lahir = $_POST['txtTanggalLahir'];
-        $angkatan = $_POST['txtAngkatan'];
-        $foto     = $_FILES['fotoMahasiswa']; 
+    $nrp    = $_POST['txtNRP'];
+    $nama    = $_POST['txtNama'];
+    $gender = $_POST['genderMhs'];
+    $tanggal_lahir = $_POST['txtTanggalLahir'];
+    $angkatan = $_POST['txtAngkatan'];
+    $foto     = $_FILES['fotoMahasiswa'];
 
-        $ext = pathinfo($foto['name'], PATHINFO_EXTENSION);
+    $ext = pathinfo($foto['name'], PATHINFO_EXTENSION);
 
+    $sql = "SELECT COUNT(*) FROM mahasiswa WHERE nrp = ? ";
+    $cek = $mysqli->prepare($sql);
+    $cek->bind_param('s', $nrp);
+    $cek->execute();
+    $cek->bind_result($count);
+    $cek->fetch();
+    $cek->close();
+
+     if ($count > 0) {
+        header("Location: tambah_data_mahasiswa.php?error=nrp");
+        exit();
+    } else {
         $sql = "INSERT INTO mahasiswa (nrp, nama, gender, tanggal_lahir, angkatan, foto_extention)
-        VALUES (?, ?, ?, ?, ?, ?)";
+            VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $mysqli->prepare($sql);
-
+    
         $stmt->bind_param('ssssss', $nrp, $nama, $gender, $tanggal_lahir, $angkatan, $ext);
-
-        move_uploaded_file($foto['tmp_name'], "foto_mahasiswa/".$nrp.".".$ext);
-
+    
+        move_uploaded_file($foto['tmp_name'], "foto_mahasiswa/" . $nrp . "." . $ext);
+    
         if ($stmt->execute()) {
             echo "Data berhasil disimpan!";
         } else {
-            echo "Error: " . $stmt->error;
+            header("Location: tambah_data_mahasiswa.php?error=insert");
         }
-
+    
         header("location: tabel_data_mahasiswa.php");
+    }
+
     ?>
 </body>
+
 </html>

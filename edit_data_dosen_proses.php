@@ -22,10 +22,10 @@
         $ext = pathinfo($foto['name'], PATHINFO_EXTENSION);
 
         if (!empty($foto['name'])) {
-            $sql = "UPDATE dosen SET npk = ?, nama = ?, foto_extension = ? WHERE npk = ?";
+            $sql = "UPDATE dosen SET nama = ?, foto_extension = ? WHERE npk = ?";
             $stmt = $mysqli->prepare($sql);
 
-            $stmt->bind_param('ssss', $npk_baru, $nama, $ext, $npk_awal);
+            $stmt->bind_param('sss', $nama, $ext, $npk_awal);
 
             if (isset($foto) && file_exists("foto_dosen/".$npk_baru.".".$ext)) {
                 unlink("foto_dosen/".$npk_baru.".".$ext);
@@ -33,10 +33,10 @@
             move_uploaded_file($foto['tmp_name'], "foto_dosen/".$npk_baru.".".$ext);
         } 
         else {
-            $sql = "UPDATE dosen SET npk = ?, nama = ? WHERE npk = ?";
+            $sql = "UPDATE dosen SET nama = ? WHERE npk = ?";
             $stmt = $mysqli->prepare($sql);
 
-            $stmt->bind_param('sss', $npk_baru, $nama, $npk_awal);
+            $stmt->bind_param('ss', $nama, $npk_awal);
         }
 
         if ($stmt->execute()) {

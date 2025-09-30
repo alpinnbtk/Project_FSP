@@ -6,32 +6,50 @@
     <title>Edit Data Dosen</title>
 </head>
 <body>
-    <h2>Edit Data Dosen</h2>
+    <h2> Edit Data Dosen</h2><br>
     <?php
-        $npk_dosen = $_GET['npk'];
+        $npk_awal = $_POST['npk_awal'];
         $mysqli = new mysqli("localhost", "root", "", "fullstack");
         if ($mysqli->connect_errno) {
             echo "Failed to connect to MySQL: " . $mysqli->connect_error;
+            exit();
         }
-        $stmt = $mysqli->prepare('SELECT * FROM dosen WHERE npk = ?');
-        $stmt->bind_param("s", $npk_dosen); // "i" = integer
-        $stmt->execute();
 
-        $result = $stmt->get_result();
+        $npk_baru    = $_POST['txtNPK'];
+        $nama    = $_POST['txtNama'];   
+        $foto     = $_FILES['fotoBaru']; 
 
-        if ($row = $result->fetch_assoc()) {
-            echo "<form method = 'POST' action = 'edit_data_dosen_proses.php' enctype = 'multipart/form-data'>";
-            echo "<label>NPK Dosen : </label><input type = 'text' value = '". $row['npk']. "' name = 'txtNPK'><br>";
-            echo "<input type='hidden' name='npk_awal' value='".$row['npk']."'>";
-            echo "<label>Nama Dosen : </label><input type = 'text' value = '". $row['nama']. "' name = 'txtNama'><br>";
-            echo "<label>Foto Dosen : </label><br>";
-            echo "<img src = 'foto_dosen/".$npk_dosen.".".$row['foto_extension']. "' alt = 'Foto Dosen'><br>";
-            echo "<input type = 'file' name = 'fotoBaru'><br>";
-            echo "<button type = 'submit' name = 'btnEdit'>Edit Data</button>";
-            echo "</form>";
+        $ext = pathinfo($foto['name'], PATHINFO_EXTENSION);
+
+        if (!empty($foto['name'])) {
+            $sql = "UPDATE dosen SET nama = ?, foto_extension = ? WHERE npk = ?";
+            $stmt = $mysqli->prepare($sql);
+
+            $stmt->bind_param('sss', $nama, $ext, $npk_awal);
+
+            if (isset($foto) && file_exists("foto_dosen/".$npk_baru.".".$ext)) {
+                unlink("foto_dosen/".$npk_baru.".".$ext);
+            }
+            move_uploaded_file($foto['tmp_name'], "foto_dosen/".$npk_baru.".".$ext);
+        } 
+        else {
+            $sql = "UPDATE dosen SET nama = ? WHERE npk = ?";
+            $stmt = $mysqli->prepare($sql);
+
+            $stmt->bind_param('ss', $nama, $npk_awal);
+        }
+
+        if ($stmt->execute()) {
+            echo "Data berhasil diubah!<br>";
         } else {
-            echo "Data tidak ditemukan";
+            echo "Error: ".$stmt->error."<br>";
         }
+
+        echo "<a href = 'tabel_data_dosen.php'>Kembali ke Tabel Data</a><br>";
+        echo "<a href = 'edit_data_dosen.php'>Kembali ke Halaman Edit</a><br>";
+
+        $stmt->close();
+        $mysqli->close();
     ?>
 </body>
 </html>

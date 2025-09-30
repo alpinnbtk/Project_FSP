@@ -21,7 +21,7 @@
 
         if ($row = $result->fetch_assoc()) {
             echo "<form method = 'POST' action = 'edit_data_mahasiswa_proses.php' enctype = 'multipart/form-data'>";
-            echo "<label>NRP Mahasiswa : </label><input type = 'text' value = '". $row['nrp']. "' name = 'txtNRP'><br>";
+            echo "<label>NRP Mahasiswa : </label><input type = 'text' value = '". $row['nrp']. "' name = 'txtNRP' disabled><br>";
             echo "<input type='hidden' name='nrp_awal' value='".$row['nrp']."'>";
             echo "<label>Nama Mahasiswa : </label><input type = 'text' value = '". $row['nama']. "' name = 'txtNama'><br>";
             echo "<label>Gender Mahasiswa : </label>

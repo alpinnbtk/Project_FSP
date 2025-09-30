@@ -25,9 +25,9 @@
         $ext = pathinfo($foto['name'], PATHINFO_EXTENSION);
 
         if (!empty($foto['name'])) {
-            $sql = "UPDATE mahasiswa SET nrp = ?, nama = ?, gender = ?, tanggal_lahir = ?, angkatan = ?, foto_extention = ? WHERE nrp = ?";
+            $sql = "UPDATE mahasiswa SET nama = ?, gender = ?, tanggal_lahir = ?, angkatan = ?, foto_extention = ? WHERE nrp = ?";
             $stmt = $mysqli->prepare($sql);
-            $stmt->bind_param('sssssss', $nrp_baru, $nama, $gender, $tanggal_lahir, $angkatan, $ext, $nrp_awal);
+            $stmt->bind_param('ssssss', $nama, $gender, $tanggal_lahir, $angkatan, $ext, $nrp_awal);
 
             if (file_exists("foto_mahasiswa/".$nrp_baru.".".$ext)) {
                 unlink("foto_mahasiswa/".$nrp_baru.".".$ext);
@@ -35,9 +35,9 @@
             move_uploaded_file($foto['tmp_name'], "foto_mahasiswa/".$nrp_baru.".".$ext);
         } 
         else {
-            $sql = "UPDATE mahasiswa SET nrp = ?, nama = ?, gender = ?, tanggal_lahir = ?, angkatan = ? WHERE nrp = ?";
+            $sql = "UPDATE mahasiswa SET nama = ?, gender = ?, tanggal_lahir = ?, angkatan = ? WHERE nrp = ?";
             $stmt = $mysqli->prepare($sql);
-            $stmt->bind_param('ssssss', $nrp_baru, $nama, $gender, $tanggal_lahir, $angkatan, $nrp_awal);
+            $stmt->bind_param('sssss', $nama, $gender, $tanggal_lahir, $angkatan, $nrp_awal);
         }
 
         if ($stmt->execute()) {
