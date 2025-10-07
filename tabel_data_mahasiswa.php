@@ -65,6 +65,32 @@
         .btnSearch:hover {
             background: #45a049;
         }
+
+        #page {
+            margin-top: 70px;
+            text-align: center;
+        }
+
+        #page a {
+            margin: 0 5px;
+            padding: 5px 10px;
+            border: 1px solid green;
+            text-decoration: none;
+            color: green;
+        }
+
+
+        #page a:hover {
+            background-color: #e6ffe6;
+        }
+
+        #page span.active {
+            background-color: #00b900ff;
+            color: white;
+            font-weight: bold;
+            cursor: default;
+            padding: 6px 11px;
+        }
     </style>
 </head>
 
@@ -81,21 +107,46 @@
         echo "Failed to connect to MySQL: " . $mysqli->connect_error;
     }
 
+    $limit = 2;
+
+    $page = isset($_GET['start']) ? (int)$_GET['start'] : 1;
+    if ($page < 1) $page = 1;
+
+    $offset = ($page - 1) * $limit;
+
+    $prompt = "";
+    $searched = "";
+
     if (isset($_GET['btnSearch'])) {
         $prompt = $_GET['txtSearch'];
         $searched = "%" . $prompt . "%";
+    }
+
+    $sql = "select * from mahasiswa";
+
+    if (!empty($prompt)) {
         if (is_numeric($prompt)) {
-            $stmt = $mysqli->prepare("SELECT * FROM mahasiswa WHERE nrp LIKE ?");
+            $sql .= " where nrp like ?";
         } else {
-            $stmt = $mysqli->prepare("SELECT * FROM mahasiswa WHERE nama LIKE ?");
+            $sql .= " where nama like ?";
         }
-        $stmt->bind_param("s", $searched);
-    } else {
-        $stmt = $mysqli->prepare("SELECT * FROM mahasiswa");
+    }
+
+    if (!is_null($offset)) $sql .= " limit ?,?";
+
+    $stmt = $mysqli->prepare($sql);
+
+    if (!empty($searched) && !is_null($offset)) {
+        $stmt->bind_param('sii', $searched, $offset, $limit);
+    } else if (!empty($searched)) {
+        $stmt->bind_param('s', $searched);
+    } else if (empty($searched) && !is_null($offset)) {
+        $stmt->bind_param('ii', $offset, $limit);
     }
 
     $stmt->execute();
     $res = $stmt->get_result();
+
 
     if ($res->num_rows > 0) {
         echo "<table> 
@@ -127,6 +178,50 @@
     } else {
         echo "<p>Tidak ada data ditemukan.</p>";
     }
+
+
+    $sql = "select * from mahasiswa";
+
+    if (!empty($searched)) {
+        if (is_numeric($searched)) {
+            $sql .= " where nrp like ?";
+        } else {
+            $sql .= " where nama like ?";
+        }
+    }
+
+    $stmtPage = $mysqli->prepare($sql);
+
+    if (!empty($searched)) {
+        $stmtPage->bind_param('s', $searched);
+    }
+
+    $stmtPage->execute();
+    $resPage = $stmtPage->get_result();
+
+    $total = $resPage->num_rows;
+    $total_pages = ceil($total / $limit);
+
+    echo "<div id='page'>";
+    if ($page > 1) {
+        echo "<a href='?start=1'>First</a>";
+        echo "<a href='?start=" . ($page - 1) . "'>Prev</a>";
+    }
+
+    for ($i = 1; $i <= $total_pages; $i++) {
+        if ($i == $page) {
+            echo "<span class='active'>$i</span>";
+        } else {
+
+            echo "<a href='?start=$i'>$i</a>";
+        }
+    }
+
+    if ($page < $total_pages) {
+        echo "<a href='?start=" . ($page + 1) . "'>Next</a>";
+        echo "<a href='?start=$total_pages'>Last</a>";
+    }
+    echo "</div>";
 
     ?>
 </body>
