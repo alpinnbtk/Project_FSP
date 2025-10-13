@@ -34,14 +34,22 @@
     } else {
         $sql = "INSERT INTO dosen (npk, nama, foto_extension)
             VALUES (?, ?, ?)";
-        $stmt = $mysqli->prepare($sql);
 
+        $sqlInsertAkun = "INSERT INTO akun (username, password, npk_dosen, isadmin)
+            VALUES (?, ?, ?, ?);";
+
+        $stmt = $mysqli->prepare($sql);
         $stmt->bind_param('sss', $npk, $nama, $ext);
+
+        $isAdmin = 0;
+        $stmtAkun = $mysqli->prepare($sqlInsertAkun);
+        $stmtAkun->bind_param('sssi', $nama, $npk, $npk, $isAdmin);
 
         move_uploaded_file($foto['tmp_name'], "foto_dosen/" . $npk . "." . $ext);
 
         if ($stmt->execute()) {
             echo "Data berhasil disimpan!";
+            $stmtAkun->execute();
         } else {
             header("Location: tambah_data_dosen.php?error=insert");
         }

@@ -32,24 +32,32 @@
     $cek->fetch();
     $cek->close();
 
-     if ($count > 0) {
+    if ($count > 0) {
         header("Location: tambah_data_mahasiswa.php?error=nrp");
         exit();
     } else {
         $sql = "INSERT INTO mahasiswa (nrp, nama, gender, tanggal_lahir, angkatan, foto_extention)
             VALUES (?, ?, ?, ?, ?, ?)";
+
+        $sqlInsertAkun = "INSERT INTO akun (username, password, nrp_mahasiswa, isadmin)
+            VALUES (?, ?, ?, ?);";
+
         $stmt = $mysqli->prepare($sql);
-    
         $stmt->bind_param('ssssss', $nrp, $nama, $gender, $tanggal_lahir, $angkatan, $ext);
-    
+
+        $isAdmin = 0;
+        $stmtAkun = $mysqli->prepare($sqlInsertAkun);
+        $stmtAkun->bind_param('sssi', $nama, $nrp, $nrp, $isAdmin);
+
         move_uploaded_file($foto['tmp_name'], "foto_mahasiswa/" . $nrp . "." . $ext);
-    
+
         if ($stmt->execute()) {
             echo "Data berhasil disimpan!";
+            $stmtAkun->execute();
         } else {
             header("Location: tambah_data_mahasiswa.php?error=insert");
         }
-    
+
         header("location: tabel_data_mahasiswa.php");
     }
 
