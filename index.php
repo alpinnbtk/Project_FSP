@@ -1,14 +1,9 @@
-<?php
-
-
-?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Halaman Login</title>
 
     <style>
         body {
@@ -33,7 +28,6 @@
         }
 
         input {
-            /* width: 100%; */
             border-radius: 6px;
             padding: 7px;
             margin: 6px;
@@ -70,7 +64,7 @@
         <br />
 
         <label>Password : </label>
-        <input type="text" name="password">
+        <input type="password" name="password">
 
         <br />
 
@@ -99,12 +93,14 @@
 
             if ($row = $res->fetch_assoc()) {
 
-                if ($row['password'] == $password) {
+                $is_authenticated = password_verify($_POST['password'], $row['password']);
+
+                if ($is_authenticated) {
                     if ($row['isadmin'] == 0) {
                         $_SESSION['username'] = $username;
-                        header('Location:ganti_password.php');
+                        header('location:home.php');
                     } else {
-                        header('Location:dashboard_admin.php');
+                        header('location:dashboard_admin.php');
                     }
                 } else {
                     echo "<p>Password anda salah</p>";

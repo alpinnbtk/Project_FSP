@@ -6,17 +6,21 @@ if ($mysqli->connect_errno) {
     echo "Failed to connect to MySQL: " . $mysqli->connect_error;
 }
 
-$stmt = $mysqli->prepare('SELECT * FROM akun WHERE username = ? and password = ?');
-$stmt->bind_param("ss", $_SESSION['username'], $_POST['pwdSekarang']); // "i" = integer
+$stmt = $mysqli->prepare('SELECT * FROM akun WHERE username = ?');
+$stmt->bind_param("s", $_SESSION['username']); 
 $stmt->execute();
 
 $result = $stmt->get_result();
+$row = $result->fetch_assoc();
 
-if ($result->num_rows > 0) {
-    $sql = "update akun set password = ? where username = ?";
+$is_authenticated = password_verify($_POST['pwdSekarang'], $row['password']);
+
+if ($is_authenticated) {
+    $sql = "UPDATE akun SET password = ? WHERE username = ?";
     $stmtGanti = $mysqli->prepare($sql);
 
-    $stmtGanti->bind_param("ss", $_POST['pwdBaru'], $_SESSION['username']);
+    $hash_password = password_hash($_POST['pwdBaru'], PASSWORD_DEFAULT);
+    $stmtGanti->bind_param("ss", $hash_password, $_SESSION['username']);
 
     $stmtGanti->execute();
 
@@ -29,3 +33,4 @@ if ($result->num_rows > 0) {
 } else {
     echo "<p>Password anda salah!</p>";
 }
+?>

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -72,7 +71,7 @@
         echo "<label>Nama Dosen : </label><input type = 'text' value = '" . $row['nama'] . "' name = 'txtNama'><br>";
         echo "<label>Foto Dosen : </label><br>";
         echo "<img src = 'foto_dosen/" . $npk_dosen . "." . $row['foto_extension'] . "' alt = 'Foto Dosen'><br>";
-        echo "<input type = 'file' name = 'fotoBaru'><br>";
+        echo "<input type = 'file' name = 'fotoBaru' accept='image/jpeg, image/png'><br>";
         echo "<button type = 'submit' name = 'btnEdit' class='btnEdit'>Edit Data</button>";
         echo "</form>";
     } else {

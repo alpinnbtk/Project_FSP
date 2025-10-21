@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,7 +32,7 @@
     $cek->close();
 
     if ($count > 0) {
-        header("Location: tambah_data_mahasiswa.php?error=nrp");
+        header("location: tambah_data_mahasiswa.php?error=nrp");
         exit();
     } else {
         $sql = "INSERT INTO mahasiswa (nrp, nama, gender, tanggal_lahir, angkatan, foto_extention)
@@ -47,7 +46,9 @@
 
         $isAdmin = 0;
         $stmtAkun = $mysqli->prepare($sqlInsertAkun);
-        $stmtAkun->bind_param('sssi', $nama, $nrp, $nrp, $isAdmin);
+        $username = strtolower(str_replace(" ", "", $nama));
+        $hash_password = password_hash($nrp, PASSWORD_DEFAULT);
+        $stmtAkun->bind_param('sssi', $username, $hash_password, $nrp, $isAdmin);
 
         move_uploaded_file($foto['tmp_name'], "foto_mahasiswa/" . $nrp . "." . $ext);
 
@@ -55,7 +56,7 @@
             echo "Data berhasil disimpan!";
             $stmtAkun->execute();
         } else {
-            header("Location: tambah_data_mahasiswa.php?error=insert");
+            header("location: tambah_data_mahasiswa.php?error=insert");
         }
 
         header("location: tabel_data_mahasiswa.php");

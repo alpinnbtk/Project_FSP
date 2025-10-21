@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -74,14 +73,14 @@
       echo "<label>Angkatan Mahasiswa : </label>
               <input type = 'text' name = 'txtAngkatan' required><br>";
       echo "<label>Foto Mahasiswa : </label>
-              <input type = 'file' name = 'fotoMahasiswa' accept='image/jpg, image/png'><br>";
+              <input type = 'file' name = 'fotoMahasiswa' accept='image/jpeg, image/png'><br>";
       echo "<input type = 'submit' name = 'btnSubmit' class='btnSubmit'>";
       echo "</form>";
 
       if (isset($_GET['error'])) {
             if ($_GET['error'] == 'nrp') {
                   echo "<div style='color:red; font-weight:bold;'>NRP sudah terdaftar sebelumnya!</div>";
-            } elseif ($_GET['error'] == 'insert') {
+            } else if ($_GET['error'] == 'insert') {
                   echo "<div style='color:red; font-weight:bold;'>Gagal menyimpan data!</div>";
             }
       }

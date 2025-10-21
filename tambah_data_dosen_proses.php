@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,7 +28,7 @@
     $cek->close();
 
     if ($count > 0) {
-        header("Location: tambah_data_dosen.php?error=npk");
+        header("location: tambah_data_dosen.php?error=npk");
         exit();
     } else {
         $sql = "INSERT INTO dosen (npk, nama, foto_extension)
@@ -43,7 +42,9 @@
 
         $isAdmin = 0;
         $stmtAkun = $mysqli->prepare($sqlInsertAkun);
-        $stmtAkun->bind_param('sssi', $nama, $npk, $npk, $isAdmin);
+        $username = str_replace(",", "", str_replace(".", "", strtolower(str_replace(" ", "", $nama))));
+        $hash_password = password_hash($npk, PASSWORD_DEFAULT);
+        $stmtAkun->bind_param('sssi', $username, $hash_password, $npk, $isAdmin);
 
         move_uploaded_file($foto['tmp_name'], "foto_dosen/" . $npk . "." . $ext);
 
@@ -51,7 +52,7 @@
             echo "Data berhasil disimpan!";
             $stmtAkun->execute();
         } else {
-            header("Location: tambah_data_dosen.php?error=insert");
+            header("location: tambah_data_dosen.php?error=insert");
         }
         header("location: tabel_data_dosen.php");
     }

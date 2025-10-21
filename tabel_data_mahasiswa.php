@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -46,7 +45,6 @@
 
 
         input {
-            /* width: 100%; */
             border-radius: 6px;
             padding: 10px;
             margin: 6px;
@@ -122,17 +120,17 @@
         $searched = "%" . $prompt . "%";
     }
 
-    $sql = "select * from mahasiswa";
+    $sql = "SELECT * FROM mahasiswa";
 
     if (!empty($prompt)) {
         if (is_numeric($prompt)) {
-            $sql .= " where nrp like ?";
+            $sql .= " WHERE nrp LIKE ?";
         } else {
-            $sql .= " where nama like ?";
+            $sql .= " WHERE nama LIKE ?";
         }
     }
 
-    if (!is_null($offset)) $sql .= " limit ?,?";
+    if (!is_null($offset)) $sql .= " LIMIT ?,?";
 
     $stmt = $mysqli->prepare($sql);
 
@@ -174,19 +172,20 @@
             echo "</tr>";
         }
         echo "</table>";
-        echo "<a href = 'tambah_data_mahasiswa.php'>Tambah Data Mahasiswa</a>";
+        echo "<a href = 'tambah_data_mahasiswa.php'>Tambah Data Mahasiswa</a><br>";
+        echo "<a href = 'dashboard_admin.php'>Kembali ke Dashboard</a>";
     } else {
         echo "<p>Tidak ada data ditemukan.</p>";
     }
 
 
-    $sql = "select * from mahasiswa";
+    $sql = "SELECT * FROM mahasiswa";
 
     if (!empty($searched)) {
         if (is_numeric($searched)) {
-            $sql .= " where nrp like ?";
+            $sql .= " WHERE nrp LIKE ?";
         } else {
-            $sql .= " where nama like ?";
+            $sql .= " WHERE nama LIKE ?";
         }
     }
 

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -46,7 +45,6 @@
 
 
         input {
-            /* width: 100%; */
             border-radius: 6px;
             padding: 10px;
             margin: 6px;
@@ -107,7 +105,6 @@
         echo "Failed to connect to MySQL: " . $mysqli->connect_error;
     }
 
-
     require_once("Class/dosen.php");
 
     $dosen = new dosen();
@@ -117,22 +114,6 @@
     if ($page < 1) $page = 1;
 
     $offset = ($page - 1) * $limit;
-
-    // if (isset($_GET['btnSearch'])) {
-    //     $prompt = $_GET['txtSearch'];
-    //     $searched = "%" . $prompt . "%";
-    //     if (is_numeric($prompt)) {
-    //         $stmt = $mysqli->prepare("SELECT * FROM dosen WHERE npk LIKE ?");
-    //     } else {
-    //         $stmt = $mysqli->prepare("SELECT * FROM dosen WHERE nama LIKE ?");
-    //     }
-    //     $stmt->bind_param("s", $searched);
-    // } else {
-    //     $stmt = $mysqli->prepare("SELECT * FROM dosen");
-    // }
-
-    // $stmt->execute();
-    // $res = $stmt->get_result();
 
     $prompt = "";
     $searched = "";
@@ -146,13 +127,13 @@
 
     if (!empty($prompt)) {
         if (is_numeric($prompt)) {
-            $sql .= " where npk like ?";
+            $sql .= " WHERE npk LIKE ?";
         } else {
-            $sql .= " where nama like ?";
+            $sql .= " WHERE nama LIKE ?";
         }
     }
 
-    if (!is_null($offset)) $sql .= " limit ?,?";
+    if (!is_null($offset)) $sql .= " LIMIT ?,?";
 
     $stmt = $mysqli->prepare($sql);
 
@@ -193,15 +174,13 @@
         echo "<p>Tidak ada data ditemukan.</p>";
     }
 
-
-
-    $sql = "select * from dosen";
+    $sql = "SELECT * FROM dosen";
 
     if (!empty($searched)) {
         if (is_numeric($searched)) {
-            $sql .= " where npk like ?";
+            $sql .= " WHERE npk LIKE ?";
         } else {
-            $sql .= " where nama like ?";
+            $sql .= " WHERE nama LIKE ?";
         }
     }
 
