@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,6 +21,8 @@
     $tanggal_lahir = $_POST['txtTanggalLahir'];
     $angkatan = $_POST['txtAngkatan'];
     $foto     = $_FILES['fotoMahasiswa'];
+    $username = $_POST['txtUsername'];
+    $password = $_POST['txtPassword'];
 
     $ext = pathinfo($foto['name'], PATHINFO_EXTENSION);
 
@@ -46,8 +49,8 @@
 
         $isAdmin = 0;
         $stmtAkun = $mysqli->prepare($sqlInsertAkun);
-        $username = strtolower(str_replace(" ", "", $nama));
-        $hash_password = password_hash($nrp, PASSWORD_DEFAULT);
+        // $username = strtolower(str_replace(" ", "", $nama));
+        $hash_password = password_hash($password, PASSWORD_DEFAULT);
         $stmtAkun->bind_param('sssi', $username, $hash_password, $nrp, $isAdmin);
 
         move_uploaded_file($foto['tmp_name'], "foto_mahasiswa/" . $nrp . "." . $ext);

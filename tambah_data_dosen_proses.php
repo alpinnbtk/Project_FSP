@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,6 +18,8 @@
     $npk    = $_POST['txtNPK'];
     $nama    = $_POST['txtNama'];
     $foto     = $_FILES['fotoDosen'];
+    $username = $_POST['txtUsername'];
+    $password = $_POST['txtPassword'];
 
     $ext = pathinfo($foto['name'], PATHINFO_EXTENSION);
     $sql = "SELECT COUNT(*) FROM dosen WHERE npk = ? ";
@@ -42,8 +45,8 @@
 
         $isAdmin = 0;
         $stmtAkun = $mysqli->prepare($sqlInsertAkun);
-        $username = str_replace(",", "", str_replace(".", "", strtolower(str_replace(" ", "", $nama))));
-        $hash_password = password_hash($npk, PASSWORD_DEFAULT);
+        // $username = str_replace(",", "", str_replace(".", "", strtolower(str_replace(" ", "", $nama))));
+        $hash_password = password_hash($password, PASSWORD_DEFAULT);
         $stmtAkun->bind_param('sssi', $username, $hash_password, $npk, $isAdmin);
 
         move_uploaded_file($foto['tmp_name'], "foto_dosen/" . $npk . "." . $ext);
