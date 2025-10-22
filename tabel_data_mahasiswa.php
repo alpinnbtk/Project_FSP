@@ -96,7 +96,7 @@
     <h2>Tabel Data Mahasiswa</h2>
     <?php
     echo "<form method = 'GET' action = 'tabel_data_mahasiswa.php'>";
-    echo "<label> Masukkan Nama </label>";
+    echo "<label> Masukkan NRP / Nama </label>";
     echo "<input type = 'text' name = 'txtSearch'>";
     echo "<input type = 'submit' name = 'btnSearch' class='btnSearch'>";
     echo "";
@@ -116,9 +116,12 @@
     $searched = "";
 
     if (isset($_GET['btnSearch'])) {
-        $prompt = $_GET['txtSearch'];
-        $searched = "%" . $prompt . "%";
+        if (!empty($_GET['txtSearch'])) {  
+            $prompt = $_GET['txtSearch'];
+            $searched = "%" . $prompt . "%";
+        }
     }
+
 
     $sql = "SELECT * FROM mahasiswa";
 
@@ -166,7 +169,7 @@
             echo "<td>" . $row['gender'] . "</td>";
             echo "<td>" . $row['tanggal_lahir'] . "</td>";
             echo "<td>" . $row['angkatan'] . "</td>";
-            echo "<td><img src = 'foto_mahasiswa/" . $row['nrp'] . "." . $row['foto_extention'] . "'</td>";
+            echo "<td><img src = 'foto_mahasiswa/" . $row['nrp'] . "." . $row['foto_extention'] . "'></td>";
             echo "<td><a href='edit_data_mahasiswa.php?nrp=" . $row['nrp'] . "'>Ubah Data</a></td>";
             echo "<td><a href='hapus_data_mahasiswa.php?nrp=" . $row['nrp'] . "'>Hapus Data</a></td>";
             echo "</tr>";

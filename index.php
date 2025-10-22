@@ -61,54 +61,54 @@
         <label>Username : </label>
         <input type="text" name="username">
 
-        <br />
+        <br>
 
         <label>Password : </label>
         <input type="password" name="password">
 
-        <br />
+        <br>
 
         <button type="submit" name="login">Login</button>
 
         <?php
-        session_start();
+            session_start();
 
-        $mysqli = new mysqli("localhost", "root", "", "fullstack");
-        if ($mysqli->connect_errno) {
-            echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-        }
+            $mysqli = new mysqli("localhost", "root", "", "fullstack");
+            if ($mysqli->connect_errno) {
+                echo "Failed to connect to MySQL: " . $mysqli->connect_error;
+            }
 
-        if (isset($_POST['login'])) {
-            $username = $_POST['username'];
-            $password = $_POST['password'];
+            if (isset($_POST['login'])) {
+                $username = $_POST['username'];
+                $password = $_POST['password'];
 
-            $stmt = $mysqli->prepare("SELECT * FROM akun WHERE username LIKE ?");
-            $stmt->bind_param(
-                "s",
-                $username,
-            );
+                $stmt = $mysqli->prepare("SELECT * FROM akun WHERE username LIKE ?");
+                $stmt->bind_param(
+                    "s",
+                    $username,
+                );
 
-            $stmt->execute();
-            $res = $stmt->get_result();
+                $stmt->execute();
+                $res = $stmt->get_result();
 
-            if ($row = $res->fetch_assoc()) {
+                if ($row = $res->fetch_assoc()) {
 
-                $is_authenticated = password_verify($_POST['password'], $row['password']);
+                    $is_authenticated = password_verify($_POST['password'], $row['password']);
 
-                if ($is_authenticated) {
-                    if ($row['isadmin'] == 0) {
-                        $_SESSION['username'] = $username;
-                        header('location:home.php');
+                    if ($is_authenticated) {
+                        if ($row['isadmin'] == 0) {
+                            $_SESSION['username'] = $username;
+                            header('location:home.php');
+                        } else {
+                            header('location:dashboard_admin.php');
+                        }
                     } else {
-                        header('location:dashboard_admin.php');
+                        echo "<p>Password anda salah</p>";
                     }
                 } else {
-                    echo "<p>Password anda salah</p>";
+                    echo "<p>User tidak terdaftar!</p>";
                 }
-            } else {
-                echo "<p>User tidak terdaftar!</p>";
             }
-        }
 
         ?>
 

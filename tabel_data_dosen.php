@@ -96,7 +96,7 @@
     <h2>Tabel Data Dosen</h2>
     <?php
     echo "<form method = 'GET' action = 'tabel_data_dosen.php'>";
-    echo "<label> Masukkan Judul </label>";
+    echo "<label> Masukkan NPK / Nama </label>";
     echo "<input type = 'text' name = 'txtSearch'>";
     echo "<input type = 'submit' name = 'btnSearch' class='btnSearch'>";
     echo "";
@@ -119,8 +119,10 @@
     $searched = "";
 
     if (isset($_GET['btnSearch'])) {
-        $prompt = $_GET['txtSearch'];
-        $searched = "%" . $prompt . "%";
+        if (!empty($_GET['txtSearch'])) {  
+            $prompt = $_GET['txtSearch'];
+            $searched = "%" . $prompt . "%";
+        }
     }
 
     $sql = "select * from dosen";
@@ -169,7 +171,8 @@
             echo "</tr>";
         }
         echo "</table><br>";
-        echo "<a href = 'tambah_data_dosen.php'>Tambah Data Dosen</a>";
+        echo "<a href = 'tambah_data_dosen.php'>Tambah Data Dosen</a><br>";
+        echo "<a href = 'dashboard_admin.php'>Kembali ke Halaman Home</a>";
     } else {
         echo "<p>Tidak ada data ditemukan.</p>";
     }

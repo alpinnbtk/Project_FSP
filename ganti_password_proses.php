@@ -27,9 +27,9 @@ if ($is_authenticated) {
     $stmtGanti->close();
     $mysqli->close();
 
-    echo "<p>Berhasil ganti password</p>";
-    echo "<br />";
-    echo "<a href = 'ganti_password.php'>Kembali ke ganti password</a>";
+    echo "<p>Berhasil mengganti password!</p>";
+    echo "<br>";
+    echo "<a href = 'ganti_password.php'>Kembali ke ganti password</a><br>";
     echo "<a href = 'home.php'>Kembali ke Home</a>";
 } else {
     echo "<p>Password anda salah!</p>";

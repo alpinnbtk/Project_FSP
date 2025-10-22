@@ -1,10 +1,10 @@
 <?php
-session_start();
+    session_start();
 
-$mysqli = new mysqli("localhost", "root", "", "fullstack");
-if ($mysqli->connect_errno) {
-    echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-}
+    $mysqli = new mysqli("localhost", "root", "", "fullstack");
+    if ($mysqli->connect_errno) {
+        echo "Failed to connect to MySQL: " . $mysqli->connect_error;
+    }
 ?>
 
 <!DOCTYPE html>
