@@ -61,7 +61,7 @@
 
       echo "<form method = 'POST' action = 'tambah_data_mahasiswa_proses.php?' enctype = 'multipart/form-data'>";
       echo "<label>NRP Mahasiswa : </label>
-              <input type = 'text' name = 'txtNRP' required><br>";
+              <input type = 'text' name = 'txtNRP' maxlength='9' required><br>";
       echo "<label>Nama Mahasiswa : </label>
               <input type = 'text' name = 'txtNama' required><br>";
       echo "<label>Gender Mahasiswa : </label>

@@ -61,7 +61,7 @@
 
     echo "<form method = 'POST' action = 'tambah_data_dosen_proses.php?' enctype = 'multipart/form-data'>";
     echo "<label>NPK Dosen : </label>
-              <input type = 'text' name = 'txtNPK' required><br>";
+              <input type = 'text' name = 'txtNPK' maxlength='6' required><br>";
     echo "<label>Nama Dosen : </label>
               <input type = 'text' name = 'txtNama' required><br>";
     echo "<label>Foto Dosen : </label>
