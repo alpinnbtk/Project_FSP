@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,6 +63,10 @@
 
     <ul>
         <li><a href = "ganti_password.php">Ganti Password</a></li>
+    </ul>
+
+    <ul>
+        <li><a href="logout.php">Logout</a></li>
     </ul>
 
 </body>

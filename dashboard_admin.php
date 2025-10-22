@@ -57,6 +57,11 @@
             <li><a href="tabel_data_mahasiswa.php">Tabel Mahasiswa</a></li>
         </ul>
 
+        <ul>
+            <h4>Lainnya</h4>
+            <li><a href="logout.php">Logout</a></li>
+        </ul>
+
     </div>
 </body>
 

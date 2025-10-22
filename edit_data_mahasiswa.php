@@ -26,7 +26,6 @@
 
 
         input {
-            /* width: 100%; */
             border-radius: 6px;
             padding: 10px;
             margin: 6px;

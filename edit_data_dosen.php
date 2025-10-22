@@ -26,7 +26,6 @@
 
 
         input {
-            /* width: 100%; */
             border-radius: 6px;
             padding: 10px;
             margin: 6px;
@@ -57,7 +56,7 @@
         echo "Failed to connect to MySQL: " . $mysqli->connect_error;
     }
     $stmt = $mysqli->prepare('SELECT * FROM dosen WHERE npk = ?');
-    $stmt->bind_param("s", $npk_dosen); // "i" = integer
+    $stmt->bind_param("s", $npk_dosen); 
     $stmt->execute();
 
     $result = $stmt->get_result();

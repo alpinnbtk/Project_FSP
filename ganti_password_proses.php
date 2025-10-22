@@ -29,7 +29,8 @@ if ($is_authenticated) {
 
     echo "<p>Berhasil ganti password</p>";
     echo "<br />";
-    echo "<a href='ganti_password.php'>Kembali ke ganti password</a>";
+    echo "<a href = 'ganti_password.php'>Kembali ke ganti password</a>";
+    echo "<a href = 'home.php'>Kembali ke Home</a>";
 } else {
     echo "<p>Password anda salah!</p>";
 }
