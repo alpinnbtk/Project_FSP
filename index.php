@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -71,44 +72,52 @@
         <button type="submit" name="login">Login</button>
 
         <?php
-            session_start();
+        session_start();
 
-            $mysqli = new mysqli("localhost", "root", "", "fullstack");
-            if ($mysqli->connect_errno) {
-                echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-            }
+        $mysqli = new mysqli("localhost", "root", "", "fullstack");
+        if ($mysqli->connect_errno) {
+            echo "Failed to connect to MySQL: " . $mysqli->connect_error;
+        }
 
-            if (isset($_POST['login'])) {
-                $username = $_POST['username'];
-                $password = $_POST['password'];
+        if (isset($_POST['login'])) {
+            $username = $_POST['username'];
+            $password = $_POST['password'];
 
-                $stmt = $mysqli->prepare("SELECT * FROM akun WHERE username LIKE ?");
-                $stmt->bind_param(
-                    "s",
-                    $username,
-                );
+            $stmt = $mysqli->prepare("SELECT * FROM akun WHERE username LIKE ?");
+            $stmt->bind_param(
+                "s",
+                $username,
+            );
 
-                $stmt->execute();
-                $res = $stmt->get_result();
+            $stmt->execute();
+            $res = $stmt->get_result();
 
-                if ($row = $res->fetch_assoc()) {
+            if ($row = $res->fetch_assoc()) {
 
-                    $is_authenticated = password_verify($_POST['password'], $row['password']);
+                $is_authenticated = password_verify($_POST['password'], $row['password']);
 
-                    if ($is_authenticated) {
-                        if ($row['isadmin'] == 0) {
-                            $_SESSION['username'] = $username;
-                            header('location:home.php');
-                        } else {
-                            header('location:dashboard_admin.php');
+                if ($is_authenticated) {
+                    if ($row['isadmin'] == 0) {
+                        $_SESSION['username'] = $username;
+                        // header('location:home.php');
+
+                        if ($row['nrp_mahasiswa'] != "") {
+                            header('location:home_mahasiswa.php');
+                        }
+
+                        if ($row['npk_dosen'] != "") {
+                            header('location:home_dosen.php');
                         }
                     } else {
-                        echo "<p>Password anda salah</p>";
+                        header('location:dashboard_admin.php');
                     }
                 } else {
-                    echo "<p>User tidak terdaftar!</p>";
+                    echo "<p>Password anda salah</p>";
                 }
+            } else {
+                echo "<p>User tidak terdaftar!</p>";
             }
+        }
 
         ?>
 
