@@ -120,6 +120,7 @@ session_start();
                     <th>Jenis</th>
                     <th>Kode Pendaftaran</th>
                     <th>Detail</th> 
+                    <th>Anggota</th>
                     <th>Hapus</th>
                 </tr>";
 
@@ -133,6 +134,7 @@ session_start();
             echo "<td>" . $row['kode_pendaftaran'] . "</td>";
 
             echo "<td><a href='detail_group.php?idgrup=" . $row['idgrup'] . "&username=" . $_SESSION['username'] . "'>Detail Group</a></td>";
+            echo "<td><a href='anggota_group.php?idgrup=" .  $row['idgrup'] . "'>Lihat Anggota Group</a></td>";
             echo "<td><a href='hapus_group.php?nrp=" .  $_SESSION['username'] . "'>Hapus Group</a></td>";
             echo "</tr>";
         }
