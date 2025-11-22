@@ -68,7 +68,7 @@ session_start();
         <li><a href="ganti_password.php">Ganti Password</a></li>
         <li><a href="logout.php">Logout</a></li>
         <li><a href="tambah_group.php">Buat Grup</a></li>
-        <li><a href="kelola_group.php">Kelola Grup</a></li>
+        <li><a href="kelola_group.php?username= <?php echo $_SESSION['username']; ?> ">Kelola Grup</a></li>
     </ul>
 
 </body>

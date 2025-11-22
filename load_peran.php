@@ -1,6 +1,11 @@
 <?php
 $peran = $_POST['peran'];
 
+$result = [];
+
+$searched = "";
+
+
 $conn = new mysqli("localhost", "root", "", "fullstack");
 
 // Cek koneksi
@@ -9,9 +14,15 @@ if ($conn->connect_error) {
 }
 
 if ($peran == "mahasiswa") {
-    $sql = "select nrp, nama, a.username from mahasiswa m left join akun a on a.nrp_mahasiswa = m.nrp;";
+    if ($searched != '') {
+        $sql = "select nrp, nama, a.username from mahasiswa m left join akun a on a.nrp_mahasiswa = m.nrp where nrp like ? or nama like ?;";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ss", $searched, $searched);
+    } else {
+        $sql = "select nrp, nama, a.username from mahasiswa m left join akun a on a.nrp_mahasiswa = m.nrp;";
+        $stmt = $conn->prepare($sql);
+    }
 
-    $stmt = $conn->prepare($sql);
     $stmt->execute();
     $res = $stmt->get_result();
 

@@ -37,7 +37,7 @@
     $sql = "select mg.idgrup, mg.username, a.nrp_mahasiswa, 
         a.npk_dosen from member_grup mg join akun a 
         on mg.username = a.username where idgrup = $idgroup
-        order by npk_dosen desc";
+        order by npk_dosen desc ";
     $stmt = $mysqli->prepare($sql);
     $stmt->execute();
     $res = $stmt->get_result();

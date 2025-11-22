@@ -104,11 +104,11 @@ session_start();
         echo "Failed to connect to MySQL: " . $mysqli->connect_error;
     }
 
-    $sql = "SELECT * FROM grup";
+    $sql = "SELECT * FROM grup where username_pembuat = ?";
     $stmt = $mysqli->prepare($sql);
+    $stmt->bind_param("s", $_SESSION['username']);
     $stmt->execute();
     $res = $stmt->get_result();
-
 
     if ($res->num_rows > 0) {
         echo "<table> 
@@ -121,6 +121,7 @@ session_start();
                     <th>Kode Pendaftaran</th>
                     <th>Detail</th> 
                     <th>Anggota</th>
+                    <th>Event</th>
                     <th>Hapus</th>
                 </tr>";
 
@@ -135,14 +136,15 @@ session_start();
 
             echo "<td><a href='detail_group.php?idgrup=" . $row['idgrup'] . "&username=" . $_SESSION['username'] . "'>Detail Group</a></td>";
             echo "<td><a href='anggota_group.php?idgrup=" .  $row['idgrup'] . "'>Lihat Anggota Group</a></td>";
+            echo "<td><a href='event_group.php?idgrup=" .  $row['idgrup'] . "'>Event Group</a></td>";
             echo "<td><a href='hapus_group.php?nrp=" .  $_SESSION['username'] . "'>Hapus Group</a></td>";
             echo "</tr>";
         }
         echo "</table>";
-        echo "<a href = 'tambah_data_mahasiswa.php'>Tambah Data Mahasiswa</a><br>";
-        echo "<a href = 'dashboard_admin.php'>Kembali ke Dashboard</a>";
+        // echo "<a href = 'tambah_data_mahasiswa.php'>Tambah Data Mahasiswa</a><br>";
+        // echo "<a href = 'dashboard_admin.php'>Kembali ke Dashboard</a>";
     } else {
-        echo "<p>Tidak ada data ditemukan.</p>";
+        echo "<p>Anda belum memiliki grup.</p>";
     }
 
     ?>

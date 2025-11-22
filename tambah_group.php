@@ -51,45 +51,6 @@
             margin: 6px;
 
         }
-
-        .btnSearch {
-            background: #4CAF50;
-            color: white;
-            padding: 10px 40px;
-            border-radius: 6px;
-            margin: 6px;
-            font-size: 16px;
-        }
-
-        .btnSearch:hover {
-            background: #45a049;
-        }
-
-        #page {
-            margin-top: 70px;
-            text-align: center;
-        }
-
-        #page a {
-            margin: 0 5px;
-            padding: 5px 10px;
-            border: 1px solid green;
-            text-decoration: none;
-            color: green;
-        }
-
-
-        #page a:hover {
-            background-color: #e6ffe6;
-        }
-
-        #page span.active {
-            background-color: #00b900ff;
-            color: white;
-            font-weight: bold;
-            cursor: default;
-            padding: 6px 11px;
-        }
     </style>
 </head>
 
@@ -110,8 +71,10 @@
               </select><br>";
 
     echo "<label> Masukkan kode pendaftaran </label>";
-    echo "<input type = 'text' name = 'txtKode' required><br>";
+    echo "<input type = 'text' name = 'txtKode' required>";
+    echo "<label> Harusnya digenerate otomatsi(mau gimana?) </label>";
 
+    echo "<br>";
     echo "<input type = 'submit' name = 'btnSubmit' class='btnSubmit'>";
     echo "</form>";
 
