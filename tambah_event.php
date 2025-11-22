@@ -58,14 +58,16 @@
 <body>
     <h2>Tambahkan Event</h2>
     <form action="tambah_event_proses.php" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="idgrup" value="<?php echo $_GET['idgroup'] ?>">
+
         <label>Judul : </label>
         <input type='text' name='txtJudul' required><br>
 
         <label>Tanggal : </label>
-        <input type='date' name='txtTanggal' required><br>
+        <input type='date' name='txtTanggal' required>
+        <input type='time' name='txtWaktu' required><br>
 
         <label>Keterangan : </label>
-        <!-- <input type='textarea' name='txtKeterangan' required><br> -->
         <textarea name="txtKeterangan"></textarea><br>
 
         <label>Jenis Event : </label>
@@ -76,6 +78,8 @@
 
         <label>Poster : </label>
         <input type='file' name='fotoPoster' accept='image/jpeg, image/png'><br>
+
+        <input type="submit" name="btnSubmit" value="Submit">
     </form>
 </body>
 

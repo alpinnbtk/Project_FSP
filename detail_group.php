@@ -29,6 +29,11 @@ session_start();
             padding: 10px;
         }
 
+        img {
+            width: 150px;
+            height: 200px;
+        }
+
         #member,
         #event {
             float: left;
@@ -99,7 +104,7 @@ session_start();
 
     <div id="event">
         <h2>Event</h2>
-        <a href="tambah_event.php?idgrup=$idgroup">Tambah Event</a>
+        <a href="tambah_event.php?idgroup=<?php echo $idgroup ?>">Tambah Event</a>
         <?php
         $sqlEvent = "SELECT * FROM event WHERE idgrup = ?";
         $stmtEvent = $mysqli->prepare($sqlEvent);
@@ -110,7 +115,8 @@ session_start();
         if ($resEvent->num_rows > 0) {
             echo "<table> 
                 <tr> 
-                    <th>ID Event</th> 
+                    <th>ID Event</th>
+                    <th>Poster</th> 
                     <th>Judul</th> 
                     <th>Tanggal</th> 
                     <th>Keterangan</th>
@@ -122,13 +128,14 @@ session_start();
             while ($rowEvent = $resEvent->fetch_assoc()) {
                 echo "<tr>";
                 echo "<td>" . $rowEvent['idevent'] . "</td>";
+                echo "<td><img src='foto_poster/" . $rowEvent['idgrup'] . "." . $rowEvent['poster_extension'] . "'></td>";
                 echo "<td>" . $rowEvent['judul'] . "</td>";
                 echo "<td>" . $rowEvent['tanggal'] . "</td>";
                 echo "<td>" . $rowEvent['keterangan'] . "</td>";
                 echo "<td>" . $rowEvent['jenis'] . "</td>";
 
 
-                echo "<td><a href='update_event.php?idevent=" .  $rowEvent['idevent'] . "'>Edit event</a></td>";
+                echo "<td><a href='edit_event.php?idgroup=" . $idgroup . "&idevent=" .  $rowEvent['idevent'] . "'>Edit event</a></td>";
                 echo "<td><a href='hapus_event.php?username=" .  $_SESSION['username'] . "'>Hapus event</a></td>";
                 echo "</tr>";
             }

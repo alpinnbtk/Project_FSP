@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,7 +43,6 @@
             width: 150px;
             height: 200px;
         }
-
 
         input {
             border-radius: 6px;
@@ -119,7 +119,7 @@
     $searched = "";
 
     if (isset($_GET['btnSearch'])) {
-        if (!empty($_GET['txtSearch'])) {  
+        if (!empty($_GET['txtSearch'])) {
             $prompt = $_GET['txtSearch'];
             $searched = "%" . $prompt . "%";
         }
