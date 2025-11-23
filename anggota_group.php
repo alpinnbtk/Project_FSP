@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Member Group</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         table,
@@ -21,6 +21,10 @@
         th,
         td {
             padding: 10px;
+        }
+
+        a {
+            color: red;
         }
     </style>
 </head>
@@ -49,6 +53,7 @@
     echo "<tr>";
     echo "<th>ID</th>";
     echo "<th>Nama</th>";
+    echo "<th>Aksi</th>";
     echo "</tr>";
     echo "</thead>";
 
@@ -62,6 +67,7 @@
             echo "<td>" . $row['nrp_mahasiswa'] . "</td>";
         }
         echo "<td>" . $row['username'] . "</td>";
+        echo "<td><a href='hapus_member.php?idgrup=$idgroup&username=" . $row['username'] . "'>Keluarkan</a></td>";
 
         echo "</tr>";
     }
