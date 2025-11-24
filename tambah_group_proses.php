@@ -21,16 +21,15 @@ session_start();
     $namaGroup = $_POST['txtNamaGroup'];
     $deskripsi = $_POST['txtDeskripsi'];
     $jenis = $_POST['jenisGroup'];
-    $kode = $_POST['txtKode'];
     $tanggal = date("Y-m-d H:i:s");
 
     $sql = "SELECT COUNT(*) FROM grup WHERE nama = ? ";
-    $cek = $mysqli->prepare($sql);
-    $cek->bind_param('s', $namaGroup);
-    $cek->execute();
-    $cek->bind_result($count);
-    $cek->fetch();
-    $cek->close();
+    $stmt = $mysqli->prepare($sql);
+    $stmt->bind_param('s', $namaGroup);
+    $stmt->execute();
+    $stmt->bind_result($count);
+    $stmt->fetch();
+    $stmt->close();
 
     if ($count > 0) {
         header("location: tambah_group.php?error=namaGroup");
@@ -44,6 +43,14 @@ session_start();
 
 
         if ($stmt->execute()) {
+            $id = $mysqli->insert_id;
+            $kode = "UBAYA" . $id;
+
+            $sqlUpdate = "UPDATE grup SET kode_pendaftaran = ? WHERE idgrup = ?;";
+            $stmtUpdate = $mysqli->prepare($sqlUpdate);
+            $stmtUpdate->bind_param('si', $kode, $id);
+            $stmtUpdate->execute();
+
             echo "Data berhasil disimpan!";
         } else {
             header("location: tambah_group.php?error=insert");

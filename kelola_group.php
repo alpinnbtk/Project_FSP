@@ -141,8 +141,6 @@ session_start();
             echo "</tr>";
         }
         echo "</table>";
-        // echo "<a href = 'tambah_data_mahasiswa.php'>Tambah Data Mahasiswa</a><br>";
-        // echo "<a href = 'dashboard_admin.php'>Kembali ke Dashboard</a>";
     } else {
         echo "<p>Anda belum memiliki grup.</p>";
     }

@@ -7,7 +7,7 @@ if ($mysqli->connect_errno) {
 }
 
 $stmt = $mysqli->prepare('SELECT * FROM akun WHERE username = ?');
-$stmt->bind_param("s", $_SESSION['username']); 
+$stmt->bind_param("s", $_SESSION['username']);
 $stmt->execute();
 
 $result = $stmt->get_result();
@@ -27,11 +27,10 @@ if ($is_authenticated) {
     $stmtGanti->close();
     $mysqli->close();
 
-    echo "<p>Berhasil mengganti password!</p>";
+    echo "<h1>Berhasil mengganti password!</h1>";
     echo "<br>";
     echo "<a href = 'ganti_password.php'>Kembali ke ganti password</a><br>";
     echo "<a href = 'home.php'>Kembali ke Home</a>";
 } else {
     echo "<p>Password anda salah!</p>";
 }
-?>

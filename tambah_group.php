@@ -70,10 +70,6 @@
                 <option value = 'privat'>Privat</option>
               </select><br>";
 
-    echo "<label> Masukkan kode pendaftaran </label>";
-    echo "<input type = 'text' name = 'txtKode' required>";
-    echo "<label> Harusnya digenerate otomatsi(mau gimana?) </label>";
-
     echo "<br>";
     echo "<input type = 'submit' name = 'btnSubmit' class='btnSubmit'>";
     echo "</form>";

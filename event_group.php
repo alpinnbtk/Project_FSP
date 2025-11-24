@@ -39,8 +39,11 @@ session_start();
         echo "Failed to connect to MySQL: " . $mysqli->connect_error;
     }
 
-    $sql = "SELECT * FROM event";
+    $idgroup = $_GET['idgrup'];
+
+    $sql = "SELECT * FROM event WHERE idgrup = ?";
     $stmt = $mysqli->prepare($sql);
+    $stmt->bind_param("i", $idgroup);
     $stmt->execute();
     $res = $stmt->get_result();
 
@@ -70,6 +73,8 @@ session_start();
             echo "</tr>";
         }
         echo "</table>";
+    } else {
+        echo "<p>Belum ada event yang terdaftar!</p>";
     }
 
     ?>
