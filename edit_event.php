@@ -82,7 +82,7 @@
         echo "</select><br>";
 
         echo "<label>Foto Poster : </label><br>";
-        echo "<img src = 'foto_poster/" . $row['judul'] . "." . $row['poster_extension'] . "' alt = 'Poster Event'><br>";
+        echo "<img src = 'foto_poster/" . $row['idevent'] . "." . $row['poster_extension'] . "' alt = 'Poster Event'><br>";
         echo "<input type = 'file' name = 'posterBaru' accept='image/jpeg, image/png'><br>";
         echo "<button type = 'submit' name = 'btnEdit' class='btnEdit'>Edit Event</button>";
     }

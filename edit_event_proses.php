@@ -28,7 +28,7 @@ if (!empty($poster['name'])) {
     $stmt->bind_param('sssssss', $judul, $judulSlug, $tanggalEvent, $keterangan, $jenis, $ext, $idevent);
 
     if (isset($poster) && file_exists("foto_poster/" . $idevent . "." . $ext)) {
-        unlink("foto_dosen/" . $npk_baru . "." . $ext);
+        unlink("foto_poster/" . $idevent . "." . $ext);
     }
     move_uploaded_file($poster['tmp_name'], "foto_poster/" . $idevent . "." . $ext);
 } else {

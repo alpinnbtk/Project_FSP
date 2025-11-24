@@ -128,7 +128,7 @@ session_start();
             while ($rowEvent = $resEvent->fetch_assoc()) {
                 echo "<tr>";
                 echo "<td>" . $rowEvent['idevent'] . "</td>";
-                echo "<td><img src='foto_poster/" . $rowEvent['idgrup'] . "." . $rowEvent['poster_extension'] . "'></td>";
+                echo "<td><img src='foto_poster/" . $rowEvent['idevent'] . "." . $rowEvent['poster_extension'] . "'></td>";
                 echo "<td>" . $rowEvent['judul'] . "</td>";
                 echo "<td>" . $rowEvent['tanggal'] . "</td>";
                 echo "<td>" . $rowEvent['keterangan'] . "</td>";
@@ -136,7 +136,7 @@ session_start();
 
 
                 echo "<td><a href='edit_event.php?idgroup=" . $idgroup . "&idevent=" .  $rowEvent['idevent'] . "'>Edit event</a></td>";
-                echo "<td><a href='hapus_event.php?username=" .  $_SESSION['username'] . "'>Hapus event</a></td>";
+                echo "<td><a href='hapus_event.php?idgroup=" . $idgroup . "&idevent=" . $rowEvent['idevent']  . "&ext=" . $rowEvent['poster_extension'] . "'>Hapus event</a></td>";
                 echo "</tr>";
             }
             echo "</table>";

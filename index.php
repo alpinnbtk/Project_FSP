@@ -109,6 +109,8 @@
                             header('location:home_dosen.php');
                         }
                     } else {
+                        $_SESSION['username'] = $username;
+
                         header('location:dashboard_admin.php');
                     }
                 } else {
