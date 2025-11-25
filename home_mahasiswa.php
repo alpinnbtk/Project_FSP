@@ -14,7 +14,7 @@ if (!isset($_SESSION['username'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halaman Home</title>
+    <title>Halaman Home Mahasiswa</title>
 
     <style>
         body {
@@ -74,6 +74,14 @@ if (!isset($_SESSION['username'])) {
 
     <ul>
         <li><a href="logout.php">Logout</a></li>
+    </ul>
+
+    <ul>
+        <li><a href="gabung_group.php">Gabung ke Group</a></li>
+    </ul>
+
+    <ul>
+        <li><a href="kelola_group_mahasiswa.php/username = <?php echo $_SESSION['username']; ?>">Kelola Group</a></li>
     </ul>
 
 </body>

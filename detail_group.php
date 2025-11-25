@@ -8,7 +8,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Halaman Detail Group</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <style>
@@ -74,11 +74,9 @@ session_start();
             <label>Dosen</label>
         </form>
 
-
         <label> Masukkan NRP/NPK atau Nama </label>
         <input type='text' name='txtSearch'>
         <input type="button" value="Submit" id="btnSearch">
-
 
         <table>
             <thead id="head">
@@ -145,9 +143,6 @@ session_start();
     </div>
 
 </body>
-
-
-
 </html>
 
 <script>
@@ -163,9 +158,9 @@ session_start();
             })
             .done(function(data) {
                 var mhs = JSON.parse(data);
-                $("#head").append("<th>NRP</th><th>Nama</th><th>Username</th><th>Aksi</th>")
+                $("#head").append("<th>NRP</th><th>Nama</th><th>Username</th><th>Foto</th><th>Aksi</th>")
                 $.each(mhs, function(i, item) {
-                    $("#body").append("<tr> <td>" + item.id + "</td> <td>" + item.nama + "</td><td>" + item.username + "</td><td><a href='daftar_group.php?idgrup=" + idgroup + "&username=" + item.username + "'>Daftarkan ke group</a></td> </tr>");
+                    $("#body").append("<tr> <td>" + item.id + "</td> <td>" + item.nama + "</td><td>" + item.username + "</td><td><img src = '" + "foto_mahasiswa/" + item.id + "." + item.foto + "'></td><td><a href='daftar_group.php?idgrup=" + idgroup + "&username=" + item.username + "'>Daftarkan ke group</a></td> </tr>");
                 })
             })
     });
@@ -182,8 +177,69 @@ session_start();
                 var mhs = JSON.parse(data);
                 $("#head").append("<th>NPK</th><th>Nama</th><th>Username</th><th>Aksi</th>")
                 $.each(mhs, function(i, item) {
-                    $("#body").append("<tr> <td>" + item.id + "</td> <td>" + item.nama + "</td><td>" + item.username + "</td><td><a href='daftar_group.php?idgrup=" + idgroup + "&username=" + item.username + "'>Daftarkan ke group</a></td> </tr>");
+                    $("#body").append("<tr> <td>" + item.id + "</td> <td>" + item.nama + "</td><td>" + item.username + "</td><td><img src = '" + "foto_dosen/" + item.id + "." + item.foto + "'></td><td><a href='daftar_group.php?idgrup=" + idgroup + "&username=" + item.username + "'>Daftarkan ke group</a></td> </tr>");
                 })
             })
+    });
+
+    $("#btnSearch").on("click", function () {
+        var prompt = $("input[name='txtSearch']").val().trim();
+        var peran = $("input[name='rdo']:checked").val();
+
+        if (!peran) {
+            alert("Pilih Mahasiswa atau Dosen dulu!");
+            return;
+        }
+        if (prompt == "") {
+            alert("Masukkan NRP/NPK atau Nama!");
+            return;
+        }
+
+        $("#head").html("");
+        $("#body").html("");
+
+        $.post("cari_anggota.php", {
+            peran: peran,
+            prompt: prompt
+        })
+        .done(function (data) {
+
+            var result = JSON.parse(data);
+
+            if (result.length == 0) {
+                $("#body").append("<tr><td colspan='5' style='color:red;'>Tidak ditemukan.</td></tr>");
+                return;
+            }
+
+            if (peran == "mahasiswa") {
+                $("#head").append("<th>NRP</th><th>Nama</th><th>Username</th><th>Foto</th><th>Aksi</th>");
+
+                $.each(result, function (i, item) {
+                    $("#body").append(
+                        "<tr>" +
+                            "<td>" + item.id + "</td>" +
+                            "<td>" + item.nama + "</td>" +
+                            "<td>" + item.username + "</td>" +
+                            "<td><img src='foto_mahasiswa/" + item.id + "." + item.foto_extention + "'></td>" +
+                            "<td><a href='daftar_group.php?idgrup=" + idgroup + "&username=" + item.username + "'>Daftarkan ke Group</a></td>" +
+                        "</tr>"
+                    );
+                });
+            } else {
+                $("#head").append("<th>NPK</th><th>Nama</th><th>Username</th><th>Foto</th><th>Aksi</th>");
+
+                $.each(result, function (i, item) {
+                    $("#body").append(
+                        "<tr>" +
+                            "<td>" + item.id + "</td>" +
+                            "<td>" + item.nama + "</td>" +
+                            "<td>" + item.username + "</td>" +
+                            "<td><img src='foto_dosen/" + item.id + "." + item.foto_extension + "'></td>" +
+                            "<td><a href='daftar_group.php?idgrup=" + idgroup + "&username=" + item.username + "'>Daftarkan ke Group</a></td>" +
+                        "</tr>"
+                    );
+                });
+            }
+        });
     });
 </script>

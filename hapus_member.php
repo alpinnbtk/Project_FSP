@@ -7,7 +7,7 @@ if ($mysqli->connect_errno) {
 $username = $_GET['username'];
 $idgrup = $_GET['idgrup'];
 
-$sql = "delete from member_grup where username = ?";
+$sql = "DELETE FROM member_grup WHERE username = ?";
 $stmt = $mysqli->prepare($sql);
 $stmt->bind_param("s", $username);
 $stmt->execute();

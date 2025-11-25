@@ -4,7 +4,7 @@ session_start();
 if (!isset($_SESSION['username'])) {
     header("location:index.php");
 } else {
-    $usermame = $_SESSION['username'];
+    $username = $_SESSION['username'];
 }
 ?>
 
@@ -14,7 +14,7 @@ if (!isset($_SESSION['username'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halaman Home</title>
+    <title>Halaman Home Dosen</title>
 
     <style>
         body {
@@ -74,7 +74,7 @@ if (!isset($_SESSION['username'])) {
         <li><a href="ganti_password.php">Ganti Password</a></li>
         <li><a href="logout.php">Logout</a></li>
         <li><a href="tambah_group.php">Buat Grup</a></li>
-        <li><a href="kelola_group.php?username= <?php echo $_SESSION['username']; ?> ">Kelola Grup</a></li>
+        <li><a href="kelola_group_dosen.php?username= <?php echo $_SESSION['username']; ?> ">Kelola Grup</a></li>
     </ul>
 
 </body>

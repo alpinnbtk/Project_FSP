@@ -11,7 +11,7 @@ $idgroup = $_GET['idgroup'];
 $ext = $_GET['ext'];
 $username = $_SESSION['username'];
 
-$sql = "delete from event where idevent = ?";
+$sql = "DELETE FROM event WHERE idevent = ?";
 $stmt = $mysqli->prepare($sql);
 $stmt->bind_param("i", $idevent);
 

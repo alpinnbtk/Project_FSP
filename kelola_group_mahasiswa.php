@@ -7,7 +7,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tabel Data Mahasiswa</title>
+    <title>Kelola Group Mahasiswa</title>
     <style>
         body {
             background: #f4f6f9;
@@ -104,7 +104,7 @@ session_start();
         echo "Failed to connect to MySQL: " . $mysqli->connect_error;
     }
 
-    $sql = "SELECT * FROM grup where username_pembuat = ?";
+    $sql = "SELECT * FROM grup g INNER JOIN member_grup m ON g.idgrup = m.idgrup WHERE m.username = ?";
     $stmt = $mysqli->prepare($sql);
     $stmt->bind_param("s", $_SESSION['username']);
     $stmt->execute();
@@ -122,7 +122,7 @@ session_start();
                     <th>Detail</th> 
                     <th>Anggota</th>
                     <th>Event</th>
-                    <th>Hapus</th>
+                    <th>Aksi</th>
                 </tr>";
 
         while ($row = $res->fetch_assoc()) {
@@ -134,10 +134,10 @@ session_start();
             echo "<td>" . $row['jenis'] . "</td>";
             echo "<td>" . $row['kode_pendaftaran'] . "</td>";
 
-            echo "<td><a href='detail_group.php?idgrup=" . $row['idgrup'] . "&username=" . $_SESSION['username'] . "'>Detail Group</a></td>";
-            echo "<td><a href='anggota_group.php?idgrup=" .  $row['idgrup'] . "'>Lihat Anggota Group</a></td>";
-            echo "<td><a href='event_group.php?idgrup=" .  $row['idgrup'] . "'>Event Group</a></td>";
-            echo "<td><a href='hapus_group.php?nrp=" .  $_SESSION['username'] . "'>Hapus Group</a></td>";
+            echo "<td><a href='../detail_group.php?idgrup=" . $row['idgrup'] . "&username=" . $_SESSION['username'] . "'>Detail Group</a></td>";
+            echo "<td><a href='../anggota_group.php?idgrup=" .  $row['idgrup'] . "'>Lihat Anggota Group</a></td>";
+            echo "<td><a href='../event_group.php?idgrup=" .  $row['idgrup'] . "'>Event Group</a></td>";
+            echo "<td><a href='../keluar_group.php?username=" .  $_SESSION['username'] . "'>Keluar dari Group</a></td>";
             echo "</tr>";
         }
         echo "</table>";

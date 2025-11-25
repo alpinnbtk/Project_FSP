@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tabel Data Dosen</title>
+    <title>Tambah Group</title>
     <style>
         body {
             background: #f4f6f9;
