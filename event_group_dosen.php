@@ -1,13 +1,16 @@
 <?php
 session_start();
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kelola Group Dosen</title>
+    <title>Event</title>
+
     <style>
         body {
             background: #f4f6f9;
@@ -19,7 +22,7 @@ session_start();
             padding: 20px 30px;
             border-radius: 10px;
             text-align: left;
-            width: 900px;
+            width: 1000px;
         }
 
         table,
@@ -43,8 +46,8 @@ session_start();
         }
 
         img {
-            width: 150px;
-            height: 200px;
+            width: 450px;
+            height: 300px;
         }
 
 
@@ -97,44 +100,80 @@ session_start();
 </head>
 
 <body>
-    <h2>Semua Group</h2>
+    <h2>Event Group</h2>
+
     <?php
+
     $mysqli = new mysqli("localhost", "root", "", "fullstack");
     if ($mysqli->connect_errno) {
         echo "Failed to connect to MySQL: " . $mysqli->connect_error;
     }
 
-    $sql = "SELECT * FROM grup where username_pembuat = ?";
+    $idgroup = $_GET['idgrup'];
+
+    echo "<form method='GET' action='event_group_dosen.php?idgrup=$idgroup'>";
+    echo "<label> Masukkan Judul Event </label>";
+    echo "<input type = 'text' name = 'txtSearch'>";
+    echo "<input type = 'submit' name = 'btnSearch' class='btnSearch'>";
+    echo "<input type='hidden' name='idgrup' value='$idgroup'>";
+
+    $prompt = "";
+    $searched = "";
+
+    if (isset($_GET['btnSearch'])) {
+        if (!empty($_GET['txtSearch'])) {  
+            $prompt = $_GET['txtSearch'];
+            $searched = "%" . $prompt . "%";
+        }
+    }
+
+    $sql = "SELECT * FROM event WHERE idgrup = ?";
+
+    if (!empty($searched)) {
+        $sql .= " AND judul LIKE ?";
+    }
+    
     $stmt = $mysqli->prepare($sql);
-    $stmt->bind_param("s", $_SESSION['username']);
+
+    if (!empty($searched)) {
+        $stmt->bind_param('is', $idgroup, $searched);
+    } else {
+        $stmt->bind_param("i", $idgroup);
+    }
+
     $stmt->execute();
     $res = $stmt->get_result();
 
     if ($res->num_rows > 0) {
         echo "<table> 
                 <tr> 
-                    <th>ID Group</th> 
-                    <th>Nama Group</th> 
-                    <th>Detail</th> 
-                    <th>Anggota</th>
-                    <th>Event</th>
+                    <th>ID Event</th> 
+                    <th>Judul</th> 
+                    <th>Tanggal</th> 
+                    <th>Keterangan</th>
+                    <th>Jenis</th>
+                    <th>Poster</th>
+                    <th>Update</th>
                     <th>Hapus</th>
                 </tr>";
 
         while ($row = $res->fetch_assoc()) {
             echo "<tr>";
-            echo "<td>" . $row['idgrup'] . "</td>";
-            echo "<td>" . $row['nama'] . "</td>";
+            echo "<td>" . $row['idevent'] . "</td>";
+            echo "<td>" . $row['judul'] . "</td>";
+            echo "<td>" . $row['tanggal'] . "</td>";
+            echo "<td>" . $row['keterangan'] . "</td>";
+            echo "<td>" . $row['jenis'] . "</td>";
+            echo "<td><img src = 'foto_poster/" . $row['idevent'] . "." . $row['poster_extension'] . "'></td>";
 
-            echo "<td><a href='detail_group_dosen.php?idgrup=" . $row['idgrup'] . "&username=" . $_SESSION['username'] . "'>Detail Group</a></td>";
-            echo "<td><a href='anggota_group_dosen.php?idgrup=" .  $row['idgrup'] . "'>Lihat Anggota Group</a></td>";
-            echo "<td><a href='event_group_dosen.php?idgrup=" .  $row['idgrup'] . "'>Event Group</a></td>";
-            echo "<td><a href='hapus_group.php?idgrup=" .  $row['idgrup'] . "'>Hapus Group</a></td>";
+
+            echo "<td><a href='update_event.php?idgrup=" .  $row['idevent'] . "'>Edit event</a></td>";
+            echo "<td><a href='hapus_event.php?nrp=" .  $_SESSION['username'] . "'>Hapus event</a></td>";
             echo "</tr>";
         }
         echo "</table>";
     } else {
-        echo "<p>Anda belum memiliki grup.</p>";
+        echo "<p>Belum ada event yang terdaftar!</p>";
     }
 
     ?>

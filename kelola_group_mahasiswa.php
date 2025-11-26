@@ -115,10 +115,6 @@ session_start();
                 <tr> 
                     <th>ID Group</th> 
                     <th>Nama Group</th> 
-                    <th>Deskripsi</th> 
-                    <th>Tanggal Pembentukan</th>
-                    <th>Jenis</th>
-                    <th>Kode Pendaftaran</th>
                     <th>Detail</th> 
                     <th>Anggota</th>
                     <th>Event</th>
@@ -129,14 +125,10 @@ session_start();
             echo "<tr>";
             echo "<td>" . $row['idgrup'] . "</td>";
             echo "<td>" . $row['nama'] . "</td>";
-            echo "<td>" . $row['deskripsi'] . "</td>";
-            echo "<td>" . $row['tanggal_pembentukan'] . "</td>";
-            echo "<td>" . $row['jenis'] . "</td>";
-            echo "<td>" . $row['kode_pendaftaran'] . "</td>";
 
-            echo "<td><a href='../detail_group.php?idgrup=" . $row['idgrup'] . "&username=" . $_SESSION['username'] . "'>Detail Group</a></td>";
-            echo "<td><a href='../anggota_group.php?idgrup=" .  $row['idgrup'] . "'>Lihat Anggota Group</a></td>";
-            echo "<td><a href='../event_group.php?idgrup=" .  $row['idgrup'] . "'>Event Group</a></td>";
+            echo "<td><a href='../detail_group_mahasiswa.php?idgrup=" . $row['idgrup'] . "&username=" . $_SESSION['username'] . "'>Detail Group</a></td>";
+            echo "<td><a href='../anggota_group_mahasiswa.php?idgrup=" .  $row['idgrup'] . "'>Lihat Anggota Group</a></td>";
+            echo "<td><a href='../event_group_mahasiswa.php?idgrup=" .  $row['idgrup'] . "'>Event Group</a></td>";
             echo "<td><a href='../keluar_group.php?username=" .  $_SESSION['username'] . "'>Keluar dari Group</a></td>";
             echo "</tr>";
         }
