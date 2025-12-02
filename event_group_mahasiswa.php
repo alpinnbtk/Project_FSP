@@ -58,6 +58,11 @@ session_start();
 
         }
 
+        img {
+            width: 150px;
+            height: 200px;
+        }
+
         .btnSearch {
             background: #4CAF50;
             color: white;
@@ -120,7 +125,7 @@ session_start();
     $searched = "";
 
     if (isset($_GET['btnSearch'])) {
-        if (!empty($_GET['txtSearch'])) {  
+        if (!empty($_GET['txtSearch'])) {
             $prompt = $_GET['txtSearch'];
             $searched = "%" . $prompt . "%";
         }
@@ -139,7 +144,7 @@ session_start();
     } else {
         $stmt->bind_param("i", $idgroup);
     }
-    
+
     $stmt->execute();
     $res = $stmt->get_result();
 

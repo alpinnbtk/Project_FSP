@@ -18,7 +18,7 @@ $cek->fetch();
 $cek->close();
 
 if ($count > 0) {
-    header("location: detail_group.php?idgrup=$idgrup&username=$username&error=idgrup");
+    header("location: detail_group_dosen.php?idgrup=$idgrup&username=$username&error=idgrup");
     exit();
 } else {
     $sql = "INSERT INTO member_grup (idgrup, username) values (?, ?);";
@@ -28,7 +28,7 @@ if ($count > 0) {
     if ($stmt->execute()) {
         echo "Data berhasil ditambahkan!";
     } else {
-        header("location: detail_group.php?idgrup=$idgrup&username=$username&error=insert");
+        header("location: detail_group_dosen.php?idgrup=$idgrup&username=$username&error=insert");
     }
-    header("location: detail_group.php?idgrup=$idgrup&username=$username");
+    header("location: detail_group_dosen.php?idgrup=$idgrup&username=$username");
 }

@@ -118,6 +118,7 @@ session_start();
                     <th>Detail</th> 
                     <th>Anggota</th>
                     <th>Event</th>
+                    <th>Edit</th>
                     <th>Hapus</th>
                 </tr>";
 
@@ -129,6 +130,7 @@ session_start();
             echo "<td><a href='detail_group_dosen.php?idgrup=" . $row['idgrup'] . "&username=" . $_SESSION['username'] . "'>Detail Group</a></td>";
             echo "<td><a href='anggota_group_dosen.php?idgrup=" .  $row['idgrup'] . "'>Lihat Anggota Group</a></td>";
             echo "<td><a href='event_group_dosen.php?idgrup=" .  $row['idgrup'] . "'>Event Group</a></td>";
+            echo "<td><a href='edit_group.php?idgrup=" .  $row['idgrup'] . "'>Edit Group</a></td>";
             echo "<td><a href='hapus_group.php?idgrup=" .  $row['idgrup'] . "'>Hapus Group</a></td>";
             echo "</tr>";
         }

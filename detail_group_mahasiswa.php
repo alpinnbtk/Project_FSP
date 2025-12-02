@@ -14,101 +14,91 @@ session_start();
         body {
             background: #f4f6f9;
             font-family: Arial;
-            padding: 20px;
         }
 
-        h2, h3 {
-            margin: 5px 0;
-        }
 
-        .container {
-            max-width: 850px;
-            margin: auto;
-            background: white;
-            padding: 25px;
+        .detail-box {
+            background: #fffdf8ff;
+            padding: 20px 30px;
             border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            width: 900px;
+            margin: 30px auto;
         }
 
-        table, th, td {
-            border: 1px solid black;
-        }
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            margin-top: 20px;
-        }
-        th, td {
-            padding: 10px;
+        #member {
+            width: 40%;
         }
 
-        img {
-            width: 120px;
-            height: 160px;
-            object-fit: cover;
+        #event {
+            width: 60%;
+
         }
 
         .back-btn {
-            display: inline-block;
-            margin-top: 25px;
-            padding: 10px 20px;
-            background: #007bff;
+            background: #4CAF50;
             color: white;
+            padding: 10px 40px;
             border-radius: 6px;
-            text-decoration: none;
+            margin: 6px;
+            font-size: 16px;
         }
+
         .back-btn:hover {
-            background: #005dc1;
+            background: #45a049;
         }
     </style>
 </head>
 
 <body>
 
-<div class="container">
+    <div class="container">
 
-<?php
-$mysqli = new mysqli("localhost", "root", "", "fullstack");
-if ($mysqli->connect_errno) {
-    echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-}
+        <?php
+        $mysqli = new mysqli("localhost", "root", "", "fullstack");
+        if ($mysqli->connect_errno) {
+            echo "Failed to connect to MySQL: " . $mysqli->connect_error;
+        }
 
-$idgroup = $_GET['idgrup'];
-$username = $_GET['username'];
+        $idgroup = $_GET['idgrup'];
+        $username = $_GET['username'];
 
-// ========== DETAIL GRUP ==========
+        // ========== DETAIL GRUP ==========
 
-$sql = "SELECT * FROM grup WHERE idgrup = ?";
-$stmt = $mysqli->prepare($sql);
-$stmt->bind_param('i', $idgroup);
-$stmt->execute();
-$res = $stmt->get_result();
+        $sql = "SELECT * FROM grup WHERE idgrup = ?";
+        $stmt = $mysqli->prepare($sql);
+        $stmt->bind_param('i', $idgroup);
+        $stmt->execute();
+        $res = $stmt->get_result();
 
-if ($row = $res->fetch_assoc()) {
+        if ($row = $res->fetch_assoc()) {
 
-    echo "<h2>Detail Grup: " . $row['nama'] . "</h2><br>";
+            echo "<div>";
+            echo "<h2>Detail Grup: " . $row['nama'] . "</h2>";
 
-    echo "<h3>• Dibuat Oleh : ". $row['username_pembuat'] . "</h3>";
-    echo "<h3>• Tanggal Dibuat : ". $row['tanggal_pembentukan'] . "</h3>";
-    echo "<h3>• Deskripsi : ". $row['deskripsi'] . "</h3>";
-    echo "<h3>• Kode Pendaftaran : ". $row['kode_pendaftaran'] . "</h3>";
+            echo "<ul>";
+            echo "<li>Dibuat Oleh : " . $row['username_pembuat'] . "</li>";
+            echo "<li>Tanggal Dibuat : " . $row['tanggal_pembentukan'] . "</li>";
+            echo "<li>Deskripsi : " . $row['deskripsi'] . "</li>";
+            echo "<li>Kode Pendaftaran : " . $row['kode_pendaftaran'] . "</li>";
 
-    // Hitung jumlah anggota
-    $sql = "SELECT COUNT(*) FROM member_grup WHERE idgrup = ?";
-    $stmt = $mysqli->prepare($sql);
-    $stmt->bind_param('i', $idgroup);
-    $stmt->execute();
-    $stmt->bind_result($count);
-    $stmt->fetch();
-    $stmt->close();
+            // Hitung jumlah anggota
+            $sql = "SELECT COUNT(*) FROM member_grup WHERE idgrup = ?";
+            $stmt = $mysqli->prepare($sql);
+            $stmt->bind_param('i', $idgroup);
+            $stmt->execute();
+            $stmt->bind_result($count);
+            $stmt->fetch();
+            $stmt->close();
 
-    echo "<h3>• Jumlah Anggota : ". $count . "</h3><br>";
-}
-?>
+            echo "<li>Jumlah Anggota : " . $count . "</li><br>";
+            echo "</ul>";
+        }
+        echo "<a href='kelola_group_mahasiswa.php?username='" . $_SESSION['username'] . "' class='back-btn'>Kembali</a>";
+        ?>
 
-<a href="kelola_group_mahasiswa.php/username = <?php echo $_SESSION['username']; ?>" class="back-btn">Kembali</a>
 
-</div>
+    </div>
 
 </body>
+
 </html>

@@ -56,5 +56,5 @@ if ($count > 0) {
         header("location: tambah_event.php?error=insert");
     }
 
-    header("location: detail_group.php?idgrup=$idgroup&username=$username");
+    header("location: detail_group_dosen.php?idgrup=$idgroup&username=$username");
 }

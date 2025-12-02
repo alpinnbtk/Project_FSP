@@ -52,16 +52,22 @@
             margin: 6px;
 
         }
+
+        p {
+            color: #FF0000;
+        }
     </style>
 </head>
 
 <body>
     <?php
-        if (isset($_GET['error'])) {
-            if ($_GET['error'] == 'invalid') {
-                echo "Kode Pendaftaran tidak Valid!";
-            }
+    if (isset($_GET['error'])) {
+        if ($_GET['error'] == 'invalid') {
+            echo "<p>Kode Pendaftaran tidak Valid!</p>";
+        } else if ($_GET['error'] == 'idgrup') {
+            echo "<p>Anda sudah tergabung dalam grup ini!</p>";
         }
+    }
     ?>
     <h2>Gabung ke Group Baru</h2>
     <form action="gabung_group_proses.php" method="POST">
@@ -71,6 +77,8 @@
 
         <input type="submit" name="btnSubmit" value="Submit">
     </form>
+
+
 </body>
 
 </html>

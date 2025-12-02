@@ -17,27 +17,26 @@ session_start();
             font-family: Arial;
         }
 
-        /* BOX DETAIL GRUP */
+
         .detail-box {
-            background: #fff;
+            background: #fffdf8ff;
             padding: 20px 30px;
             border-radius: 10px;
             width: 900px;
             margin: 30px auto;
         }
 
-        /* TABLE UTAMA (2 kolom kiri – kanan) */
-        #layoutMain {
-            width: 95%;
-            margin: 20px auto;
-        }
-
-        #layoutMain td {
+        #member {
+            width: 40%;
             vertical-align: top;
-            padding: 10px;
         }
 
-        /* FORM STYLE */
+        #event {
+            width: 60%;
+            vertical-align: top;
+
+        }
+
         form {
             background: #fff;
             padding: 20px 30px;
@@ -46,8 +45,10 @@ session_start();
             margin-bottom: 20px;
         }
 
-        /* TABLE DATA */
-        table, th, tr, td {
+        table,
+        th,
+        tr,
+        td {
             border: 1px solid black;
         }
 
@@ -56,24 +57,25 @@ session_start();
             background: white;
         }
 
-        th, td {
+        th,
+        td {
             padding: 10px;
         }
 
-        /* FOTO */
+
         img {
             width: 150px;
             height: 200px;
         }
 
-        /* INPUT */
+
         input {
             border-radius: 6px;
             padding: 10px;
             margin: 6px;
         }
 
-        /* BUTTON */
+
         .btnSearch {
             background: #4CAF50;
             color: white;
@@ -86,125 +88,93 @@ session_start();
         .btnSearch:hover {
             background: #45a049;
         }
-
-        /* PAGINATION */
-        #page {
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        #page a {
-            margin: 0 5px;
-            padding: 5px 10px;
-            border: 1px solid green;
-            text-decoration: none;
-            color: green;
-        }
-
-        #page a:hover {
-            background-color: #e6ffe6;
-        }
-
-        #page span.active {
-            background-color: #00b900ff;
-            color: white;
-            font-weight: bold;
-            cursor: default;
-            padding: 6px 11px;
-        }
-
-        /* MEMBER & EVENT PANEL TITLE */
-        h2 {
-            margin-bottom: 10px;
-        }
     </style>
 
 </head>
 
 <body>
 
-<?php
-$mysqli = new mysqli("localhost", "root", "", "fullstack");
-if ($mysqli->connect_errno) {
-    echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-}
+    <?php
+    $mysqli = new mysqli("localhost", "root", "", "fullstack");
+    if ($mysqli->connect_errno) {
+        echo "Failed to connect to MySQL: " . $mysqli->connect_error;
+    }
 
-$idgroup = $_GET['idgrup'];
-$username = $_GET['username'];
+    $idgroup = $_GET['idgrup'];
+    $username = $_GET['username'];
 
-$sql = "SELECT * FROM grup where idgrup = ?";
-$stmt = $mysqli->prepare($sql);
-$stmt->bind_param('i', $idgroup);
-$stmt->execute();
-$res = $stmt->get_result();
+    $sql = "SELECT * FROM grup where idgrup = ?";
+    $stmt = $mysqli->prepare($sql);
+    $stmt->bind_param('i', $idgroup);
+    $stmt->execute();
+    $res = $stmt->get_result();
 
-if ($row = $res->fetch_assoc()) {
+    if ($row = $res->fetch_assoc()) {
 
-    $sql2 = "SELECT COUNT(*) FROM member_grup where idgrup = ?";
-    $stmt2 = $mysqli->prepare($sql2);
-    $stmt2->bind_param('i', $idgroup);
-    $stmt2->execute();
-    $stmt2->bind_result($count);
-    $stmt2->fetch();
-    $stmt2->close();
+        $sql2 = "SELECT COUNT(*) FROM member_grup where idgrup = ?";
+        $stmt2 = $mysqli->prepare($sql2);
+        $stmt2->bind_param('i', $idgroup);
+        $stmt2->execute();
+        $stmt2->bind_result($count);
+        $stmt2->fetch();
+        $stmt2->close();
 
-    echo "<div class='detail-box'>";
-    echo "<h2>Grup " . $row['nama'] . "</h2>";
-    echo "<h3><b>Dibuat Oleh:</b> " . $row['username_pembuat'] . "</h3>";
-    echo "<h3><b>Tanggal Dibuat:</b> " . $row['tanggal_pembentukan'] . "</h3>";
-    echo "<h3><b>Deskripsi:</b> " . $row['deskripsi'] . "</h3>";
-    echo "<h3><b>Kode Pendaftaran:</b> " . $row['kode_pendaftaran'] . "</h3>";
-    echo "<h3><b>Jumlah Anggota:</b> " . $count . "</h3>";
-    echo "</div>";
-}
-?>
+        echo "<div class='detail-box'>";
+        echo "<h2>Grup " . $row['nama'] . "</h2>";
+        echo "<h3><b>Dibuat Oleh:</b> " . $row['username_pembuat'] . "</h3>";
+        echo "<h3><b>Tanggal Dibuat:</b> " . $row['tanggal_pembentukan'] . "</h3>";
+        echo "<h3><b>Deskripsi:</b> " . $row['deskripsi'] . "</h3>";
+        echo "<h3><b>Kode Pendaftaran:</b> " . $row['kode_pendaftaran'] . "</h3>";
+        echo "<h3><b>Jumlah Anggota:</b> " . $count . "</h3>";
+        echo "</div>";
+    }
+    ?>
 
-<!-- ====================== LAYOUT 2 KOLOM ====================== -->
-<table id="layoutMain">
-<tr>
-    <!-- ===================== PANEL MEMBER (KIRI) ===================== -->
-    <td width="40%">
-        <h2>Member</h2>
+    <table>
+        <tr>
+            <td id="member">
+                <h2>Member</h2>
 
-        <form method="POST">
-            <input type="radio" name="rdo" id="rdoMhs" value="mahasiswa"> <label>Mahasiswa</label>
-            <input type="radio" name="rdo" id="rdoDos" value="dosen"> <label>Dosen</label>
-        </form>
+                <form method="POST">
+                    <input type="radio" name="rdo" id="rdoMhs" value="mahasiswa"> <label>Mahasiswa</label>
+                    <input type="radio" name="rdo" id="rdoDos" value="dosen"> <label>Dosen</label>
+                </form>
 
-        <label>Masukkan NRP/NPK atau Nama</label><br>
-        <input type='text' name='txtSearch'>
-        <input type="button" value="Submit" id="btnSearch" class="btnSearch">
+                <label>Masukkan NRP/NPK atau Nama</label><br>
+                <input type='text' name='txtSearch'>
+                <input type="button" value="Submit" id="btnSearch" class="btnSearch">
 
-        <table style="width: 100%; margin-top: 15px;">
-            <thead id="head"><tr></tr></thead>
-            <tbody id="body"></tbody>
-        </table>
+                <table>
+                    <thead id="head">
+                        <tr></tr>
+                    </thead>
+                    <tbody id="body"></tbody>
+                </table>
 
-        <?php
-        if (isset($_GET['error'])) {
-            if ($_GET['error'] == 'idgrup') {
-                echo "<div style='color:red; font-weight:bold;'>Sudah terdaftar di grup ini!</div>";
-            } else if ($_GET['error'] == 'insert') {
-                echo "<div style='color:red; font-weight:bold;'>Gagal menyimpan data!</div>";
-            }
-        }
-        ?>
-    </td>
+                <?php
+                if (isset($_GET['error'])) {
+                    if ($_GET['error'] == 'idgrup') {
+                        echo "<div style='color:red; font-weight:bold;'>Sudah terdaftar di grup ini!</div>";
+                    } else if ($_GET['error'] == 'insert') {
+                        echo "<div style='color:red; font-weight:bold;'>Gagal menyimpan data!</div>";
+                    }
+                }
+                ?>
+            </td>
 
-    <!-- ===================== PANEL EVENT (KANAN) ===================== -->
-    <td width="60%">
-        <h2>Event</h2>
-        <a href="tambah_event.php?idgroup=<?php echo $idgroup ?>">Tambah Event</a>
+            <td id="event">
+                <h2>Event</h2>
+                <a href="tambah_event.php?idgroup=<?php echo $idgroup ?>">Tambah Event</a>
 
-        <?php
-        $sqlEvent = "SELECT * FROM event WHERE idgrup = ?";
-        $stmtEvent = $mysqli->prepare($sqlEvent);
-        $stmtEvent->bind_param('i', $idgroup);
-        $stmtEvent->execute();
-        $resEvent = $stmtEvent->get_result();
+                <?php
+                $sqlEvent = "SELECT * FROM event WHERE idgrup = ?";
+                $stmtEvent = $mysqli->prepare($sqlEvent);
+                $stmtEvent->bind_param('i', $idgroup);
+                $stmtEvent->execute();
+                $resEvent = $stmtEvent->get_result();
 
-        if ($resEvent->num_rows > 0) {
-            echo "<table style='width:100%; margin-top:15px;'>
+                if ($resEvent->num_rows > 0) {
+                    echo "<table style='width:100%; margin-top:15px;'>
                 <tr>
                     <th>ID Event</th>
                     <th>Poster</th>
@@ -216,26 +186,27 @@ if ($row = $res->fetch_assoc()) {
                     <th>Hapus</th>
                 </tr>";
 
-            while ($rowEvent = $resEvent->fetch_assoc()) {
-                echo "<tr>";
-                echo "<td>" . $rowEvent['idevent'] . "</td>";
-                echo "<td><img src='foto_poster/" . $rowEvent['idevent'] . "." . $rowEvent['poster_extension'] . "'></td>";
-                echo "<td>" . $rowEvent['judul'] . "</td>";
-                echo "<td>" . $rowEvent['tanggal'] . "</td>";
-                echo "<td>" . $rowEvent['keterangan'] . "</td>";
-                echo "<td>" . $rowEvent['jenis'] . "</td>";
-                echo "<td><a href='edit_event.php?idgroup=" . $idgroup . "&idevent=" .  $rowEvent['idevent'] . "'>Edit</a></td>";
-                echo "<td><a href='hapus_event.php?idgroup=" . $idgroup . "&idevent=" . $rowEvent['idevent']  . "&ext=" . $rowEvent['poster_extension'] . "'>Hapus</a></td>";
-                echo "</tr>";
-            }
-            echo "</table>";
-        }
-        ?>
-    </td>
-</tr>
-</table>
+                    while ($rowEvent = $resEvent->fetch_assoc()) {
+                        echo "<tr>";
+                        echo "<td>" . $rowEvent['idevent'] . "</td>";
+                        echo "<td><img src='foto_poster/" . $rowEvent['idevent'] . "." . $rowEvent['poster_extension'] . "'></td>";
+                        echo "<td>" . $rowEvent['judul'] . "</td>";
+                        echo "<td>" . $rowEvent['tanggal'] . "</td>";
+                        echo "<td>" . $rowEvent['keterangan'] . "</td>";
+                        echo "<td>" . $rowEvent['jenis'] . "</td>";
+                        echo "<td><a href='edit_event.php?idgroup=" . $idgroup . "&idevent=" .  $rowEvent['idevent'] . "'>Edit</a></td>";
+                        echo "<td><a href='hapus_event.php?idgroup=" . $idgroup . "&idevent=" . $rowEvent['idevent']  . "&ext=" . $rowEvent['poster_extension'] . "'>Hapus</a></td>";
+                        echo "</tr>";
+                    }
+                    echo "</table>";
+                }
+                ?>
+            </td>
+        </tr>
+    </table>
 
 </body>
+
 </html>
 
 <script>
@@ -246,22 +217,24 @@ if ($row = $res->fetch_assoc()) {
         $("#head").html("");
         $("#body").html("");
 
-        $.post("load_peran.php", { peran: p_peran })
-        .done(function(data) {
-            var mhs = JSON.parse(data);
-            $("#head").append("<th>NRP</th><th>Nama</th><th>Username</th><th>Foto</th><th>Aksi</th>")
-            $.each(mhs, function(i, item) {
-                $("#body").append(
-                    "<tr>"+
-                    "<td>"+ item.id +"</td>"+
-                    "<td>"+ item.nama +"</td>"+
-                    "<td>"+ item.username +"</td>"+
-                    "<td><img src='foto_mahasiswa/"+ item.id +"."+ item.foto +"'></td>"+
-                    "<td><a href='daftar_group.php?idgrup="+ idgroup +"&username="+ item.username +"'>Daftarkan</a></td>"+
-                    "</tr>"
-                );
-            });
-        })
+        $.post("load_peran.php", {
+                peran: p_peran
+            })
+            .done(function(data) {
+                var mhs = JSON.parse(data);
+                $("#head").append("<th>NRP</th><th>Nama</th><th>Username</th><th>Foto</th><th>Aksi</th>")
+                $.each(mhs, function(i, item) {
+                    $("#body").append(
+                        "<tr>" +
+                        "<td>" + item.id + "</td>" +
+                        "<td>" + item.nama + "</td>" +
+                        "<td>" + item.username + "</td>" +
+                        "<td><img src='foto_mahasiswa/" + item.id + "." + item.foto + "'></td>" +
+                        "<td><a href='daftar_group.php?idgrup=" + idgroup + "&username=" + item.username + "'>Daftarkan</a></td>" +
+                        "</tr>"
+                    );
+                });
+            })
     });
 
     $("body").on("change", "#rdoDos", function() {
@@ -269,25 +242,27 @@ if ($row = $res->fetch_assoc()) {
         $("#head").html("");
         $("#body").html("");
 
-        $.post("load_peran.php", { peran: p_peran })
-        .done(function(data) {
-            var dos = JSON.parse(data);
-            $("#head").append("<th>NPK</th><th>Nama</th><th>Username</th><th>Foto</th><th>Aksi</th>")
-            $.each(dos, function(i, item) {
-                $("#body").append(
-                    "<tr>"+
-                    "<td>"+ item.id +"</td>"+
-                    "<td>"+ item.nama +"</td>"+
-                    "<td>"+ item.username +"</td>"+
-                    "<td><img src='foto_dosen/"+ item.id +"."+ item.foto +"'></td>"+
-                    "<td><a href='daftar_group.php?idgrup="+ idgroup +"&username="+ item.username +"'>Daftarkan</a></td>"+
-                    "</tr>"
-                );
-            });
-        })
+        $.post("load_peran.php", {
+                peran: p_peran
+            })
+            .done(function(data) {
+                var dos = JSON.parse(data);
+                $("#head").append("<th>NPK</th><th>Nama</th><th>Username</th><th>Foto</th><th>Aksi</th>")
+                $.each(dos, function(i, item) {
+                    $("#body").append(
+                        "<tr>" +
+                        "<td>" + item.id + "</td>" +
+                        "<td>" + item.nama + "</td>" +
+                        "<td>" + item.username + "</td>" +
+                        "<td><img src='foto_dosen/" + item.id + "." + item.foto + "'></td>" +
+                        "<td><a href='daftar_group.php?idgrup=" + idgroup + "&username=" + item.username + "'>Daftarkan</a></td>" +
+                        "</tr>"
+                    );
+                });
+            })
     });
 
-    $("#btnSearch").on("click", function () {
+    $("#btnSearch").on("click", function() {
         var prompt = $("input[name='txtSearch']").val().trim();
         var peran = $("input[name='rdo']:checked").val();
 
@@ -303,44 +278,47 @@ if ($row = $res->fetch_assoc()) {
         $("#head").html("");
         $("#body").html("");
 
-        $.post("cari_anggota.php", { peran: peran, prompt: prompt })
-        .done(function (data) {
-            var result = JSON.parse(data);
+        $.post("cari_anggota.php", {
+                peran: peran,
+                prompt: prompt
+            })
+            .done(function(data) {
+                var result = JSON.parse(data);
 
-            if (result.length == 0) {
-                $("#body").append("<tr><td colspan='5' style='color:red;'>Tidak ditemukan.</td></tr>");
-                return;
-            }
+                if (result.length == 0) {
+                    $("#body").append("<tr><td colspan='5' style='color:red;'>Tidak ditemukan.</td></tr>");
+                    return;
+                }
 
-            if (peran == "mahasiswa") {
-                $("#head").append("<th>NRP</th><th>Nama</th><th>Username</th><th>Foto</th><th>Aksi</th>");
+                if (peran == "mahasiswa") {
+                    $("#head").append("<th>NRP</th><th>Nama</th><th>Username</th><th>Foto</th><th>Aksi</th>");
 
-                $.each(result, function (i, item) {
-                    $("#body").append(
-                        "<tr>" +
+                    $.each(result, function(i, item) {
+                        $("#body").append(
+                            "<tr>" +
                             "<td>" + item.id + "</td>" +
                             "<td>" + item.nama + "</td>" +
                             "<td>" + item.username + "</td>" +
                             "<td><img src='foto_mahasiswa/" + item.id + "." + item.foto_extention + "'></td>" +
                             "<td><a href='daftar_group.php?idgrup=" + idgroup + "&username=" + item.username + "'>Daftarkan</a></td>" +
-                        "</tr>"
-                    );
-                });
-            } else {
-                $("#head").append("<th>NPK</th><th>Nama</th><th>Username</th><th>Foto</th><th>Aksi</th>");
+                            "</tr>"
+                        );
+                    });
+                } else {
+                    $("#head").append("<th>NPK</th><th>Nama</th><th>Username</th><th>Foto</th><th>Aksi</th>");
 
-                $.each(result, function (i, item) {
-                    $("#body").append(
-                        "<tr>" +
+                    $.each(result, function(i, item) {
+                        $("#body").append(
+                            "<tr>" +
                             "<td>" + item.id + "</td>" +
                             "<td>" + item.nama + "</td>" +
                             "<td>" + item.username + "</td>" +
                             "<td><img src='foto_dosen/" + item.id + "." + item.foto_extension + "'></td>" +
                             "<td><a href='daftar_group.php?idgrup=" + idgroup + "&username=" + item.username + "'>Daftarkan</a></td>" +
-                        "</tr>"
-                    );
-                });
-            }
-        });
+                            "</tr>"
+                        );
+                    });
+                }
+            });
     });
 </script>

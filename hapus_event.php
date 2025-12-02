@@ -19,4 +19,4 @@ if ($stmt->execute()) {
     unlink("foto_poster/" . $idevent . "." . $ext);
 }
 
-header("location: detail_group.php?idgrup=" . $idgroup . "&username=" . $username);
+header("location: detail_group_dosen.php?idgrup=" . $idgroup . "&username=" . $username);

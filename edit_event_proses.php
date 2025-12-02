@@ -39,7 +39,7 @@ if (!empty($poster['name'])) {
 
 if ($stmt->execute()) {
     echo "Data berhasil diubah!<br>";
-    header("location: detail_group.php?idgrup=$idgroup&username=$username");
+    header("location: detail_group_dosen.php?idgrup=$idgroup&username=$username");
 } else {
     echo "Error: " . $stmt->error . "<br>";
 }

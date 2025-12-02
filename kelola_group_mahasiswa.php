@@ -129,7 +129,7 @@ session_start();
             echo "<td><a href='../detail_group_mahasiswa.php?idgrup=" . $row['idgrup'] . "&username=" . $_SESSION['username'] . "'>Detail Group</a></td>";
             echo "<td><a href='../anggota_group_mahasiswa.php?idgrup=" .  $row['idgrup'] . "'>Lihat Anggota Group</a></td>";
             echo "<td><a href='../event_group_mahasiswa.php?idgrup=" .  $row['idgrup'] . "'>Event Group</a></td>";
-            echo "<td><a href='../keluar_group.php?username=" .  $_SESSION['username'] . "'>Keluar dari Group</a></td>";
+            echo "<td><a href='../keluar_group.php?username=" .  $_SESSION['username'] . "&idgrup=" . $row['idgrup'] . "'>Keluar dari Group</a></td>";
             echo "</tr>";
         }
         echo "</table>";
