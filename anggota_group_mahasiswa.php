@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +10,7 @@
     <title>Member Group Mahasiswa</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-       body {
+        body {
             background: #f4f6f9;
             font-family: Arial;
         }
@@ -95,7 +98,7 @@
 </head>
 
 <body>
-<?php
+    <?php
 
     $mysqli = new mysqli("localhost", "root", "", "fullstack");
     if ($mysqli->connect_errno) {
@@ -108,13 +111,13 @@
     $searched = "";
 
     if (isset($_GET['btnSearch'])) {
-        if (!empty($_GET['txtSearch'])) {  
+        if (!empty($_GET['txtSearch'])) {
             $prompt = $_GET['txtSearch'];
             $searched = "%" . $prompt . "%";
         }
     }
 
-    $sql = 
+    $sql =
         "SELECT 
             mg.idgrup,
             mg.username,
@@ -190,6 +193,10 @@
 
     echo "</tbody>";
     echo "</table>";
-?>
+
+    echo "<a href='kelola_group_mahasiswa.php?username=" . $_SESSION['username'] . "'>Kembali</a>";
+
+    ?>
 </body>
+
 </html>

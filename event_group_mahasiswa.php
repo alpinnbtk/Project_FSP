@@ -175,6 +175,8 @@ session_start();
         echo "<p>Belum ada event yang terdaftar!</p>";
     }
 
+    echo "<a href='kelola_group_mahasiswa.php?username=" . $_SESSION['username'] . "'>Kembali</a>";
+
     ?>
 </body>
 

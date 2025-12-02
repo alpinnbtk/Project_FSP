@@ -93,7 +93,8 @@ session_start();
             echo "<li>Jumlah Anggota : " . $count . "</li><br>";
             echo "</ul>";
         }
-        echo "<a href='kelola_group_mahasiswa.php?username='" . $_SESSION['username'] . "' class='back-btn'>Kembali</a>";
+
+        echo "<a href='kelola_group_mahasiswa.php?username=" . $_SESSION['username'] . "' class='back-btn'>Kembali</a>";
         ?>
 
 

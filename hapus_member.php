@@ -12,4 +12,4 @@ $stmt = $mysqli->prepare($sql);
 $stmt->bind_param("s", $username);
 $stmt->execute();
 
-header("location: anggota_group.php?idgrup=$idgrup");
+header("location: anggota_group_dosen.php?idgrup=$idgrup");

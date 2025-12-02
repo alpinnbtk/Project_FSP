@@ -46,8 +46,8 @@ session_start();
         }
 
         img {
-            width: 450px;
-            height: 300px;
+            width: 150px;
+            height: 200px;
         }
 
 
@@ -121,7 +121,7 @@ session_start();
     $searched = "";
 
     if (isset($_GET['btnSearch'])) {
-        if (!empty($_GET['txtSearch'])) {  
+        if (!empty($_GET['txtSearch'])) {
             $prompt = $_GET['txtSearch'];
             $searched = "%" . $prompt . "%";
         }
@@ -132,7 +132,7 @@ session_start();
     if (!empty($searched)) {
         $sql .= " AND judul LIKE ?";
     }
-    
+
     $stmt = $mysqli->prepare($sql);
 
     if (!empty($searched)) {
@@ -175,6 +175,8 @@ session_start();
     } else {
         echo "<p>Belum ada event yang terdaftar!</p>";
     }
+
+    echo "<a href='kelola_group_dosen.php?username=" . $_SESSION['username'] . "'>Kembali</a>";
 
     ?>
 </body>

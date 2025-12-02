@@ -1,3 +1,9 @@
+<?php
+session_start();
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -70,10 +76,13 @@
             echo "selected";
         }
         echo ">Privat</option>";
-        echo "</select><br>";
+        echo "</select><br><br>";
 
-        echo "<button type = 'submit' name = 'btnEdit' class='btnEdit'>Edit Event</button>";
+        echo "<button type = 'submit' name = 'btnEdit' class='btnEdit'>Edit Event</button><br><br>";
     }
+
+    echo "<a href='kelola_group_dosen.php?username=" . $_SESSION['username'] . "'>Kembali</a>";
+
     ?>
 </body>
 

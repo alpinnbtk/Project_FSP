@@ -140,6 +140,9 @@ session_start();
     }
 
     ?>
+
+    <a href="home_dosen.php">Kembali</a>
+
 </body>
 
 </html>

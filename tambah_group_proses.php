@@ -41,7 +41,6 @@ session_start();
         $stmt = $mysqli->prepare($sql);
         $stmt->bind_param('ssssss', $_SESSION['username'], $namaGroup, $deskripsi, $tanggal, $jenis, $kode);
 
-
         if ($stmt->execute()) {
             $id = $mysqli->insert_id;
             $kode = "UBAYA" . $id;
@@ -50,6 +49,11 @@ session_start();
             $stmtUpdate = $mysqli->prepare($sqlUpdate);
             $stmtUpdate->bind_param('si', $kode, $id);
             $stmtUpdate->execute();
+
+            $sqlInsert = "INSERT INTO member_grup (idgrup, username) VALUES (?, ?)";
+            $stmtInsert = $mysqli->prepare($sqlInsert);
+            $stmtInsert->bind_param('ss', $id, $_SESSION['username']);
+            $stmtInsert->execute();
 
             echo "Data berhasil disimpan!";
         } else {

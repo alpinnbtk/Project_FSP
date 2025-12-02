@@ -81,7 +81,7 @@ if (!isset($_SESSION['username'])) {
     </ul>
 
     <ul>
-        <li><a href="kelola_group_mahasiswa.php/username = <?php echo $_SESSION['username']; ?>">Kelola Group</a></li>
+        <li><a href="kelola_group_mahasiswa.php?username=<?php echo $_SESSION['username']; ?>">Kelola Group</a></li>
     </ul>
 
 </body>

@@ -72,6 +72,9 @@
 
     echo "<br>";
     echo "<input type = 'submit' name = 'btnSubmit' class='btnSubmit'>";
+
+
+    echo "<br><br><a href='home_dosen.php'>Kembali</a>";
     echo "</form>";
 
     $mysqli = new mysqli("localhost", "root", "", "fullstack");
@@ -87,6 +90,8 @@
         }
     }
     ?>
+
+
 </body>
 
 </html>

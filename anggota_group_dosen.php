@@ -1,3 +1,7 @@
+<?php
+session_start();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -95,7 +99,7 @@
 </head>
 
 <body>
-<?php
+    <?php
     $mysqli = new mysqli("localhost", "root", "", "fullstack");
     if ($mysqli->connect_errno) {
         die("Failed to connect to MySQL: " . $mysqli->connect_error);
@@ -107,13 +111,13 @@
     $searched = "";
 
     if (isset($_GET['btnSearch'])) {
-        if (!empty($_GET['txtSearch'])) {  
+        if (!empty($_GET['txtSearch'])) {
             $prompt = $_GET['txtSearch'];
             $searched = "%" . $prompt . "%";
         }
     }
 
-    $sql = 
+    $sql =
         "SELECT 
             mg.idgrup,
             mg.username,
@@ -191,6 +195,10 @@
 
     echo "</tbody>";
     echo "</table>";
-?>
+
+    echo "<a href='kelola_group_dosen.php?username=" . $_SESSION['username'] . "'>Kembali</a>";
+
+    ?>
 </body>
+
 </html>
