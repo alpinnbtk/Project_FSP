@@ -167,8 +167,8 @@ session_start();
             echo "<td><img src = 'foto_poster/" . $row['idevent'] . "." . $row['poster_extension'] . "'></td>";
 
 
-            echo "<td><a href='update_event.php?idgrup=" .  $row['idevent'] . "'>Edit event</a></td>";
-            echo "<td><a href='hapus_event.php?nrp=" .  $_SESSION['username'] . "'>Hapus event</a></td>";
+            echo "<td><a href='edit_event.php?idgroup=" .  $idgroup . "&idevent=" . $row['idevent']. "'>Edit Event</a></td>";
+            echo "<td><a href='hapus_event.php?idgroup=" .  $idgroup . "&idevent=" . $row['idevent']. "'>Hapus Event</a></td>";
             echo "</tr>";
         }
         echo "</table>";
