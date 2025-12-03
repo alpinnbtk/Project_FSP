@@ -10,7 +10,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Event</title>
+    <title>Edit Group</title>
 
     <style>
         body {
@@ -42,7 +42,7 @@ session_start();
 </head>
 
 <body>
-    <h2>Edit Event</h2>
+    <h2>Edit Group</h2>
 
     <?php
     $mysqli = new mysqli("localhost", "root", "", "fullstack");
@@ -78,7 +78,7 @@ session_start();
         echo ">Privat</option>";
         echo "</select><br><br>";
 
-        echo "<button type = 'submit' name = 'btnEdit' class='btnEdit'>Edit Event</button><br><br>";
+        echo "<button type = 'submit' name = 'btnEdit' class='btnEdit'>Edit Group</button><br><br>";
     }
 
     echo "<a href='kelola_group_dosen.php?username=" . $_SESSION['username'] . "'>Kembali</a>";
