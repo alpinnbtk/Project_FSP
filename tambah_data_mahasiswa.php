@@ -89,6 +89,8 @@
                   echo "<div style='color:red; font-weight:bold;'>NRP sudah terdaftar sebelumnya!</div>";
             } else if ($_GET['error'] == 'insert') {
                   echo "<div style='color:red; font-weight:bold;'>Gagal menyimpan data!</div>";
+            } else if ($_GET['error'] == 'upload') {
+                  echo "<div style='color:red; font-weight:bold;'>Gagal upload foto!</div>";
             }
       }
       ?>

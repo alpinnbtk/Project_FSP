@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -95,16 +96,15 @@
 <body>
     <h2>Tabel Data Mahasiswa</h2>
     <?php
-    echo "<form method = 'GET' action = 'tabel_data_mahasiswa.php'>";
-    echo "<label> Masukkan NRP / Nama </label>";
-    echo "<input type = 'text' name = 'txtSearch'>";
-    echo "<input type = 'submit' name = 'btnSearch' class='btnSearch'>";
-    echo "";
-    $mysqli = new mysqli("localhost", "root", "", "fullstack");
-    if ($mysqli->connect_errno) {
-        echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-    }
 
+    // $mysqli = new mysqli("localhost", "root", "", "fullstack");
+    // if ($mysqli->connect_errno) {
+    //     echo "Failed to connect to MySQL: " . $mysqli->connect_error;
+    // }
+
+    require_once("Class/mahasiswa.php");
+
+    $mahasiswa = new mahasiswa();
     $limit = 2;
 
     $page = isset($_GET['start']) ? (int)$_GET['start'] : 1;
@@ -116,38 +116,42 @@
     $searched = "";
 
     if (isset($_GET['btnSearch'])) {
-        if (!empty($_GET['txtSearch'])) {  
+        if (!empty($_GET['txtSearch'])) {
             $prompt = $_GET['txtSearch'];
             $searched = "%" . $prompt . "%";
         }
     }
 
+    echo "<form method = 'GET' action = 'tabel_data_mahasiswa.php'>";
+    echo "<label> Masukkan NRP / Nama </label>";
+    echo "<input type = 'text' name = 'txtSearch'>";
+    echo "<input type = 'submit' name = 'btnSearch' class='btnSearch'>";
+    echo "";
 
-    $sql = "SELECT * FROM mahasiswa";
+    // $sql = "SELECT * FROM mahasiswa";
 
-    if (!empty($prompt)) {
-        if (is_numeric($prompt)) {
-            $sql .= " WHERE nrp LIKE ?";
-        } else {
-            $sql .= " WHERE nama LIKE ?";
-        }
-    }
+    // if (!empty($prompt)) {
+    //     if (is_numeric($prompt)) {
+    //         $sql .= " WHERE nrp LIKE ?";
+    //     } else {
+    //         $sql .= " WHERE nama LIKE ?";
+    //     }
+    // }
 
-    if (!is_null($offset)) $sql .= " LIMIT ?,?";
+    // if (!is_null($offset)) $sql .= " LIMIT ?,?";
 
-    $stmt = $mysqli->prepare($sql);
+    // $stmt = $mysqli->prepare($sql);
 
-    if (!empty($searched) && !is_null($offset)) {
-        $stmt->bind_param('sii', $searched, $offset, $limit);
-    } else if (!empty($searched)) {
-        $stmt->bind_param('s', $searched);
-    } else if (empty($searched) && !is_null($offset)) {
-        $stmt->bind_param('ii', $offset, $limit);
-    }
+    // if (!empty($searched) && !is_null($offset)) {
+    //     $stmt->bind_param('sii', $searched, $offset, $limit);
+    // } else if (!empty($searched)) {
+    //     $stmt->bind_param('s', $searched);
+    // } else if (empty($searched) && !is_null($offset)) {
+    //     $stmt->bind_param('ii', $offset, $limit);
+    // }
 
-    $stmt->execute();
-    $res = $stmt->get_result();
-
+    // $stmt->execute();
+    $res = $mahasiswa->getMahasiswa($prompt, $offset, $limit);
 
     if ($res->num_rows > 0) {
         echo "<table> 
@@ -182,26 +186,26 @@
     }
 
 
-    $sql = "SELECT * FROM mahasiswa";
+    // $sql = "SELECT * FROM mahasiswa";
 
-    if (!empty($searched)) {
-        if (is_numeric($searched)) {
-            $sql .= " WHERE nrp LIKE ?";
-        } else {
-            $sql .= " WHERE nama LIKE ?";
-        }
-    }
+    // if (!empty($searched)) {
+    //     if (is_numeric($searched)) {
+    //         $sql .= " WHERE nrp LIKE ?";
+    //     } else {
+    //         $sql .= " WHERE nama LIKE ?";
+    //     }
+    // }
 
-    $stmtPage = $mysqli->prepare($sql);
+    // $stmtPage = $mysqli->prepare($sql);
 
-    if (!empty($searched)) {
-        $stmtPage->bind_param('s', $searched);
-    }
+    // if (!empty($searched)) {
+    //     $stmtPage->bind_param('s', $searched);
+    // }
 
-    $stmtPage->execute();
-    $resPage = $stmtPage->get_result();
+    // $stmtPage->execute();
+    // $resPage = $stmtPage->get_result();
 
-    $total = $resPage->num_rows;
+    $total = $mahasiswa->getTotalData($prompt);
     $total_pages = ceil($total / $limit);
 
     echo "<div id='page'>";

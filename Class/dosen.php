@@ -8,9 +8,10 @@ class dosen extends orangtua
         parent::__construct();
     }
 
-    public function getDosen($keyword_judul, $offset = null, $limit = null)
+    public function getDosen($keyword_judul = '', $offset = null, $limit = null)
     {
         $sql = "select * from dosen";
+        $modified_keyword = '%' . $keyword_judul . '%';
 
         if (!empty($keyword_judul)) {
             if (is_numeric($keyword_judul)) {
@@ -20,16 +21,17 @@ class dosen extends orangtua
             }
         }
 
-        if (!is_null($offset)) $sql .= " limit ?,?";
+        if (!is_null($offset) && !is_null($limit)) {
+            $sql .= " limit ?,?";
+        }
 
         $stmt = $this->mysqli->prepare($sql);
-        $modified_keyword = '%' . $keyword_judul . '%';
 
-        if (!empty($keyword_judul) && !is_null($offset)) {
+        if (!empty($keyword_judul) && !is_null($offset) && !is_null($limit)) {
             $stmt->bind_param('sii', $modified_keyword, $offset, $limit);
         } else if (!empty($keyword_judul)) {
             $stmt->bind_param('s', $modified_keyword);
-        } else if (empty($keyword_judul) && !is_null($offset)) {
+        } else if (empty($keyword_judul) && !is_null($offset) && !is_null($limit)) {
             $stmt->bind_param('ii', $offset, $limit);
         }
 
@@ -41,16 +43,65 @@ class dosen extends orangtua
 
     public function getTotalData($keyword_judul)
     {
-        $res = $this->getDosen($keyword_judul);
-        return $res->num_rows;
+        $sql = "select count(*) as total from dosen";
+        $modified_keyword = '%' . $keyword_judul . '%';
+
+        if (!empty($keyword_judul)) {
+            if (is_numeric($keyword_judul)) {
+                $sql .= " where npk like ?";
+            } else {
+                $sql .= " where nama like ?";
+            }
+        }
+
+        $stmt = $this->mysqli->prepare($sql);
+
+        if (!empty($keyword_judul)) {
+            $stmt->bind_param('s', $modified_keyword);
+        }
+
+        $stmt->execute();
+        $res = $stmt->get_result();
+        $row = $res->fetch_assoc();
+
+        return $row['total'] ? $row['total'] : 0;
     }
 
-    // function insertDosen($arr_col)
-    // {
-    //     $sql = "Insert Into movie (judul, rilis, serial, skor, sinopsis) Values (?,?,?,?,?)";
-    //     $stmt = $this->mysqli->prepare($sql);
-    //     $stmt->bind_param("ssids", $arr_col['judul'], $arr_col['rilis'], $arr_col['serial'], $arr_col['skor'], $arr_col['sinopsis']);
-    //     $stmt->execute();
-    //     return $stmt->insert_id;
-    // }
+    public function insertDosen(array $input)
+    {
+        $sqlCek = "SELECT COUNT(*) FROM dosen WHERE npk = ? ";
+        $stmtCek = $this->mysqli->prepare($sqlCek);
+        $stmtCek->bind_param('s', $input['npk']);
+        $stmtCek->execute();
+        $stmtCek->bind_result($count);
+        $stmtCek->fetch();
+        $stmtCek->close();
+
+        if ($count > 0) {
+            return "duplicate";
+        } else {
+            $sqlDosen = "INSERT INTO dosen (npk, nama, foto_extension) VALUES (?, ?, ?)";
+            $stmtDosen = $this->mysqli->prepare($sqlDosen);
+            $stmtDosen->bind_param('sss', $input['npk'], $input['nama'], $input['ext']);
+
+            if (!$stmtDosen->execute()) {
+                return "gagal_insertDosen";
+            }
+            $stmtDosen->close();
+
+            $sqlAkun = "INSERT INTO akun (username, password, npk_dosen, isadmin)
+            VALUES (?, ?, ?, ?);";
+            $stmtAkun = $this->mysqli->prepare($sqlAkun);
+            $isAdmin = 0;
+
+            $stmtAkun->bind_param('sssi', $input['username'], $input['hash_password'], $input['npk'], $isAdmin);
+
+            if (!$stmtAkun->execute()) {
+                return "gagal_insertAkun";
+            }
+            $stmtAkun->close();
+
+            return "success";
+        }
+    }
 }

@@ -95,15 +95,10 @@
 <body>
     <h2>Tabel Data Dosen</h2>
     <?php
-    echo "<form method = 'GET' action = 'tabel_data_dosen.php'>";
-    echo "<label> Masukkan NPK / Nama </label>";
-    echo "<input type = 'text' name = 'txtSearch'>";
-    echo "<input type = 'submit' name = 'btnSearch' class='btnSearch'>";
-    echo "";
-    $mysqli = new mysqli("localhost", "root", "", "fullstack");
-    if ($mysqli->connect_errno) {
-        echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-    }
+    // $mysqli = new mysqli("localhost", "root", "", "fullstack");
+    // if ($mysqli->connect_errno) {
+    //     echo "Failed to connect to MySQL: " . $mysqli->connect_error;
+    // }
 
     require_once("Class/dosen.php");
 
@@ -125,31 +120,38 @@
         }
     }
 
-    $sql = "select * from dosen";
+    echo "<form method = 'GET' action = 'tabel_data_dosen.php'>";
+    echo "<label> Masukkan NPK / Nama </label>";
+    echo "<input type = 'text' name = 'txtSearch'>";
+    echo "<input type = 'submit' name = 'btnSearch' class='btnSearch'>";
+    echo "";
 
-    if (!empty($prompt)) {
-        if (is_numeric($prompt)) {
-            $sql .= " WHERE npk LIKE ?";
-        } else {
-            $sql .= " WHERE nama LIKE ?";
-        }
-    }
+    // $sql = "select * from dosen";
 
-    if (!is_null($offset)) $sql .= " LIMIT ?,?";
+    // if (!empty($prompt)) {
+    //     if (is_numeric($prompt)) {
+    //         $sql .= " WHERE npk LIKE ?";
+    //     } else {
+    //         $sql .= " WHERE nama LIKE ?";
+    //     }
+    // }
 
-    $stmt = $mysqli->prepare($sql);
+    // if (!is_null($offset)) $sql .= " LIMIT ?,?";
 
-    if (!empty($searched) && !is_null($offset)) {
-        $stmt->bind_param('sii', $searched, $offset, $limit);
-    } else if (!empty($searched)) {
-        $stmt->bind_param('s', $searched);
-    } else if (empty($searched) && !is_null($offset)) {
-        $stmt->bind_param('ii', $offset, $limit);
-    }
+    // $stmt = $mysqli->prepare($sql);
 
-    $stmt->execute();
-    $res = $stmt->get_result();
+    // if (!empty($searched) && !is_null($offset)) {
+    //     $stmt->bind_param('sii', $searched, $offset, $limit);
+    // } else if (!empty($searched)) {
+    //     $stmt->bind_param('s', $searched);
+    // } else if (empty($searched) && !is_null($offset)) {
+    //     $stmt->bind_param('ii', $offset, $limit);
+    // }
 
+    // $stmt->execute();
+    // $res = $stmt->get_result();
+
+    $res = $dosen->getDosen($prompt, $offset, $limit);
 
     if ($res->num_rows > 0) {
         echo "<table> 
@@ -177,26 +179,27 @@
         echo "<p>Tidak ada data ditemukan.</p>";
     }
 
-    $sql = "SELECT * FROM dosen";
+    // $sql = "SELECT * FROM dosen";
 
-    if (!empty($searched)) {
-        if (is_numeric($searched)) {
-            $sql .= " WHERE npk LIKE ?";
-        } else {
-            $sql .= " WHERE nama LIKE ?";
-        }
-    }
+    // if (!empty($searched)) {
+    //     if (is_numeric($searched)) {
+    //         $sql .= " WHERE npk LIKE ?";
+    //     } else {
+    //         $sql .= " WHERE nama LIKE ?";
+    //     }
+    // }
 
-    $stmtPage = $mysqli->prepare($sql);
+    // $stmtPage = $mysqli->prepare($sql);
 
-    if (!empty($searched)) {
-        $stmtPage->bind_param('s', $searched);
-    }
+    // if (!empty($searched)) {
+    //     $stmtPage->bind_param('s', $searched);
+    // }
 
-    $stmtPage->execute();
-    $resPage = $stmtPage->get_result();
+    // $stmtPage->execute();
+    // $resPage = $stmtPage->get_result();
 
-    $total = $resPage->num_rows;
+    $total = $dosen->getTotalData($prompt);
+
     $total_pages = ceil($total / $limit);
 
     echo "<div id='page'>";

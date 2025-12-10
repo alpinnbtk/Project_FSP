@@ -53,12 +53,6 @@
 <body>
     <h2>Tambah Data Dosen</h2>
     <?php
-    $mysqli = new mysqli("localhost", "root", "", "fullstack");
-    if ($mysqli->connect_errno) {
-        echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-        exit();
-    }
-
     echo "<form method = 'POST' action = 'tambah_data_dosen_proses.php?' enctype = 'multipart/form-data'>";
     echo "<label>NPK Dosen : </label>
               <input type = 'text' name = 'txtNPK' maxlength='6' required><br>";
@@ -80,6 +74,8 @@
             echo "<div style='color:red; font-weight:bold;'>NPK sudah terdaftar sebelumnya!</div>";
         } else if ($_GET['error'] == 'insert') {
             echo "<div style='color:red; font-weight:bold;'>Gagal menyimpan data!</div>";
+        } else if ($_GET['error'] == 'upload') {
+            echo "<div style='color:red; font-weight:bold;'>Gagal upload foto!</div>";
         }
     }
     ?>
