@@ -134,5 +134,14 @@ class mahasiswa extends orangtua
         $stmt->close();
     }
 
-    public function deleteMahasiswa() {}
+    public function deleteMahasiswa($nrp)
+    {
+        $sql = "DELETE FROM mahasiswa WHERE nrp = ?";
+        $stmt = $this->mysqli->prepare($sql);
+
+        $stmt->bind_param('i', $nrp);
+
+        return $stmt->execute();
+        $stmt->close();
+    }
 }

@@ -125,4 +125,15 @@ class dosen extends orangtua
         return $stmt->execute();
         $stmt->close();
     }
+
+    public function deleteDosen($npk)
+    {
+        $sql = "DELETE FROM dosen WHERE npk = ?";
+        $stmt = $this->mysqli->prepare($sql);
+
+        $stmt->bind_param('i', $npk);
+
+        return $stmt->execute();
+        $stmt->close();
+    }
 }
