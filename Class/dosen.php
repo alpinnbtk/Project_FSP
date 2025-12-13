@@ -94,7 +94,7 @@ class dosen extends orangtua
             $stmtAkun = $this->mysqli->prepare($sqlAkun);
             $isAdmin = 0;
 
-            $stmtAkun->bind_param('sssi', $input['username'], $input['hash_password'], $input['npk'], $isAdmin);
+            $stmtAkun->bind_param('sssi', $input['username'], $input['password'], $input['npk'], $isAdmin);
 
             if (!$stmtAkun->execute()) {
                 return "gagal_insertAkun";
@@ -103,5 +103,26 @@ class dosen extends orangtua
 
             return "success";
         }
+    }
+
+    public function editDosen(array $data, array $foto)
+    {
+        $npkAwal = $data['npk_awal'];
+        $nama = $data['nama'];
+
+        if (!empty($foto['name'])) {
+            $ext = pathinfo($foto['name'], PATHINFO_EXTENSION);
+
+            $sql = "UPDATE dosen SET nama = ?, foto_extension = ? WHERE npk = ?";
+            $stmt = $this->mysqli->prepare($sql);
+            $stmt->bind_param('sss', $nama, $ext, $npkAwal);
+        } else {
+            $sql = "UPDATE dosen SET nama = ? WHERE npk = ?";
+            $stmt = $this->mysqli->prepare($sql);
+            $stmt->bind_param('ss', $nama, $npkAwal);
+        }
+
+        return $stmt->execute();
+        $stmt->close();
     }
 }

@@ -94,7 +94,7 @@ class mahasiswa extends orangtua
             $stmtAkun = $this->mysqli->prepare($sqlAkun);
             $isAdmin = 0;
 
-            $stmtAkun->bind_param('sssi', $input['username'], $input['hash_password'], $input['npk'], $isAdmin);
+            $stmtAkun->bind_param('sssi', $input['username'], $input['password'], $input['nrp'], $isAdmin);
 
             if (!$stmtAkun->execute()) {
                 return "gagal_insertAkun";
@@ -104,4 +104,35 @@ class mahasiswa extends orangtua
             return "success";
         }
     }
+
+
+    public function editMahasiswa(array $data, array $foto)
+    {
+        $nrpAwal = $data['nrp_awal'];
+        $nama = $data['nama'];
+        $gender = $data['gender'];
+        $tanggalLahir = $data['tanggal_lahir'];
+        $angkatan = $data['angkatan'];
+
+        if (!empty($foto['name'])) {
+            $ext = pathinfo($foto['name'], PATHINFO_EXTENSION);
+
+            $sql = "UPDATE mahasiswa SET nama = ?, gender = ?, tanggal_lahir = ?, angkatan = ?, foto_extention = ? WHERE nrp = ?";
+            $stmt = $this->mysqli->prepare($sql);
+            $stmt->bind_param('ssssss', $nama, $gender, $tanggalLahir, $angkatan, $ext, $nrpAwal);
+        } else {
+            $sql = "UPDATE mahasiswa SET nama = ?, gender = ?, tanggal_lahir = ?, angkatan = ? WHERE nrp = ?";
+            $stmt = $this->mysqli->prepare($sql);
+            $stmt->bind_param('sssss', $nama, $gender, $tanggalLahir, $angkatan, $nrpAwal);
+        }
+
+        // if ($stmt->execute()) {
+        //     return true;
+        // }
+
+        return $stmt->execute();
+        $stmt->close();
+    }
+
+    public function deleteMahasiswa() {}
 }

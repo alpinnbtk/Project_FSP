@@ -68,6 +68,8 @@
 
     require_once("Class/mahasiswa.php");
 
+    $mahasiswa = new mahasiswa();
+
     $nrp    = $_POST['txtNRP'];
     $nama    = $_POST['txtNama'];
     $gender = $_POST['genderMhs'];
@@ -88,7 +90,7 @@
         'angkatan' => $angkatan,
         'ext' => $ext,
         'username' => $username,
-        'password' => $password
+        'password' => $hash_password
     ];
 
     $targetFile = "foto_mahasiswa/" . $nrp . "." . $ext;

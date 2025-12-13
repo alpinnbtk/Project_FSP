@@ -37,8 +37,8 @@
     //     $sql = "INSERT INTO dosen (npk, nama, foto_extension)
     //         VALUES (?, ?, ?)";
 
-    //     $sqlInsertAkun = "INSERT INTO akun (username, password, npk_dosen, isadmin)
-    //         VALUES (?, ?, ?, ?);";
+    // $sqlInsertAkun = "INSERT INTO akun (username, password, npk_dosen, isadmin)
+    //     VALUES (?, ?, ?, ?);";
 
     //     $stmt = $mysqli->prepare($sql);
     //     $stmt->bind_param('sss', $npk, $nama, $ext);
