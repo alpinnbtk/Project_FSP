@@ -1,32 +1,55 @@
 <?php
 session_start();
 
-$mysqli = new mysqli("localhost", "root", "", "fullstack");
-if ($mysqli->connect_errno) {
-    echo "Failed to connect to MySQL: " . $mysqli->connect_error;
+// $mysqli = new mysqli("localhost", "root", "", "fullstack");
+// if ($mysqli->connect_errno) {
+//     echo "Failed to connect to MySQL: " . $mysqli->connect_error;
+// }
+
+// $stmt = $mysqli->prepare('SELECT * FROM akun WHERE username = ?');
+// $stmt->bind_param("s", $_SESSION['username']);
+// $stmt->execute();
+
+// $result = $stmt->get_result();
+// $row = $result->fetch_assoc();
+
+// $is_authenticated = password_verify($_POST['pwdSekarang'], $row['password']);
+
+// if ($is_authenticated) {
+//     $sql = "UPDATE akun SET password = ? WHERE username = ?";
+//     $stmtGanti = $mysqli->prepare($sql);
+
+//     $hash_password = password_hash($_POST['pwdBaru'], PASSWORD_DEFAULT);
+//     $stmtGanti->bind_param("ss", $hash_password, $_SESSION['username']);
+
+//     $stmtGanti->execute();
+
+//     $stmtGanti->close();
+//     $mysqli->close();
+
+//     echo "<h1>Berhasil mengganti password!</h1>";
+//     echo "<br>";
+//     echo "<a href = 'ganti_password.php'>Kembali ke ganti password</a><br>";
+//     echo "<a href = 'home.php'>Kembali ke Home</a>";
+// } else {
+//     echo "<p>Password anda salah!</p>";
+// }
+
+if (!isset($_SESSION['username'])) {
+    header("location: login.php");
 }
 
-$stmt = $mysqli->prepare('SELECT * FROM akun WHERE username = ?');
-$stmt->bind_param("s", $_SESSION['username']);
-$stmt->execute();
+require_once("Class/akun.php");
 
-$result = $stmt->get_result();
-$row = $result->fetch_assoc();
+$akun = new akun();
 
-$is_authenticated = password_verify($_POST['pwdSekarang'], $row['password']);
+$username = $_SESSION['username'];
+$password = $_POST['pwdSekarang'];
+$passwordBaru = $_POST['pwdBaru'];
 
-if ($is_authenticated) {
-    $sql = "UPDATE akun SET password = ? WHERE username = ?";
-    $stmtGanti = $mysqli->prepare($sql);
+$response = $akun->gantiPassword($username, $password, $passwordBaru);
 
-    $hash_password = password_hash($_POST['pwdBaru'], PASSWORD_DEFAULT);
-    $stmtGanti->bind_param("ss", $hash_password, $_SESSION['username']);
-
-    $stmtGanti->execute();
-
-    $stmtGanti->close();
-    $mysqli->close();
-
+if ($response == "success") {
     echo "<h1>Berhasil mengganti password!</h1>";
     echo "<br>";
     echo "<a href = 'ganti_password.php'>Kembali ke ganti password</a><br>";
