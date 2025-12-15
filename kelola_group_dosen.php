@@ -99,18 +99,24 @@ session_start();
 <body>
     <h2>Semua Group</h2>
     <?php
-    $mysqli = new mysqli("localhost", "root", "", "fullstack");
-    if ($mysqli->connect_errno) {
-        echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-    }
+    // $mysqli = new mysqli("localhost", "root", "", "fullstack");
+    // if ($mysqli->connect_errno) {
+    //     echo "Failed to connect to MySQL: " . $mysqli->connect_error;
+    // }
 
-    $sql = "SELECT * FROM grup where username_pembuat = ?";
-    $stmt = $mysqli->prepare($sql);
-    $stmt->bind_param("s", $_SESSION['username']);
-    $stmt->execute();
-    $res = $stmt->get_result();
+    // $sql = "SELECT * FROM grup where username_pembuat = ?";
+    // $stmt = $mysqli->prepare($sql);
+    // $stmt->bind_param("s", $_SESSION['username']);
+    // $stmt->execute();
+    // $res = $stmt->get_result();
 
-    if ($res->num_rows > 0) {
+    require_once("Class/group.php");
+
+    $group = new group();
+
+    $dataGroup = $group->getGroupByUsernamePembuat($_SESSION['username']);
+
+    if ($dataGroup) {
         echo "<table> 
                 <tr> 
                     <th>ID Group</th> 
@@ -122,7 +128,7 @@ session_start();
                     <th>Hapus</th>
                 </tr>";
 
-        while ($row = $res->fetch_assoc()) {
+        while ($row = $dataGroup->fetch_assoc()) {
             echo "<tr>";
             echo "<td>" . $row['idgrup'] . "</td>";
             echo "<td>" . $row['nama'] . "</td>";

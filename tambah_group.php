@@ -77,10 +77,10 @@
     echo "<br><br><a href='home_dosen.php'>Kembali</a>";
     echo "</form>";
 
-    $mysqli = new mysqli("localhost", "root", "", "fullstack");
-    if ($mysqli->connect_errno) {
-        echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-    }
+    // $mysqli = new mysqli("localhost", "root", "", "fullstack");
+    // if ($mysqli->connect_errno) {
+    //     echo "Failed to connect to MySQL: " . $mysqli->connect_error;
+    // }
 
     if (isset($_GET['error'])) {
         if ($_GET['error'] == 'namaGroup') {
