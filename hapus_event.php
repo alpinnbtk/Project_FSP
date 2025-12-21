@@ -1,21 +1,16 @@
 <?php
 session_start();
+require_once("Class/event.php");
 
-$mysqli = new mysqli("localhost", "root", "", "fullstack");
-if ($mysqli->connect_errno) {
-    echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-}
-
-$idevent = $_GET['idevent'];
-$idgroup = $_GET['idgroup'];
-$ext = $_GET['ext'];
+$idevent  = $_GET['idevent'];
+$idgroup  = $_GET['idgroup'];
+$ext      = $_GET['ext'];
 $username = $_SESSION['username'];
 
-$sql = "DELETE FROM event WHERE idevent = ?";
-$stmt = $mysqli->prepare($sql);
-$stmt->bind_param("i", $idevent);
+$event = new event();
+$result = $event->deleteEvent($idevent);
 
-if ($stmt->execute()) {
+if ($result) {
     unlink("foto_poster/" . $idevent . "." . $ext);
 }
 

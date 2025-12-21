@@ -1,20 +1,14 @@
 <?php
 session_start();
-
-$mysqli = new mysqli("localhost", "root", "", "fullstack");
-if ($mysqli->connect_errno) {
-    echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-    exit();
-}
+require_once("Class/member_group.php");
 
 $username = $_SESSION['username'];
-$idgrup = $_GET['idgrup'];
+$idgrup   = $_GET['idgrup'];
 
-$sql = "DELETE FROM member_grup WHERE username = ? AND idgrup = ?";
-$stmt = $mysqli->prepare($sql);
-$stmt->bind_param('ss', $username, $idgrup);
+$member = new member_group();
+$result = $member->keluarGroup($username, $idgrup);
 
-if ($stmt->execute()) {
+if ($result) {
     echo "Berhasil keluar dari group!<br>";
-    echo "<a href = 'home_mahasiswa.php'>Kembali ke Home</a>";
+    echo "<a href='home_mahasiswa.php'>Kembali ke Home</a>";
 }

@@ -1,6 +1,16 @@
 <?php
 session_start();
+require_once("Class/member_group.php");
 
+$idgroup = $_GET['idgrup'];
+$search = "";
+
+if (isset($_GET['btnSearch']) && !empty($_GET['txtSearch'])) {
+    $search = $_GET['txtSearch'];
+}
+
+$member = new member_group();
+$res = $member->getMemberByGroup($idgroup, $search);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,7 +19,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Member Group</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <style>
         body {
             background: #f4f6f9;
@@ -20,8 +30,8 @@ session_start();
             background: #fff;
             padding: 20px 30px;
             border-radius: 10px;
-            text-align: left;
             width: 500px;
+            margin-bottom: 20px;
         }
 
         table,
@@ -33,6 +43,7 @@ session_start();
 
         table {
             border-collapse: collapse;
+            background: white;
         }
 
         th,
@@ -40,21 +51,15 @@ session_start();
             padding: 10px;
         }
 
-        form {
-            margin-bottom: 20px;
-        }
-
         img {
-            width: 150px;
-            height: 200px;
+            width: 80px;
+            height: auto;
         }
-
 
         input {
             border-radius: 6px;
             padding: 10px;
             margin: 6px;
-
         }
 
         .btnSearch {
@@ -62,143 +67,71 @@ session_start();
             color: white;
             padding: 10px 40px;
             border-radius: 6px;
-            margin: 6px;
             font-size: 16px;
         }
 
         .btnSearch:hover {
             background: #45a049;
         }
-
-        #page {
-            margin-top: 70px;
-            text-align: center;
-        }
-
-        #page a {
-            margin: 0 5px;
-            padding: 5px 10px;
-            border: 1px solid green;
-            text-decoration: none;
-            color: green;
-        }
-
-
-        #page a:hover {
-            background-color: #e6ffe6;
-        }
-
-        #page span.active {
-            background-color: #00b900ff;
-            color: white;
-            font-weight: bold;
-            cursor: default;
-            padding: 6px 11px;
-        }
     </style>
 </head>
 
 <body>
-    <?php
-    $mysqli = new mysqli("localhost", "root", "", "fullstack");
-    if ($mysqli->connect_errno) {
-        die("Failed to connect to MySQL: " . $mysqli->connect_error);
-    }
 
-    $idgroup = $_GET['idgrup'];
+    <h2>Anggota Grup</h2>
 
-    $prompt = "";
-    $searched = "";
+    <form method="GET">
+        <input type="hidden" name="idgrup" value="<?= $idgroup ?>">
+        <label>Masukkan Username</label>
+        <input type="text" name="txtSearch">
+        <input type="submit" name="btnSearch" value="Cari" class="btnSearch">
+    </form>
 
-    if (isset($_GET['btnSearch'])) {
-        if (!empty($_GET['txtSearch'])) {
-            $prompt = $_GET['txtSearch'];
-            $searched = "%" . $prompt . "%";
-        }
-    }
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Foto</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php while ($row = $res->fetch_assoc()) {
 
-    $sql =
-        "SELECT 
-            mg.idgrup,
-            mg.username,
-            a.npk_dosen,
-            a.nrp_mahasiswa,
-            d.foto_extension AS foto_dosen,
-            m.foto_extention AS foto_mahasiswa
-        FROM member_grup mg
-        INNER JOIN akun a ON mg.username = a.username
-        LEFT JOIN dosen d ON a.npk_dosen = d.npk
-        LEFT JOIN mahasiswa m ON a.nrp_mahasiswa = m.nrp
-        WHERE mg.idgrup = ?";
+                if (!empty($row['nrp_mahasiswa'])) {
+                    $id = $row['nrp_mahasiswa'];
+                    $foto = $row['foto_mahasiswa'];
+                    $folder = "foto_mahasiswa/";
+                } else {
+                    $id = $row['npk_dosen'];
+                    $foto = $row['foto_dosen'];
+                    $folder = "foto_dosen/";
+                }
+            ?>
+                <tr>
+                    <td><?= $id ?></td>
+                    <td><?= $row['username'] ?></td>
+                    <td>
+                        <?php if (!empty($foto)) { ?>
+                            <img src="<?= $folder . $id . '.' . $foto ?>">
+                        <?php } else { ?>
+                            <i>No Photo</i>
+                        <?php } ?>
+                    </td>
+                    <td>
+                        <a href="hapus_member.php?idgrup=<?= $idgroup ?>&username=<?= $row['username'] ?>">
+                            Keluarkan
+                        </a>
+                    </td>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
 
-    if (!empty($searched)) {
-        $sql .= " AND mg.username LIKE ?";
-    }
+    <br>
+    <a href="kelola_group_dosen.php?username=<?= $_SESSION['username'] ?>">Kembali</a>
 
-    $sql .= " ORDER BY a.npk_dosen DESC;";
-    $stmt = $mysqli->prepare($sql);
-
-    if (!empty($searched)) {
-        $stmt->bind_param('is', $idgroup, $searched);
-    } else {
-        $stmt->bind_param("i", $idgroup);
-    }
-
-    $stmt->execute();
-    $res = $stmt->get_result();
-
-    echo "<h2>Anggota Grup :</h2>";
-
-    echo "<form method='GET' action='anggota_group_dosen.php?idgrup=$idgroup'>";
-    echo "<label> Masukkan Username </label>";
-    echo "<input type = 'text' name = 'txtSearch'>";
-    echo "<input type = 'submit' name = 'btnSearch' class='btnSearch'>";
-    echo "<input type='hidden' name='idgrup' value='$idgroup'>";
-
-    echo "<table>";
-    echo "<thead>";
-    echo "<tr>";
-    echo "<th>ID</th>";
-    echo "<th>Nama (Username)</th>";
-    echo "<th>Foto</th>";
-    echo "<th>Aksi</th>";
-    echo "</tr>";
-    echo "</thead>";
-
-    echo "<tbody>";
-
-    while ($row = $res->fetch_assoc()) {
-
-        if ($row['nrp_mahasiswa']) {
-            $id = $row['nrp_mahasiswa'];
-            $foto = $row['foto_mahasiswa'];
-            $folder = "foto_mahasiswa/";
-        } else {
-            $id = $row['npk_dosen'];
-            $foto = $row['foto_dosen'];
-            $folder = "foto_dosen/";
-        }
-
-        echo "<tr>";
-        echo "<td>" . $id . "</td>";
-        echo "<td>" . $row['username'] . "</td>";
-
-        if ($foto) {
-            echo "<td><img src='{$folder}{$id}.{$foto}' width='80'></td>";
-        } else {
-            echo "<td><i>No Photo</i></td>";
-        }
-
-        echo "<td><a href='hapus_member.php?idgrup=$idgroup&username=" . $row['username'] . "'>Keluarkan</a></td>";
-        echo "</tr>";
-    }
-
-    echo "</tbody>";
-    echo "</table>";
-
-    echo "<a href='kelola_group_dosen.php?username=" . $_SESSION['username'] . "'>Kembali</a>";
-
-    ?>
 </body>
 
 </html>

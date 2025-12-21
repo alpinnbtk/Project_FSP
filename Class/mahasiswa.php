@@ -144,4 +144,33 @@ class mahasiswa extends orangtua
         return $stmt->execute();
         $stmt->close();
     }
+
+    public function getMahasiswaByNRP($nrp)
+    {
+        $sql = "SELECT * FROM mahasiswa WHERE nrp = ?";
+        $stmt = $this->mysqli->prepare($sql);
+        $stmt->bind_param("s", $nrp);
+        $stmt->execute();
+        return $stmt->get_result();
+    }
+
+    public function cariMahasiswa($prompt)
+    {
+        $sql = "SELECT 
+                m.nrp AS id,
+                m.nama,
+                a.username,
+                m.foto_extention
+            FROM mahasiswa m
+            INNER JOIN akun a ON m.nrp = a.nrp_mahasiswa
+            WHERE m.nrp LIKE ? OR m.nama LIKE ?
+            ORDER BY m.nama ASC";
+
+        $stmt = $this->mysqli->prepare($sql);
+        $keyword = "%" . $prompt . "%";
+        $stmt->bind_param("ss", $keyword, $keyword);
+        $stmt->execute();
+
+        return $stmt->get_result();
+    }
 }

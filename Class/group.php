@@ -60,4 +60,88 @@ class group extends orangtua
 
         return $res;
     }
+
+    public function getGroupByMember(string $username)
+    {
+        $sql = "SELECT * 
+            FROM grup g 
+            INNER JOIN member_grup m ON g.idgrup = m.idgrup 
+            WHERE m.username = ?";
+
+        $stmt = $this->mysqli->prepare($sql);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+
+        $res = $stmt->get_result();
+        $stmt->close();
+
+        return $res;
+    }
+
+    public function deleteGroup($idgrup)
+    {
+        $sql = "DELETE FROM grup WHERE idgrup = ?";
+        $stmt = $this->mysqli->prepare($sql);
+        $stmt->bind_param('i', $idgrup);
+
+        $result = $stmt->execute();
+        $stmt->close();
+
+        return $result;
+    }
+
+    public function getPublicGroupNotJoined(string $username)
+    {
+        $sql = "SELECT * FROM grup 
+            WHERE jenis = 'Publik' 
+            AND idgrup NOT IN (
+                SELECT idgrup FROM member_grup WHERE username = ?
+            )";
+
+        $stmt = $this->mysqli->prepare($sql);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+
+        $res = $stmt->get_result();
+        $stmt->close();
+
+        return $res;
+    }
+
+    public function getGroupById($idgrup)
+    {
+        $sql = "SELECT * FROM grup WHERE idgrup = ?";
+        $stmt = $this->mysqli->prepare($sql);
+        $stmt->bind_param("i", $idgrup);
+        $stmt->execute();
+
+        $res = $stmt->get_result();
+        $stmt->close();
+
+        return $res;
+    }
+
+    public function updateGroup($idgrup, $nama, $jenis)
+    {
+        $sql = "UPDATE grup SET nama = ?, jenis = ? WHERE idgrup = ?";
+        $stmt = $this->mysqli->prepare($sql);
+        $stmt->bind_param("ssi", $nama, $jenis, $idgrup);
+
+        $hasil = $stmt->execute();
+        $stmt->close();
+
+        return $hasil;
+    }
+
+    public function getGroupByKode(string $kode)
+    {
+        $sql = "SELECT * FROM grup WHERE kode_pendaftaran = ?";
+        $stmt = $this->mysqli->prepare($sql);
+        $stmt->bind_param("s", $kode);
+        $stmt->execute();
+        $res = $stmt->get_result();
+        $stmt->close();
+
+        return $res;
+    }
 }

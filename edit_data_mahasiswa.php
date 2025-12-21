@@ -1,5 +1,16 @@
+<?php
+require_once("class/mahasiswa.php");
+
+$nrp_mahasiswa = $_GET['nrp'];
+
+$mhs = new mahasiswa();
+$result = $mhs->getMahasiswaByNRP($nrp_mahasiswa);
+$row = $result->fetch_assoc();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +26,6 @@
             background: #fff;
             padding: 20px 30px;
             border-radius: 10px;
-            text-align: left;
             width: 700px;
         }
 
@@ -24,12 +34,12 @@
             height: 200px;
         }
 
-
-        input {
+        input,
+        select {
             border-radius: 6px;
             padding: 10px;
             margin: 6px;
-            width: 30%;
+            width: 40%;
         }
 
         .btnEdit {
@@ -48,52 +58,55 @@
 </head>
 
 <body>
+
     <h2>Edit Data Mahasiswa</h2>
-    <?php
-    $nrp_mahasiswa = $_GET['nrp'];
-    $mysqli = new mysqli("localhost", "root", "", "fullstack");
-    if ($mysqli->connect_errno) {
-        echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-    }
-    $stmt = $mysqli->prepare('SELECT * FROM mahasiswa WHERE nrp = ?');
-    $stmt->bind_param("s", $nrp_mahasiswa);
-    $stmt->execute();
 
-    $result = $stmt->get_result();
+    <?php if ($row): ?>
+        <form method="POST" action="edit_data_mahasiswa_proses.php" enctype="multipart/form-data">
 
-    if ($row = $result->fetch_assoc()) {
-        echo "<form method = 'POST' action = 'edit_data_mahasiswa_proses.php' enctype = 'multipart/form-data'>";
-        echo "<label>NRP Mahasiswa : </label><input type = 'text' value = '" . $row['nrp'] . "' disabled><br>";
-        echo "<input type = 'hidden' value = '" . $row['nrp'] . "' name = 'txtNRP'><br>";
+            <label>NRP Mahasiswa :</label>
+            <input type="text" value="<?= $row['nrp']; ?>" disabled>
+            <input type="hidden" name="nrp_awal" value="<?= $row['nrp']; ?>">
 
+            <br>
 
-        echo "<input type='hidden' name='nrp_awal' value='" . $row['nrp'] . "'>";
-        echo "<label>Nama Mahasiswa : </label><input type = 'text' value = '" . $row['nama'] . "' name = 'txtNama'><br>";
-        echo "<label>Gender Mahasiswa : </label>
-                  <select name = 'genderMhs'>\
-                    <option value = 'Pria'";
-        if ($row['gender'] == 'Pria') {
-            echo "selected";
-        }
-        echo ">Pria</option>";
-        echo   "<option value = 'Wanita'";
-        if ($row['gender'] == 'Wanita') {
-            echo "selected";
-        }
-        echo ">Wanita</option>";
-        echo "</select><br>";
-        echo "<label>Tanggal Lahir : </label><input type = 'date' value = '" . $row['tanggal_lahir'] . "' name = 'txtTanggalLahir'><br>";
-        echo "<label>Angkatan Mahasiswa : </label><input type = 'text' value = '" . $row['angkatan'] . "' name = 'txtAngkatan'><br>";
+            <label>Nama Mahasiswa :</label>
+            <input type="text" name="txtNama" value="<?= $row['nama']; ?>">
 
-        echo "<label>Foto Mahasiswa : </label><br>";
-        echo "<img src = 'foto_mahasiswa/" . $nrp_mahasiswa . "." . $row['foto_extention'] . "' alt = 'Foto Mahasiswa'><br>";
-        echo "<input type = 'file' name = 'fotoBaru' accept='image/jpeg, image/png'><br>";
-        echo "<button type = 'submit' name = 'btnEdit' class='btnEdit'>Edit Data</button>";
-        echo "</form>";
-    } else {
-        echo "Data tidak ditemukan";
-    }
-    ?>
+            <br>
+
+            <label>Gender Mahasiswa :</label>
+            <select name="genderMhs">
+                <option value="Pria" <?= ($row['gender'] == 'Pria') ? 'selected' : ''; ?>>Pria</option>
+                <option value="Wanita" <?= ($row['gender'] == 'Wanita') ? 'selected' : ''; ?>>Wanita</option>
+            </select>
+
+            <br>
+
+            <label>Tanggal Lahir :</label>
+            <input type="date" name="txtTanggalLahir" value="<?= $row['tanggal_lahir']; ?>">
+
+            <br>
+
+            <label>Angkatan Mahasiswa :</label>
+            <input type="text" name="txtAngkatan" value="<?= $row['angkatan']; ?>">
+
+            <br><br>
+
+            <label>Foto Mahasiswa :</label><br>
+            <img src="foto_mahasiswa/<?= $row['nrp'] . '.' . $row['foto_extention']; ?>"><br><br>
+            <input type="file" name="fotoBaru" accept="image/jpeg, image/png">
+
+            <br><br>
+
+            <button type="submit" name="btnEdit" class="btnEdit">Edit Data</button>
+
+        </form>
+
+    <?php else: ?>
+        <p>Data tidak ditemukan.</p>
+    <?php endif; ?>
+
 </body>
 
 </html>

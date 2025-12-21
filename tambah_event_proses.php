@@ -1,60 +1,51 @@
 <?php
 session_start();
-
-$mysqli = new mysqli("localhost", "root", "", "fullstack");
-if ($mysqli->connect_errno) {
-    echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-    exit();
-}
+require_once("Class/event.php");
 
 $username = $_SESSION['username'];
-$idgroup = $_POST['idgrup'];
+$idgroup  = $_POST['idgrup'];
 
-$judul = $_POST['txtJudul'];
-$tanggal = $_POST['txtTanggal'];
-$waktu = $_POST['txtWaktu'];
+$judul      = $_POST['txtJudul'];
+$tanggal    = $_POST['txtTanggal'];
+$waktu      = $_POST['txtWaktu'];
 $keterangan = $_POST['txtKeterangan'];
-$jenis = $_POST['jenisEvent'];
+$jenis      = $_POST['jenisEvent'];
 $poster     = $_FILES['fotoPoster'];
 
-
 if (empty($poster['name'])) {
-    echo "No file selected!";
+    header("location: tambah_event.php?error=upload");
     exit();
 }
 
 $ext = pathinfo($poster['name'], PATHINFO_EXTENSION);
 
-$sql = "SELECT COUNT(*) FROM event WHERE judul = ? and tanggal = ?";
-$cek = $mysqli->prepare($sql);
-$cek->bind_param('ss', $judul, $tanggal);
-$cek->execute();
-$cek->bind_result($count);
-$cek->fetch();
-$cek->close();
+$judulSlug   = strtolower(str_replace(" ", "-", $judul));
+$tanggalEvent = $tanggal . " " . $waktu;
 
+$data = [
+    'idgrup' => $idgroup,
+    'judul' => $judul,
+    'slug' => $judulSlug,
+    'tanggal' => $tanggal,
+    'tanggal_event' => $tanggalEvent,
+    'keterangan' => $keterangan,
+    'jenis' => $jenis,
+    'ext' => $ext
+];
 
-if ($count > 0) {
+$event = new event();
+$result = $event->insertEvent($data);
+
+if ($result === "duplicate") {
     header("location: tambah_event.php?error=judul");
     exit();
-} else {
-    $judulSlug = strtolower(str_replace(" ", "-", $judul));
-    $tanggalEvent = $tanggal . " " . $waktu;
-
-    $sql = "INSERT INTO event (idgrup, judul, `judul-slug`, tanggal, keterangan, jenis, poster_extension)
-            VALUES (?, ?, ?, ?, ?, ?, ?)";
-
-    $stmt = $mysqli->prepare($sql);
-    $stmt->bind_param('sssssss', $idgroup, $judul, $judulSlug, $tanggalEvent, $keterangan, $jenis, $ext);
-
-    if ($stmt->execute()) {
-        $idevent = $stmt->insert_id;
-        move_uploaded_file($poster['tmp_name'], "foto_poster/" . $idevent . "." . $ext);
-
-        echo "Data berhasil disimpan!";
-    } else {
-        header("location: tambah_event.php?error=insert");
-    }
-
-    header("location: detail_group_dosen.php?idgrup=$idgroup&username=$username");
+} else if ($result === "gagal") {
+    header("location: tambah_event.php?error=insert");
+    exit();
 }
+
+// UPLOAD POSTER
+$targetFile = "foto_poster/" . $result . "." . $ext;
+move_uploaded_file($poster['tmp_name'], $targetFile);
+
+header("location: detail_group_dosen.php?idgrup=$idgroup&username=$username");

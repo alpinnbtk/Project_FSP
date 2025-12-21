@@ -1,29 +1,17 @@
 <?php
 session_start();
-
-$mysqli = new mysqli("localhost", "root", "", "fullstack");
-if ($mysqli->connect_errno) {
-    echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-    exit();
-}
+require_once("Class/group.php");
 
 $username = $_SESSION['username'];
-$idgrup = $_POST["idgrup"];
-$nama = $_POST['txtNama'];
-$jenis = $_POST['jenisGroup'];
+$idgrup   = $_POST['idgrup'];
+$nama     = $_POST['txtNama'];
+$jenis    = $_POST['jenisGroup'];
 
-$sql = "UPDATE grup SET nama = ?, jenis = ? WHERE idgrup = ?";
-$stmt = $mysqli->prepare($sql);
-$stmt->bind_param('sss', $nama, $jenis, $idgrup);
+$group = new group();
 
-
-if ($stmt->execute()) {
-    echo "Data berhasil diubah!<br>";
+if ($group->updateGroup($idgrup, $nama, $jenis)) {
     header("location: kelola_group_dosen.php?username=$username");
+    exit();
 } else {
-    echo "Error: " . $stmt->error . "<br>";
+    echo "Gagal mengubah data group!";
 }
-
-
-$stmt->close();
-$mysqli->close();

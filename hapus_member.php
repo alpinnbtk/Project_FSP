@@ -1,15 +1,10 @@
 <?php
-$mysqli = new mysqli("localhost", "root", "", "fullstack");
-if ($mysqli->connect_errno) {
-    echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-}
+require_once("Class/member_group.php");
 
 $username = $_GET['username'];
-$idgrup = $_GET['idgrup'];
+$idgrup   = $_GET['idgrup'];
 
-$sql = "DELETE FROM member_grup WHERE username = ?";
-$stmt = $mysqli->prepare($sql);
-$stmt->bind_param("s", $username);
-$stmt->execute();
+$member = new member_group();
+$member->hapusMember($username);
 
 header("location: anggota_group_dosen.php?idgrup=$idgrup");

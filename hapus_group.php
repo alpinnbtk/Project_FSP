@@ -6,31 +6,23 @@
     <title>Hapus Group</title>
 </head>
 <body>
-    <h2> Hapus Group</h2><br>
+    <h2>Hapus Group</h2><br>
+
     <?php
-        $idgroup = $_GET['idgrup'];
-        
-        $mysqli = new mysqli("localhost", "root", "", "fullstack");
-        if ($mysqli->connect_errno) {
-            echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-            exit();
-        }
+    require_once("Class/group.php");
 
-        $sql = "DELETE FROM grup WHERE idgrup = ?";
-        $stmt = $mysqli->prepare($sql);
+    $idgroup = $_GET['idgrup'];
 
-        $stmt->bind_param('i', $idgroup);
+    $group = new group();
+    $result = $group->deleteGroup($idgroup);
 
-        if ($stmt->execute()) {
-            echo "Data berhasil dihapus!";
-        } else {
-            echo "Error: " . $stmt->error;
-        }
+    if ($result) {
+        echo "Data berhasil dihapus!";
+    } else {
+        echo "Gagal menghapus data!";
+    }
 
-        $stmt->close();
-        $mysqli->close();
-
-        header("location: kelola_group_dosen.php");
+    header("location: kelola_group_dosen.php");
     ?>
 </body>
 </html>

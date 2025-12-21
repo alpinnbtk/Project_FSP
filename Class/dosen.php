@@ -136,4 +136,24 @@ class dosen extends orangtua
         return $stmt->execute();
         $stmt->close();
     }
+
+    public function cariDosen($prompt)
+    {
+        $sql = "SELECT 
+                d.npk AS id,
+                d.nama,
+                a.username,
+                d.foto_extension
+            FROM dosen d
+            INNER JOIN akun a ON d.npk = a.npk_dosen
+            WHERE d.npk LIKE ? OR d.nama LIKE ?
+            ORDER BY d.nama ASC";
+
+        $stmt = $this->mysqli->prepare($sql);
+        $keyword = "%" . $prompt . "%";
+        $stmt->bind_param("ss", $keyword, $keyword);
+        $stmt->execute();
+
+        return $stmt->get_result();
+    }
 }
