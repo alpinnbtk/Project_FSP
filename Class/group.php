@@ -90,7 +90,7 @@ class group extends orangtua
         return $result;
     }
 
-    public function getPublicGroupNotJoined(string $username)
+    public function getGroupPublik(string $username)
     {
         $sql = "SELECT * FROM grup 
             WHERE jenis = 'Publik' 
@@ -114,11 +114,9 @@ class group extends orangtua
         $stmt = $this->mysqli->prepare($sql);
         $stmt->bind_param("i", $idgrup);
         $stmt->execute();
-
         $res = $stmt->get_result();
-        $stmt->close();
 
-        return $res;
+        return $res->fetch_assoc();
     }
 
     public function updateGroup($idgrup, $nama, $jenis)

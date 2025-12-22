@@ -17,7 +17,7 @@ require_once("Class/group.php");
 
         <?php
         $group = new group();
-        $res = $group->getPublicGroupNotJoined($_SESSION['username']);
+        $res = $group->getGroupPublik($_SESSION['username']);
 
         if ($res->num_rows > 0) {
             echo "<table> 

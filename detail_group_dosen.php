@@ -95,37 +95,48 @@ session_start();
 <body>
 
     <?php
-    $mysqli = new mysqli("localhost", "root", "", "fullstack");
-    if ($mysqli->connect_errno) {
-        echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-    }
+    // $mysqli = new mysqli("localhost", "root", "", "fullstack");
+    // if ($mysqli->connect_errno) {
+    //     echo "Failed to connect to MySQL: " . $mysqli->connect_error;
+    // }
+
+    require_once("Class/group.php");
+    require_once("Class/member_group.php");
+    require_once("Class/event.php");
+
+    $group = new group();
+    $memberGroup = new member_group();
+    $event = new event();
 
     $idgroup = $_GET['idgrup'];
     $username = $_GET['username'];
 
-    $sql = "SELECT * FROM grup where idgrup = ?";
-    $stmt = $mysqli->prepare($sql);
-    $stmt->bind_param('i', $idgroup);
-    $stmt->execute();
-    $res = $stmt->get_result();
+    // $sql = "SELECT * FROM grup where idgrup = ?";
+    // $stmt = $mysqli->prepare($sql);
+    // $stmt->bind_param('i', $idgroup);
+    // $stmt->execute();
+    // $res = $stmt->get_result();
+    $dataGroup = $group->getGroupById($idgroup);
 
-    if ($row = $res->fetch_assoc()) {
+    if ($dataGroup) {
 
-        $sql2 = "SELECT COUNT(*) FROM member_grup where idgrup = ?";
-        $stmt2 = $mysqli->prepare($sql2);
-        $stmt2->bind_param('i', $idgroup);
-        $stmt2->execute();
-        $stmt2->bind_result($count);
-        $stmt2->fetch();
-        $stmt2->close();
+        $dataCount = $memberGroup->countMember($idgroup);
+
+        // $sql2 = "SELECT COUNT(*) FROM member_grup where idgrup = ?";
+        // $stmt2 = $mysqli->prepare($sql2);
+        // $stmt2->bind_param('i', $idgroup);
+        // $stmt2->execute();
+        // $stmt2->bind_result($count);
+        // $stmt2->fetch();
+        // $stmt2->close();
 
         echo "<div class='detail-box'>";
-        echo "<h2>Grup " . $row['nama'] . "</h2>";
-        echo "<h3><b>Dibuat Oleh:</b> " . $row['username_pembuat'] . "</h3>";
-        echo "<h3><b>Tanggal Dibuat:</b> " . $row['tanggal_pembentukan'] . "</h3>";
-        echo "<h3><b>Deskripsi:</b> " . $row['deskripsi'] . "</h3>";
-        echo "<h3><b>Kode Pendaftaran:</b> " . $row['kode_pendaftaran'] . "</h3>";
-        echo "<h3><b>Jumlah Anggota:</b> " . $count . "</h3>";
+        echo "<h2>Grup " . $dataGroup['nama'] . "</h2>";
+        echo "<h3><b>Dibuat Oleh:</b> " . $dataGroup['username_pembuat'] . "</h3>";
+        echo "<h3><b>Tanggal Dibuat:</b> " . $dataGroup['tanggal_pembentukan'] . "</h3>";
+        echo "<h3><b>Deskripsi:</b> " . $dataGroup['deskripsi'] . "</h3>";
+        echo "<h3><b>Kode Pendaftaran:</b> " . $dataGroup['kode_pendaftaran'] . "</h3>";
+        echo "<h3><b>Jumlah Anggota:</b> " . $dataCount . "</h3>";
         echo "</div>";
     }
     ?>
@@ -167,13 +178,15 @@ session_start();
                 <a href="tambah_event.php?idgroup=<?php echo $idgroup ?>">Tambah Event</a>
 
                 <?php
-                $sqlEvent = "SELECT * FROM event WHERE idgrup = ?";
-                $stmtEvent = $mysqli->prepare($sqlEvent);
-                $stmtEvent->bind_param('i', $idgroup);
-                $stmtEvent->execute();
-                $resEvent = $stmtEvent->get_result();
+                // $sqlEvent = "SELECT * FROM event WHERE idgrup = ?";
+                // $stmtEvent = $mysqli->prepare($sqlEvent);
+                // $stmtEvent->bind_param('i', $idgroup);
+                // $stmtEvent->execute();
+                // $resEvent = $stmtEvent->get_result();
 
-                if ($resEvent->num_rows > 0) {
+                $dataEvent = $event->getEventByGroupId($idgroup);
+
+                if ($dataEvent->num_rows > 0) {
                     echo "<table style='width:100%; margin-top:15px;'>
                 <tr>
                     <th>ID Event</th>
@@ -186,7 +199,7 @@ session_start();
                     <th>Hapus</th>
                 </tr>";
 
-                    while ($rowEvent = $resEvent->fetch_assoc()) {
+                    while ($rowEvent = $dataEvent->fetch_assoc()) {
                         echo "<tr>";
                         echo "<td>" . $rowEvent['idevent'] . "</td>";
                         echo "<td><img src='foto_poster/" . $rowEvent['idevent'] . "." . $rowEvent['poster_extension'] . "'></td>";

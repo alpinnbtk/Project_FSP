@@ -72,6 +72,18 @@ class event extends orangtua
         return $result;
     }
 
+    public function getEventByGroupId($idgroup)
+    {
+        $sql = "SELECT * FROM event WHERE idgrup = ?";
+        $stmt = $this->mysqli->prepare($sql);
+        $stmt->bind_param("i", $idgroup);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+
+        return $result;
+    }
+
     public function updateEvent(
         $idevent,
         $judul,

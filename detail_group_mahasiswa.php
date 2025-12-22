@@ -15,6 +15,7 @@ $member = new member_group();
 <head>
     <meta charset="UTF-8">
     <title>Detail Grup</title>
+
 </head>
 
 <body>
@@ -22,15 +23,15 @@ $member = new member_group();
     <?php
     $res = $group->getGroupById($idgrup);
 
-    if ($row = $res->fetch_assoc()) {
+    if ($res) {
         $jumlah = $member->countMember($idgrup);
 
-        echo "<h2>Detail Grup: {$row['nama']}</h2>";
+        echo "<h2>Detail Grup: " . $res['nama'] . "</h2>";
         echo "<ul>";
-        echo "<li>Dibuat Oleh: {$row['username_pembuat']}</li>";
-        echo "<li>Tanggal Dibuat: {$row['tanggal_pembentukan']}</li>";
-        echo "<li>Deskripsi: {$row['deskripsi']}</li>";
-        echo "<li>Kode Pendaftaran: {$row['kode_pendaftaran']}</li>";
+        echo "<li>Dibuat Oleh: " . $res['username_pembuat'] . "</li>";
+        echo "<li>Tanggal Dibuat: " . $res['tanggal_pembentukan'] . "</li>";
+        echo "<li>Deskripsi: " . $res['deskripsi'] . "</li>";
+        echo "<li>Kode Pendaftaran: " . $res['kode_pendaftaran'] . "</li>";
         echo "<li>Jumlah Anggota: $jumlah</li>";
         echo "</ul>";
     }

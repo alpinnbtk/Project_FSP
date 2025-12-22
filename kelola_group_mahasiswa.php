@@ -9,6 +9,24 @@ require_once("Class/group.php");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kelola Group Mahasiswa</title>
+    <style>
+        table,
+        th,
+        tr,
+        td {
+            border: 1px solid black;
+        }
+
+        table {
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th,
+        td {
+            padding: 10px;
+        }
+    </style>
 </head>
 
 <body>
@@ -31,13 +49,13 @@ require_once("Class/group.php");
 
         while ($row = $res->fetch_assoc()) {
             echo "<tr>";
-            echo "<td>{$row['idgrup']}</td>";
-            echo "<td>{$row['nama']}</td>";
+            echo "<td>" . $row['idgrup'] . "</td>";
+            echo "<td>" . $row['nama'] . "</td>";
 
-            echo "<td><a href='detail_group_mahasiswa.php?idgrup={$row['idgrup']}&username={$_SESSION['username']}'>Detail Group</a></td>";
-            echo "<td><a href='anggota_group_mahasiswa.php?idgrup={$row['idgrup']}'>Lihat Anggota Group</a></td>";
-            echo "<td><a href='event_group_mahasiswa.php?idgrup={$row['idgrup']}'>Event Group</a></td>";
-            echo "<td><a href='keluar_group.php?idgrup={$row['idgrup']}'>Keluar dari Group</a></td>";
+            echo "<td><a href='detail_group_mahasiswa.php?idgrup=" . $row['idgrup'] . "&username=" . $_SESSION['username'] . "'>Detail Group</a></td>";
+            echo "<td><a href='anggota_group_mahasiswa.php?idgrup=" . $row['idgrup'] . "'>Lihat Anggota Group</a></td>";
+            echo "<td><a href='event_group_mahasiswa.php?idgrup=" . $row['idgrup'] . "'>Event Group</a></td>";
+            echo "<td><a href='keluar_group.php?idgrup=" . $row['idgrup'] . "'>Keluar dari Group</a></td>";
             echo "</tr>";
         }
         echo "</table>";
