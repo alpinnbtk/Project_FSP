@@ -21,23 +21,23 @@ require_once("Class/group.php");
     $group = new group();
     $result = $group->getGroupById($idgrup);
 
-    if ($row = $result->fetch_assoc()) {
+    if ($result) {
         echo "<form method='POST' action='edit_group_proses.php?idgrup=$idgrup'>";
-        echo "<input name='idgrup' type='hidden' value='{$row['idgrup']}'><br>";
+        echo "<input name='idgrup' type='hidden' value='" . $result['idgrup'] . "'><br>";
 
         echo "<label>Nama Group : </label>
-              <input name='txtNama' type='text' value='{$row['nama']}'><br>";
+              <input name='txtNama' type='text' value='" . $result['nama'] . "'><br>";
 
         echo "<label>Jenis Group : </label>
               <select name='jenisGroup'>
-                <option value='Publik' " . ($row['jenis'] == 'Publik' ? 'selected' : '') . ">Publik</option>
-                <option value='Privat' " . ($row['jenis'] == 'Privat' ? 'selected' : '') . ">Privat</option>
+                <option value='Publik' " . ($result['jenis'] == 'Publik' ? 'selected' : '') . ">Publik</option>
+                <option value='Privat' " . ($result['jenis'] == 'Privat' ? 'selected' : '') . ">Privat</option>
               </select><br><br>";
 
         echo "<button type='submit' name='btnEdit'>Edit Group</button><br><br>";
     }
 
-    echo "<a href='kelola_group_dosen.php?username={$_SESSION['username']}'>Kembali</a>";
+    echo "<a href='kelola_group_dosen.php?username=" . $_SESSION['username'] . "'>Kembali</a>";
     ?>
 </body>
 

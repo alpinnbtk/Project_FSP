@@ -32,12 +32,12 @@ require_once("Class/group.php");
 
             while ($row = $res->fetch_assoc()) {
                 echo "<tr>";
-                echo "<td>{$row['idgrup']}</td>";
-                echo "<td>{$row['nama']}</td>";
-                echo "<td>{$row['deskripsi']}</td>";
-                echo "<td>{$row['tanggal_pembentukan']}</td>";
-                echo "<td>{$row['jenis']}</td>";
-                echo "<td>{$row['kode_pendaftaran']}</td>";
+                echo "<td>" . $row['idgrup'] . "</td>";
+                echo "<td>" . $row['nama'] . "</td>";
+                echo "<td>" . $row['deskripsi'] . "</td>";
+                echo "<td>" . $row['tanggal_pembentukan'] . "</td>";
+                echo "<td>" . $row['jenis'] . "</td>";
+                echo "<td>" . $row['kode_pendaftaran'] . "</td>";
                 echo "</tr>";
             }
             echo "</table>";

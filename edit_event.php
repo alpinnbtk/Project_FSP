@@ -75,7 +75,7 @@
               </select><br>";
 
         echo "<label>Foto Poster : </label><br>";
-        echo "<img src='foto_poster/{$row['idevent']}.{$row['poster_extension']}'><br>";
+        echo "<img src='foto_poster/" . $row['idevent'] . $row['poster_extension'] . "'><br>";
         echo "<input type='file' name='posterBaru' accept='image/jpeg, image/png'><br>";
 
         echo "<button type='submit' name='btnEdit'>Edit Event</button>";

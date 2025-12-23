@@ -108,16 +108,6 @@ class group extends orangtua
         return $res;
     }
 
-    public function getGroupById($idgrup)
-    {
-        $sql = "SELECT * FROM grup WHERE idgrup = ?";
-        $stmt = $this->mysqli->prepare($sql);
-        $stmt->bind_param("i", $idgrup);
-        $stmt->execute();
-        $res = $stmt->get_result();
-
-        return $res->fetch_assoc();
-    }
 
     public function updateGroup($idgrup, $nama, $jenis)
     {
