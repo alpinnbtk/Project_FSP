@@ -18,4 +18,12 @@ class chat extends orangtua
 
         return $res;
     }
+
+    public function kirimChat($idthread, $username, $isi)
+    {
+        $sql = "INSERT INTO chat (idthread, username_pembuat, isi, tanggal_pembuatan) VALUES (?, ?, ?, now());";
+        $stmt   = $this->mysqli->prepare($sql);
+        $stmt->bind_param("iss", $idthread, $username, $isi);
+        return $stmt->execute();
+    }
 }

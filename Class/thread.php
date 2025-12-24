@@ -19,6 +19,17 @@ class thread extends orangtua
         return $res;
     }
 
+    public function getThreadById($idthread)
+    {
+        $sql = "SELECT * FROM thread WHERE idthread = ?";
+        $stmt = $this->mysqli->prepare($sql);
+        $stmt->bind_param("i", $idthread);
+        $stmt->execute();
+        $res = $stmt->get_result();
+
+        return $res->fetch_assoc();
+    }
+
     public function tambahThread($idgrup, $username)
     {
         $sql = "INSERT INTO thread (idgrup, username_pembuat, tanggal_pembuatan, status) VALUES (?, ?, now(), 'Open');";

@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <style>
         table,
@@ -32,41 +33,36 @@
     session_start();
 
     require_once("Class/chat.php");
+    require_once("Class/thread.php");
+
     $chat = new chat();
+    $thread = new thread();
 
     $idThread = $_GET['idthread'];
-
     $dataChat = $chat->getChat($idThread);
 
-    if ($dataChat) {
-        echo "<table> 
-                <tr> 
-                    <th>ID Chat</th> 
-                    <th>Username Pembuat</th> 
-                    <th>Isi</th>
-                    <th>Tanggal Pembuatan</th> 
-                </tr>";
+    $dataThread = $thread->getThreadById($idThread);
+    $statusThread = $dataThread['status'];
 
-        while ($row = $dataChat->fetch_assoc()) {
-            echo "<tr>";
-            echo "<td>" . $row['idchat'] . "</td>";
-            echo "<td>" . $row['username_pembuat'] . "</td>";
-            echo "<td>" . $row['isi'] . "</td>";
-            echo "<td>" . $row['tanggal_pembuatan'] . "</td>";
-
-            echo "<td><a href='lihat_chat.php?idthread=" .  $row['idthread'] . "'>Lihat Chat</a></td>";
-
-            if ($row['username_pembuat'] == $_SESSION['username']) {
-                echo "<td><a href='close_thread.php?idthread=" .  $row['idthread'] . "'>Hapus Thread</a></td>";
-            } else {
-                echo "<td>Tidak ada</td>";
-            }
-            echo "</tr>";
-        }
-    }
     ?>
 
-    <a href="buat_thread.php">Buat Thread</a>
+    <a href="lihat_thread.php?idgrup=<?php echo $dataThread['idgrup'] ?>">Kembali</a>
+
+
+    <div id="chat-box">
+    </div>
+
+    <?php
+    if ($statusThread == "Open") {
+        echo "<div class='chatInput'>";
+        echo "<input type='text' id='txtChat' placeholder='Ketik chat'>";
+        echo "<button id='btnKirim'>Kirim</button>";
+        echo "</div>";
+    } else {
+        echo "Ditutup Oeyy!";
+    }
+
+    ?>
 
 </body>
 
