@@ -28,7 +28,7 @@
             display: flex;
             flex-direction: column;
 
-            margin-bottom: 20px;
+            margin-bottom: 40px;
             padding: 10px;
         }
 
@@ -44,7 +44,7 @@
         .chatLain {
             align-self: flex-start;
             background-color: #d8d8d8ff;
-            border: 1px solid #ccc;
+            margin: 10px 0px;
             padding: 10px;
             border-radius: 10px;
             max-width: 70%;
@@ -57,6 +57,42 @@
         #waktuKirim {
             font-size: 12px;
             text-align: right;
+        }
+
+        input {
+            border-radius: 6px;
+            padding: 10px;
+            margin: 6px;
+
+        }
+
+        #txtChat {
+            flex: 1;
+
+        }
+
+        .btnKirim {
+            background: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            margin: 6px;
+            font-size: 16px;
+        }
+
+        .chatInput {
+            display: flex;
+            justify-content: center;
+            position: fixed;
+            bottom: 5px;
+            left: 0;
+            width: 100%;
+        }
+
+        #warning {
+            color: red;
+            font-weight: 600;
+            text-align: center;
         }
     </style>
 </head>
@@ -93,10 +129,10 @@
     if ($statusThread == "Open") {
         echo "<div class='chatInput'>";
         echo "<input type='text' id='txtChat' placeholder='Ketik chat'>";
-        echo "<button id='btnKirim'>Kirim</button>";
+        echo "<button class='btnKirim'>Kirim</button>";
         echo "</div>";
     } else {
-        echo "Thread ini telah ditutup!";
+        echo "<p id='warning'>Thread ini telah ditutup!</p>";
     }
 
     ?>
@@ -116,8 +152,16 @@
                     var tipeChat = item.username_pembuat == username ? "chatUser" : "chatLain";
 
                     html += "<div class='" + tipeChat + "'>";
-                    html += "<p id='username'>" + item.username_pembuat + "</p>";
-                    html += "<span>" + item.isi + "</span>";
+
+                    if (item.nama_dosen == null) {
+                        html += "<p id='username'>" + item.nama_mahasiswa + "</p>";
+
+                    } else {
+                        html += "<p id='username'>" + item.nama_dosen + "</p>";
+
+                    }
+                    // html += "<p id='username'>" + item.username_pembuat + "</p>";
+                    html += "<p>" + item.isi + "</p>";
                     html += "<p id='waktuKirim'>" + item.tanggal_pembuatan + "</p>";
                     html += "</div>";
                 });
@@ -129,7 +173,7 @@
         setInterval(ambilChat, 2000);
         ambilChat();
 
-        $('body').on('click', '#btnKirim', function() {
+        $('body').on('click', '.btnKirim', function() {
             var chat = $("#txtChat").val();
 
             if (chat.trim() != "") {

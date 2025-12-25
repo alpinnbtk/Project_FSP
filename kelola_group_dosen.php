@@ -114,7 +114,7 @@ session_start();
 
     $group = new group();
 
-    $dataGroup = $group->getGroupByUsernamePembuat($_SESSION['username']);
+    $dataGroup = $group->getGroupByMember($_SESSION['username']);
 
     if ($dataGroup) {
         echo "<table> 

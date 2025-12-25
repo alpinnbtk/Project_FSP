@@ -77,7 +77,10 @@
     }
     ?>
 
+    <a href="kelola_group_dosen.php?username=<?php echo $_SESSION['username'] ?>">Kembali</a>
+    <br>
     <a href="tambah_thread.php?idgrup=<?php echo $idGroup ?>">Buat Thread</a>
+
 
 </body>
 

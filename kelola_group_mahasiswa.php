@@ -44,6 +44,7 @@ require_once("Class/group.php");
                     <th>Detail</th> 
                     <th>Anggota</th>
                     <th>Event</th>
+                    <th>Thread</th>
                     <th>Aksi</th>
                 </tr>";
 
@@ -55,6 +56,7 @@ require_once("Class/group.php");
             echo "<td><a href='detail_group_mahasiswa.php?idgrup=" . $row['idgrup'] . "&username=" . $_SESSION['username'] . "'>Detail Group</a></td>";
             echo "<td><a href='anggota_group_mahasiswa.php?idgrup=" . $row['idgrup'] . "'>Lihat Anggota Group</a></td>";
             echo "<td><a href='event_group_mahasiswa.php?idgrup=" . $row['idgrup'] . "'>Event Group</a></td>";
+            echo "<td><a href='lihat_thread.php?idgrup=" .  $row['idgrup'] . "'>Lihat Thread</a></td>";
             echo "<td><a href='keluar_group.php?idgrup=" . $row['idgrup'] . "'>Keluar dari Group</a></td>";
             echo "</tr>";
         }
