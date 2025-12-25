@@ -10,7 +10,7 @@ class chat extends orangtua
 
     public function getChat($idthread)
     {
-        $sql = "SELECT * FROM chat WHERE idthread = ? ORDER BY tanggal_pembuatan ASC";
+        $sql = "SELECT idthread, username_pembuat, isi, TIME(tanggal_pembuatan) AS tanggal_pembuatan FROM chat WHERE idthread = ? ORDER BY tanggal_pembuatan ASC";
         $stmt = $this->mysqli->prepare($sql);
         $stmt->bind_param("i", $idthread);
         $stmt->execute();

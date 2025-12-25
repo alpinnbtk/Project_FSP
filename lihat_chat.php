@@ -23,6 +23,41 @@
         td {
             padding: 10px;
         }
+
+        #chatBox {
+            display: flex;
+            flex-direction: column;
+
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+
+        .chatUser {
+            align-self: flex-end;
+            margin: 10px 0px;
+            background-color: #dcf8c6;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 70%;
+        }
+
+        .chatLain {
+            align-self: flex-start;
+            background-color: #d8d8d8ff;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 70%;
+        }
+
+        #username {
+            font-weight: 600;
+        }
+
+        #waktuKirim {
+            font-size: 12px;
+            text-align: right;
+        }
     </style>
 </head>
 
@@ -39,17 +74,19 @@
     $thread = new thread();
 
     $idThread = $_GET['idthread'];
-    $dataChat = $chat->getChat($idThread);
+    // $dataChat = $chat->getChat($idThread);
 
     $dataThread = $thread->getThreadById($idThread);
     $statusThread = $dataThread['status'];
+
+    $username = $_SESSION['username'];
 
     ?>
 
     <a href="lihat_thread.php?idgrup=<?php echo $dataThread['idgrup'] ?>">Kembali</a>
 
 
-    <div id="chat-box">
+    <div id="chatBox">
     </div>
 
     <?php
@@ -59,10 +96,53 @@
         echo "<button id='btnKirim'>Kirim</button>";
         echo "</div>";
     } else {
-        echo "Ditutup Oeyy!";
+        echo "Thread ini telah ditutup!";
     }
 
     ?>
+
+    <script>
+        var id_thread = <?php echo $idThread; ?>;
+        var username = "<?php echo $username; ?>";
+
+        function ambilChat() {
+            $.post("ambil_chat.php", {
+                idthread: id_thread
+            }, function(data) {
+                var listChat = JSON.parse(data);
+                var html = "";
+
+                $.each(listChat, function(i, item) {
+                    var tipeChat = item.username_pembuat == username ? "chatUser" : "chatLain";
+
+                    html += "<div class='" + tipeChat + "'>";
+                    html += "<p id='username'>" + item.username_pembuat + "</p>";
+                    html += "<span>" + item.isi + "</span>";
+                    html += "<p id='waktuKirim'>" + item.tanggal_pembuatan + "</p>";
+                    html += "</div>";
+                });
+
+                $("#chatBox").html(html);
+            });
+        }
+
+        setInterval(ambilChat, 2000);
+        ambilChat();
+
+        $('body').on('click', '#btnKirim', function() {
+            var chat = $("#txtChat").val();
+
+            if (chat.trim() != "") {
+                $.post("kirim_chat.php", {
+                    idthread: id_thread,
+                    isi: chat
+                }).done(function() {
+                    $("#txtChat").val("");
+                })
+            }
+
+        });
+    </script>
 
 </body>
 
