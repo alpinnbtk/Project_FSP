@@ -18,7 +18,7 @@ $res = $member->getMemberByGroup($idgroup, $search);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Member Group</title>
+    <title>Member Group Dosen</title>
 
     <style>
         body {

@@ -1,5 +1,16 @@
 <?php
 session_start();
+require_once("Class/member_group.php");
+
+$idgroup = $_GET['idgrup'];
+$search = "";
+
+if (isset($_GET['btnSearch']) && !empty($_GET['txtSearch'])) {
+    $search = $_GET['txtSearch'];
+}
+
+$member = new member_group();
+$res = $member->getMemberByGroup($idgroup, $search);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -105,47 +116,47 @@ session_start();
     //     die("Failed to connect to MySQL: " . $mysqli->connect_error);
     // }
 
-    $idgroup = $_GET['idgrup'];
+    // $idgroup = $_GET['idgrup'];
 
-    $prompt = "";
-    $searched = "";
+    // $prompt = "";
+    // $searched = "";
 
-    if (isset($_GET['btnSearch'])) {
-        if (!empty($_GET['txtSearch'])) {
-            $prompt = $_GET['txtSearch'];
-            $searched = "%" . $prompt . "%";
-        }
-    }
+    // if (isset($_GET['btnSearch'])) {
+    //     if (!empty($_GET['txtSearch'])) {
+    //         $prompt = $_GET['txtSearch'];
+    //         $searched = "%" . $prompt . "%";
+    //     }
+    // }
 
-    $sql =
-        "SELECT 
-            mg.idgrup,
-            mg.username,
-            a.npk_dosen,
-            a.nrp_mahasiswa,
-            d.foto_extension AS foto_dosen,
-            m.foto_extention AS foto_mahasiswa
-        FROM member_grup mg
-        INNER JOIN akun a ON mg.username = a.username
-        LEFT JOIN dosen d ON a.npk_dosen = d.npk
-        LEFT JOIN mahasiswa m ON a.nrp_mahasiswa = m.nrp
-        WHERE mg.idgrup = ?";
+    // $sql =
+    //     "SELECT 
+    //         mg.idgrup,
+    //         mg.username,
+    //         a.npk_dosen,
+    //         a.nrp_mahasiswa,
+    //         d.foto_extension AS foto_dosen,
+    //         m.foto_extention AS foto_mahasiswa
+    //     FROM member_grup mg
+    //     INNER JOIN akun a ON mg.username = a.username
+    //     LEFT JOIN dosen d ON a.npk_dosen = d.npk
+    //     LEFT JOIN mahasiswa m ON a.nrp_mahasiswa = m.nrp
+    //     WHERE mg.idgrup = ?";
 
-    if (!empty($searched)) {
-        $sql .= " AND mg.username LIKE ?";
-    }
+    // if (!empty($searched)) {
+    //     $sql .= " AND mg.username LIKE ?";
+    // }
 
-    $sql .= " ORDER BY a.npk_dosen DESC;";
-    $stmt = $mysqli->prepare($sql);
+    // $sql .= " ORDER BY a.npk_dosen DESC;";
+    // $stmt = $mysqli->prepare($sql);
 
-    if (!empty($searched)) {
-        $stmt->bind_param('is', $idgroup, $searched);
-    } else {
-        $stmt->bind_param("i", $idgroup);
-    }
+    // if (!empty($searched)) {
+    //     $stmt->bind_param('is', $idgroup, $searched);
+    // } else {
+    //     $stmt->bind_param("i", $idgroup);
+    // }
 
-    $stmt->execute();
-    $res = $stmt->get_result();
+    // $stmt->execute();
+    // $res = $stmt->get_result();
 
     echo "<h2>Anggota Grup :</h2>";
 
@@ -170,11 +181,11 @@ session_start();
 
         if ($row['nrp_mahasiswa']) {
             $id = $row['nrp_mahasiswa'];
-            $foto = $row['foto_mahasiswa'];
+            $ext = $row['foto_mahasiswa'];
             $folder = "foto_mahasiswa/";
         } else {
             $id = $row['npk_dosen'];
-            $foto = $row['foto_dosen'];
+            $ext = $row['foto_dosen'];
             $folder = "foto_dosen/";
         }
 
@@ -182,10 +193,10 @@ session_start();
         echo "<td>" . $id . "</td>";
         echo "<td>" . $row['username'] . "</td>";
 
-        if ($foto) {
-            echo "<td><img src='{$folder}{$id}.{$foto}' width='80'></td>";
+        if ($ext) {
+            echo "<td><img src='" . $folder . $id . "." . $ext . "' width='80'></td>";
         } else {
-            echo "<td><i>No Photo</i></td>";
+            echo "<td><i>Tidak ada foto</i></td>";
         }
 
         echo "</tr>";
