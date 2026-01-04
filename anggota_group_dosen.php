@@ -116,7 +116,7 @@ $res = $member->getMemberByGroup($idgroup, $search);
                         <?php if (!empty($foto)) { ?>
                             <img src="<?= $folder . $id . '.' . $foto ?>">
                         <?php } else { ?>
-                            <i>No Photo</i>
+                            <i>Tidak ada foto</i>
                         <?php } ?>
                     </td>
                     <td>
