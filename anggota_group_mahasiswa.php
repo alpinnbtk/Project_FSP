@@ -42,6 +42,7 @@ $res = $member->getMemberByGroup($idgroup, $search);
         }
 
         table {
+            width: 100%;
             border-collapse: collapse;
         }
 
@@ -105,10 +106,62 @@ $res = $member->getMemberByGroup($idgroup, $search);
             cursor: default;
             padding: 6px 11px;
         }
+
+        .container {
+            max-width: 100%;
+            padding: 15px;
+            box-sizing: border-box;
+        }
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        @media (max-width: 768px) {
+
+            form {
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            input[type="text"] {
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            .btnSearch {
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            img {
+                width: 100px;
+                height: auto;
+            }
+
+            h2 {
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            th, td {
+                font-size: 14px;
+                padding: 6px;
+            }
+
+            img {
+                width: 60px;
+                height: auto;
+            }
+        }
     </style>
 </head>
 
 <body>
+<div class="container">
     <?php
 
     // $mysqli = new mysqli("localhost", "root", "", "fullstack");
@@ -166,6 +219,7 @@ $res = $member->getMemberByGroup($idgroup, $search);
     echo "<input type = 'submit' name = 'btnSearch' class='btnSearch'>";
     echo "<input type='hidden' name='idgrup' value='$idgroup'>";
 
+    echo "<div class='table-wrapper'>";
     echo "<br><table>";
     echo "<thead>";
     echo "<tr>";
@@ -204,10 +258,12 @@ $res = $member->getMemberByGroup($idgroup, $search);
 
     echo "</tbody>";
     echo "</table>";
+    echo "</div>";
 
     echo "<a href='kelola_group_mahasiswa.php?username=" . $_SESSION['username'] . "'>Kembali</a>";
 
     ?>
+</div>
 </body>
 
 </html>

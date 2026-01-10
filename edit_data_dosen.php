@@ -44,6 +44,50 @@
         .btnEdit:hover {
             background: #45a049;
         }
+
+        @media (max-width: 768px) {
+            form {
+                width: 95%;
+                padding: 20px;
+            }
+
+            input {
+                width: 80%;
+            }
+
+            img {
+                width: 120px;
+                height: auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h2 {
+                text-align: center;
+            }
+
+            label {
+                display: block;
+                margin-top: 10px;
+            }
+
+            input {
+                width: 100%;
+                margin: 6px 0;
+            }
+
+            .btnEdit {
+                width: 100%;
+                padding: 12px;
+                font-size: 16px;
+            }
+
+            img {
+                display: block;
+                margin: auto;
+                width: 110px;
+            }
+        }
     </style>
 </head>
 

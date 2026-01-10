@@ -77,7 +77,14 @@
     }
     ?>
 
-    <a href="kelola_group_dosen.php?username=<?php echo $_SESSION['username'] ?>">Kembali</a>
+    <?php
+        if ($_SESSION['role'] == 'dosen') {
+            echo "<a href='kelola_group_dosen.php?username=" . $_SESSION['username'] . "'>Kembali</a>";
+        } else if ($_SESSION['role'] == 'mahasiswa') {
+            echo "<a href='kelola_group_mahasiswa.php?username=" . $_SESSION['username'] . "'>Kembali</a>";
+        }
+    ?>
+
     <br>
     <a href="tambah_thread.php?idgrup=<?php echo $idGroup ?>">Buat Thread</a>
 

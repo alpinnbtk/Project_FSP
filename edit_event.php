@@ -12,6 +12,10 @@
             font-family: Arial;
         }
 
+        h2 {
+            margin-bottom: 15px;
+        }
+
         form {
             background: #fff;
             padding: 20px 30px;
@@ -22,7 +26,9 @@
 
         img {
             width: 150px;
-            height: 200px;
+            height: 250px;
+            object-fit: cover;
+            margin-bottom: 10px;
         }
 
         input,
@@ -30,9 +36,78 @@
         select {
             border-radius: 6px;
             padding: 10px;
-            margin: 6px;
+            margin: 6px 0;
+            width: auto;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        button {
+            padding: 10px 25px;
+            border-radius: 6px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #45a049;
+        }
+
+        @media (max-width: 768px) {
+            form {
+                width: 95%;
+                box-sizing: border-box;
+            }
+
+            img {
+                width: 120px;
+                height: auto;
+            }
+
+            input,
+            textarea,
+            select {
+                width: 100%;
+                box-sizing: border-box;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h2 {
+                text-align: center;
+            }
+
+            form {
+                width: 100%;
+                padding: 15px;
+                box-sizing: border-box;
+            }
+
+            label {
+                display: block;
+                margin-top: 10px;
+            }
+
+            img {
+                display: block;
+                margin: 10px auto;
+                width: 100px;
+            }
+
+            button {
+                width: 100%;
+                font-size: 16px;
+            }
         }
     </style>
+
 </head>
 
 <body>
@@ -75,7 +150,7 @@
               </select><br>";
 
         echo "<label>Foto Poster : </label><br>";
-        echo "<img src='foto_poster/" . $row['idevent'] . $row['poster_extension'] . "'><br>";
+        echo "<img src='foto_poster/" . $row['idevent'] . "." . $row['poster_extension'] . "'><br>";
         echo "<input type='file' name='posterBaru' accept='image/jpeg, image/png'><br>";
 
         echo "<button type='submit' name='btnEdit'>Edit Event</button>";

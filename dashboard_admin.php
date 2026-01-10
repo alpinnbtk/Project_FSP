@@ -46,7 +46,41 @@ if (!isset($_SESSION['username'])) {
 
         .menu a:hover {
             background: #e1dc81ff;
+        }
 
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+
+            .menu a {
+                padding: 10px 16px;
+                font-size: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h2,
+            p {
+                text-align: center;
+            }
+
+            .menu ul {
+                padding: 0;
+                margin-bottom: 25px;
+            }
+
+            .menu li {
+                margin: 10px 0;
+            }
+
+            .menu a {
+                display: block;
+                width: 100%;
+                text-align: center;
+                font-size: 16px;
+                padding: 12px 0;
+            }
         }
     </style>
 </head>

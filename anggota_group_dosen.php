@@ -44,11 +44,15 @@ $res = $member->getMemberByGroup($idgroup, $search);
         table {
             border-collapse: collapse;
             background: white;
+            width: auto;
+            table-layout: auto;
         }
 
         th,
         td {
             padding: 10px;
+            text-align: center;
+            vertical-align: middle;
         }
 
         img {
@@ -73,7 +77,60 @@ $res = $member->getMemberByGroup($idgroup, $search);
         .btnSearch:hover {
             background: #45a049;
         }
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        @media (max-width: 768px) {
+            form {
+                width: 95%;
+                box-sizing: border-box;
+            }
+
+            table {
+                width: 100%;
+            }
+
+            th, td {
+                padding: 8px;
+                font-size: 14px;
+            }
+
+            img {
+                width: 60px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            form {
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            input[type="text"] {
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            .btnSearch {
+                width: 100%;
+            }
+
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+
+            img {
+                width: 55px;
+            }
+        }
     </style>
+
+
 </head>
 
 <body>
@@ -87,47 +144,49 @@ $res = $member->getMemberByGroup($idgroup, $search);
         <input type="submit" name="btnSearch" value="Cari" class="btnSearch">
     </form>
 
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Username</th>
-                <th>Foto</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php while ($row = $res->fetch_assoc()) {
-
-                if (!empty($row['nrp_mahasiswa'])) {
-                    $id = $row['nrp_mahasiswa'];
-                    $foto = $row['foto_mahasiswa'];
-                    $folder = "foto_mahasiswa/";
-                } else {
-                    $id = $row['npk_dosen'];
-                    $foto = $row['foto_dosen'];
-                    $folder = "foto_dosen/";
-                }
-            ?>
+    <div class = "table-wrapper">
+        <table>
+            <thead>
                 <tr>
-                    <td><?= $id ?></td>
-                    <td><?= $row['username'] ?></td>
-                    <td>
-                        <?php if (!empty($foto)) { ?>
-                            <img src="<?= $folder . $id . '.' . $foto ?>">
-                        <?php } else { ?>
-                            <i>Tidak ada foto</i>
-                        <?php } ?>
-                    </td>
-                    <td>
-                        <a href="hapus_member.php?idgrup=<?= $idgroup ?>&username=<?= $row['username'] ?>">
-                            Keluarkan
-                        </a>
-                    </td>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Foto</th>
+                    <th>Aksi</th>
                 </tr>
-            <?php } ?>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                <?php while ($row = $res->fetch_assoc()) {
+
+                    if (!empty($row['nrp_mahasiswa'])) {
+                        $id = $row['nrp_mahasiswa'];
+                        $foto = $row['foto_mahasiswa'];
+                        $folder = "foto_mahasiswa/";
+                    } else {
+                        $id = $row['npk_dosen'];
+                        $foto = $row['foto_dosen'];
+                        $folder = "foto_dosen/";
+                    }
+                ?>
+                    <tr>
+                        <td><?= $id ?></td>
+                        <td><?= $row['username'] ?></td>
+                        <td>
+                            <?php if (!empty($foto)) { ?>
+                                <img src="<?= $folder . $id . '.' . $foto ?>">
+                            <?php } else { ?>
+                                <i>Tidak ada foto</i>
+                            <?php } ?>
+                        </td>
+                        <td>
+                            <a href="hapus_member.php?idgrup=<?= $idgroup ?>&username=<?= $row['username'] ?>">
+                                Keluarkan
+                            </a>
+                        </td>
+                    </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+    </div>
 
     <br>
     <a href="kelola_group_dosen.php?username=<?= $_SESSION['username'] ?>">Kembali</a>

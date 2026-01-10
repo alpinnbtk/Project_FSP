@@ -102,10 +102,12 @@
                         // header('location:home.php');
 
                         if ($row['nrp_mahasiswa'] != "") {
+                            $_SESSION['role'] = 'mahasiswa';
                             header('location:home_mahasiswa.php');
                         }
 
                         if ($row['npk_dosen'] != "") {
+                            $_SESSION['role'] = 'dosen';
                             header('location:home_dosen.php');
                         }
                     } else {
