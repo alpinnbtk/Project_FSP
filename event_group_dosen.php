@@ -96,6 +96,53 @@ session_start();
             cursor: default;
             padding: 6px 11px;
         }
+
+        @media (max-width: 768px) {
+
+            form {
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            table {
+                display: block;
+                overflow-x: auto;
+                max-width: 100%;
+                min-width: 900px;
+            }
+
+            img {
+                width: 110px;
+                height: auto;
+            }
+
+            th, td {
+                padding: 8px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            table {
+                min-width: 850px;
+            }
+
+            img {
+                width: 80px;
+            }
+
+            th, td {
+                padding: 6px;
+                font-size: 13px;
+            }
+
+            input, .btnSearch {
+                width: 100%;
+                box-sizing: border-box;
+            }
+        }
+
     </style>
 </head>
 

@@ -47,6 +47,65 @@
         .btnSubmit:hover {
             background: #45a049;
         }
+
+        @media (max-width: 768px) {
+
+            body {
+                padding: 20px;
+            }
+
+            h2 {
+                text-align: center;
+            }
+
+            form {
+                width: 100%;
+                box-sizing: border-box;
+                padding: 20px;
+            }
+
+            input {
+                width: 90%;
+                box-sizing: border-box;
+            }
+
+            .btnSubmit {
+                width: 100%;
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            body {
+                padding: 10px;
+            }
+
+            h2 {
+                font-size: 18px;
+                text-align: center;
+            }
+
+            form {
+                padding: 15px;
+            }
+
+            label {
+                display: block;
+                margin-top: 10px;
+            }
+
+            input {
+                width: 100%;
+                margin: 5px 0;
+            }
+
+            .btnSubmit {
+                width: 100%;
+                padding: 10px;
+                font-size: 15px;
+            }
+        }
     </style>
 </head>
 

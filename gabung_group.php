@@ -13,11 +13,51 @@ require_once("Class/group.php");
         table {
             border-collapse: collapse;
         }
+
         table, th, td {
             border: 1px solid black;
         }
+
         th, td {
             padding: 8px;
+        }
+        @media (max-width: 768px) {
+
+            form {
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            table {
+                display: block;
+                overflow-x: auto;
+                max-width: 100%;
+                min-width: 700px;
+            }
+
+            th, td {
+                font-size: 14px;
+                padding: 6px;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            table {
+                min-width: 700px;
+            }
+
+            th, td {
+                font-size: 13px;
+                padding: 5px;
+            }
+
+            input[type="text"],
+            input[type="submit"] {
+                width: 100%;
+                box-sizing: border-box;
+                margin-top: 6px;
+            }
         }
     </style>
 
@@ -39,7 +79,6 @@ require_once("Class/group.php");
                     <th>Deskripsi</th> 
                     <th>Tanggal Pembentukan</th>
                     <th>Jenis</th>
-                    <th>Kode Pendaftaran</th>
                 </tr>";
 
             while ($row = $res->fetch_assoc()) {
@@ -49,7 +88,6 @@ require_once("Class/group.php");
                 echo "<td>" . $row['deskripsi'] . "</td>";
                 echo "<td>" . $row['tanggal_pembentukan'] . "</td>";
                 echo "<td>" . $row['jenis'] . "</td>";
-                echo "<td>" . $row['kode_pendaftaran'] . "</td>";
                 echo "</tr>";
             }
             echo "</table>";

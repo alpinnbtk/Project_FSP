@@ -27,7 +27,6 @@
         img {
             width: 150px;
             height: 250px;
-            object-fit: cover;
             margin-bottom: 10px;
         }
 
@@ -41,18 +40,16 @@
         }
 
         textarea {
-            resize: vertical;
             min-height: 80px;
         }
 
         button {
-            padding: 10px 25px;
+            padding: 10px 40px;
             border-radius: 6px;
             background: #4CAF50;
             color: white;
             border: none;
             font-size: 16px;
-            cursor: pointer;
             margin-top: 10px;
         }
 

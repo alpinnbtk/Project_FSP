@@ -26,6 +26,57 @@ require_once("Class/group.php");
         td {
             padding: 10px;
         }
+
+        @media (max-width: 768px) {
+
+            body {
+                padding: 15px;
+            }
+
+            table {
+                width: 100%;
+                display: block;
+                overflow-x: auto;
+                font-size: 14px;
+            }
+
+            th, td {
+                padding: 8px;
+            }
+
+            h2 {
+                text-align: center;
+            }
+
+            a {
+                font-size: 14px;
+                display: inline-block;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            body {
+                padding: 10px;
+            }
+
+            table {
+                font-size: 13px;
+            }
+
+            th, td {
+                padding: 6px;
+            }
+
+            h2 {
+                font-size: 18px;
+                text-align: center;
+            }
+
+            a {
+                font-size: 13px;
+            }
+        }
     </style>
 </head>
 

@@ -61,6 +61,74 @@ if (!isset($_SESSION['username'])) {
         p {
             color: #FF0000;
         }
+
+        @media (max-width: 2160px) {
+
+            body {
+                padding: 15px;
+            }
+
+            h2 {
+                text-align: center;
+            }
+
+            ul {
+                padding-left: 20px;
+            }
+
+            li {
+                margin-bottom: 30px;
+                font-size: 16px;
+            }
+
+            li a {
+                background: #4CAF50;
+                color: white;
+                padding: 12px;
+                border-radius: 6px;
+                text-align: center;
+                text-decoration: none;
+            }
+
+            li a:hover {
+                background: #45a049;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            body {
+                padding: 10px;
+            }
+
+            h2 {
+                font-size: 20px;
+                text-align: center;
+            }
+
+            ul {
+                padding: 0;
+                list-style: none;
+            }
+
+            li {
+                margin-bottom: 12px;
+            }
+
+            li a {
+                display: block;
+                background: #4CAF50;
+                color: white;
+                padding: 10px;
+                border-radius: 6px;
+                text-align: center;
+                text-decoration: none;
+            }
+
+            li a:hover {
+                background: #45a049;
+            }
+        }
     </style>
 </head>
 

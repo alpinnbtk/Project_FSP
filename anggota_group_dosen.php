@@ -45,14 +45,12 @@ $res = $member->getMemberByGroup($idgroup, $search);
             border-collapse: collapse;
             background: white;
             width: auto;
-            table-layout: auto;
         }
 
         th,
         td {
             padding: 10px;
             text-align: center;
-            vertical-align: middle;
         }
 
         img {
@@ -121,7 +119,6 @@ $res = $member->getMemberByGroup($idgroup, $search);
             table {
                 display: block;
                 overflow-x: auto;
-                white-space: nowrap;
             }
 
             img {

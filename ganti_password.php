@@ -50,6 +50,56 @@
         button:hover {
             background: #45a049;
         }
+
+        @media (max-width: 768px) {
+
+            form {
+                width: 80%;
+                padding: 20px;
+            }
+
+            button {
+                padding: 10px 60px;
+                width: 100%;
+            }
+
+            input {
+                width: 90%;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            body {
+                padding: 10px;
+            }
+
+            h2 {
+                text-align: center;
+            }
+
+            form {
+                width: 100%;
+                padding: 15px;
+                box-sizing: border-box;
+            }
+
+            label {
+                display: block;
+                margin-top: 10px;
+            }
+
+            input {
+                width: 100%;
+                margin: 5px 0;
+            }
+
+            button {
+                width: 100%;
+                padding: 10px;
+                font-size: 14px;
+            }
+        }
     </style>
 </head>
 

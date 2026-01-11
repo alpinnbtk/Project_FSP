@@ -93,6 +93,74 @@ session_start();
             cursor: default;
             padding: 6px 11px;
         }
+
+        @media (max-width: 768px) {
+
+            body {
+                padding: 15px;
+            }
+
+            form {
+                width: 100%;
+                padding: 15px;
+                box-sizing: border-box;
+            }
+
+            table {
+                width: 100%;
+                font-size: 14px;
+                display: block;
+                overflow-x: auto;
+            }
+
+            th, td {
+                padding: 8px;
+            }
+
+            h2 {
+                text-align: center;
+            }
+
+            a {
+                display: inline-block;
+                margin: 3px 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            body {
+                padding: 10px;
+            }
+
+            form {
+                width: 100%;
+                padding: 12px;
+            }
+
+            table {
+                font-size: 13px;
+                display: block;
+                overflow-x: auto;
+            }
+
+            th, td {
+                padding: 6px;
+            }
+
+            h2 {
+                text-align: center;
+                font-size: 18px;
+            }
+
+            a {
+                font-size: 13px;
+            }
+
+            #page {
+                margin-top: 30px;
+            }
+        }
     </style>
 </head>
 

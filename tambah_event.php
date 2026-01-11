@@ -52,6 +52,77 @@
             margin: 6px;
 
         }
+
+        @media (max-width: 768px) {
+
+            body {
+                padding: 20px;
+            }
+
+            h2 {
+                text-align: center;
+            }
+
+            form {
+                width: 100%;
+                box-sizing: border-box;
+                padding: 20px;
+            }
+
+            input,
+            select,
+            textarea {
+                width: 90%;
+                box-sizing: border-box;
+            }
+
+            input[type="submit"] {
+                width: 100%;
+                padding: 12px;
+            }
+
+            img {
+                width: 120px;
+                height: auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            body {
+                padding: 10px;
+            }
+
+            h2 {
+                font-size: 18px;
+                text-align: center;
+            }
+
+            form {
+                padding: 15px;
+            }
+
+            label {
+                display: block;
+                margin-top: 10px;
+            }
+
+            input,
+            select,
+            textarea {
+                width: 100%;
+                margin: 5px 0;
+            }
+
+            input[type="submit"] {
+                font-size: 15px;
+                padding: 12px;
+            }
+
+            img {
+                width: 100px;
+            }
+        }
     </style>
 </head>
 

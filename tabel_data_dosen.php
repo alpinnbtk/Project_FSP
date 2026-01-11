@@ -89,6 +89,96 @@
             cursor: default;
             padding: 6px 11px;
         }
+
+        @media (max-width: 768px) {
+
+            body {
+                padding: 15px;
+            }
+
+            h2 {
+                text-align: center;
+            }
+
+            form {
+                width: 100%;
+                box-sizing: border-box;
+                padding: 15px;
+            }
+
+            input {
+                width: 60%;
+                box-sizing: border-box;
+            }
+
+            .btnSearch {
+                width: auto;
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+
+            table {
+                width: 100%;
+                display: block;
+                overflow-x: auto;
+                font-size: 14px;
+            }
+
+            img {
+                width: 100px;
+                height: auto;
+            }
+
+            #page {
+                margin-top: 40px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            body {
+                padding: 10px;
+            }
+
+            h2 {
+                font-size: 18px;
+                text-align: center;
+            }
+
+            form {
+                padding: 12px;
+            }
+
+            label {
+                display: block;
+                margin-bottom: 5px;
+            }
+
+            input {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .btnSearch {
+                width: 100%;
+                padding: 10px;
+            }
+
+            table {
+                font-size: 13px;
+            }
+
+            img {
+                width: 80px;
+            }
+
+            #page a,
+            #page span {
+                padding: 4px 7px;
+                font-size: 12px;
+            }
+        }
     </style>
 </head>
 

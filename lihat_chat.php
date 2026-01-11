@@ -68,7 +68,6 @@
 
         #txtChat {
             flex: 1;
-
         }
 
         .btnKirim {
@@ -93,6 +92,89 @@
             color: red;
             font-weight: 600;
             text-align: center;
+        }
+
+        @media (max-width: 768px) {
+
+            body {
+                padding: 10px;
+            }
+
+            #chatBox {
+                margin-bottom: 80px;
+            }
+
+            .chatUser,
+            .chatLain {
+                max-width: 85%;
+                font-size: 14px;
+            }
+
+            .chatInput {
+                padding: 5px;
+                box-sizing: border-box;
+            }
+
+            #txtChat {
+                font-size: 14px;
+                padding: 8px;
+            }
+
+            .btnKirim {
+                font-size: 14px;
+                padding: 8px 14px;
+            }
+
+            h2 {
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            body {
+                padding: 8px;
+            }
+
+            #chatBox {
+                margin-bottom: 90px;
+            }
+
+            .chatUser,
+            .chatLain {
+                max-width: 90%;
+                font-size: 13px;
+                padding: 8px;
+            }
+
+            #username {
+                font-size: 13px;
+            }
+
+            #waktuKirim {
+                font-size: 11px;
+            }
+
+            .chatInput {
+                padding: 6px;
+                background: #f4f6f9;
+                border-top: 1px solid #ccc;
+            }
+
+            #txtChat {
+                font-size: 13px;
+                padding: 8px;
+            }
+
+            .btnKirim {
+                font-size: 13px;
+                padding: 8px 12px;
+            }
+
+            h2 {
+                font-size: 18px;
+                text-align: center;
+            }
         }
     </style>
 </head>
