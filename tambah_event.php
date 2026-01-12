@@ -5,19 +5,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tambah Event</title>
+    <link rel="stylesheet" href="theme.css">
 
     <style>
         body {
-            background: #f4f6f9;
+            background: var(--bg-color);
             font-family: Arial;
         }
 
         form {
-            background: #fff;
+            background: var(--form-bg);
             padding: 20px 30px;
             border-radius: 10px;
             text-align: left;
             width: 500px;
+        }
+
+        h2,
+        label {
+            margin-bottom: 20px;
+            color: var(--text-primary);
         }
 
         table,
@@ -51,6 +58,15 @@
             padding: 10px;
             margin: 6px;
 
+        }
+
+        #button {
+            background: var(--btn-bg);
+            color: var(--text-primary);
+            padding: 10px 120px;
+            border-radius: 6px;
+            margin: 6px;
+            font-size: 16px;
         }
 
         @media (max-width: 768px) {
@@ -150,7 +166,7 @@
         <label>Poster : </label>
         <input type='file' name='fotoPoster' accept='image/jpeg, image/png'><br>
 
-        <input type="submit" name="btnSubmit" value="Submit">
+        <input type="submit" name="btnSubmit" value="Submit" id="button">
     </form>
 </body>
 

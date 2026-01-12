@@ -5,19 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Event</title>
+    <link rel="stylesheet" href="theme.css">
+
 
     <style>
         body {
-            background: #f4f6f9;
+            background: var(--bg-color);
             font-family: Arial;
         }
 
-        h2 {
+        h2,
+        label {
             margin-bottom: 15px;
+            color: var(--text-primary);
         }
 
         form {
-            background: #fff;
+            background: var(--form-bg);
             padding: 20px 30px;
             border-radius: 10px;
             text-align: left;
@@ -46,8 +50,8 @@
         button {
             padding: 10px 40px;
             border-radius: 6px;
-            background: #4CAF50;
-            color: white;
+            background: var(--btn-bg);
+            color: var(--text-primary);
             border: none;
             font-size: 16px;
             margin-top: 10px;

@@ -6,8 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="theme.css">
 
     <style>
+        body {
+            background: var(--bg-color);
+            font-family: Arial;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
         table,
         th,
         tr,
@@ -113,6 +124,7 @@
             .chatInput {
                 padding: 5px;
                 box-sizing: border-box;
+
             }
 
             #txtChat {
@@ -157,7 +169,7 @@
 
             .chatInput {
                 padding: 6px;
-                background: #f4f6f9;
+                background: var(--bg-form);
                 border-top: 1px solid #ccc;
             }
 

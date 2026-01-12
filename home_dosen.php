@@ -15,15 +15,16 @@ if (!isset($_SESSION['username'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Halaman Home Dosen</title>
+    <link rel="stylesheet" href="theme.css">
 
     <style>
         body {
-            background: #f4f6f9;
+            background: var(--bg-color);
             font-family: Arial;
         }
 
         form {
-            background: #fff;
+            background: var(--form-bg);
             padding: 20px 30px;
             border-radius: 10px;
             text-align: center;
@@ -32,17 +33,21 @@ if (!isset($_SESSION['username'])) {
 
         h2 {
             margin-bottom: 20px;
-        }
+            color: var(--text-primary);
 
-        label {
-            text-align: left;
         }
 
         input {
             border-radius: 6px;
             padding: 7px;
             margin: 6px;
+            color: var(--text-primary);
 
+        }
+
+        label {
+            text-align: left;
+            color: var(--text-primary);
         }
 
         button {

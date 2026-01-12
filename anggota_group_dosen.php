@@ -20,6 +20,8 @@ $res = $member->getMemberByGroup($idgroup, $search);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Member Group Dosen</title>
 
+    <link rel="stylesheet" href="theme.css">
+
     <style>
         body {
             background: #f4f6f9;
@@ -91,7 +93,8 @@ $res = $member->getMemberByGroup($idgroup, $search);
                 width: 100%;
             }
 
-            th, td {
+            th,
+            td {
                 padding: 8px;
                 font-size: 14px;
             }
@@ -141,7 +144,7 @@ $res = $member->getMemberByGroup($idgroup, $search);
         <input type="submit" name="btnSearch" value="Cari" class="btnSearch">
     </form>
 
-    <div class = "table-wrapper">
+    <div class="table-wrapper">
         <table>
             <thead>
                 <tr>

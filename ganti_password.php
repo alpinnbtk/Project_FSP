@@ -1,27 +1,30 @@
 <?php
-    session_start();
+session_start();
 
-    $mysqli = new mysqli("localhost", "root", "", "fullstack");
-    if ($mysqli->connect_errno) {
-        echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-    }
+$mysqli = new mysqli("localhost", "root", "", "fullstack");
+if ($mysqli->connect_errno) {
+    echo "Failed to connect to MySQL: " . $mysqli->connect_error;
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ganti Password</title>
+    <link rel="stylesheet" href="theme.css">
+
 
     <style>
         body {
-            background: #f4f6f9;
+            background: var(--bg-color);
             font-family: Arial;
         }
 
         form {
-            background: #fff;
+            background: var(--form-bg);
             padding: 20px 30px;
             border-radius: 10px;
             width: 400px;
@@ -29,13 +32,21 @@
 
         h2 {
             margin-bottom: 20px;
+            color: var(--text-primary);
+
         }
 
         input {
             border-radius: 6px;
             padding: 7px;
             margin: 6px;
+            color: var(--text-primary);
 
+        }
+
+        label {
+            text-align: left;
+            color: var(--text-primary);
         }
 
         button {

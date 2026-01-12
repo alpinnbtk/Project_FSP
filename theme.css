@@ -1,0 +1,33 @@
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #0f172a;
+    --form-bg: #151d3f;
+    --input-bg: #020617;
+    --border-color: #ffffff;
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5f5;
+    --text-error: #ef4444;
+    --btn-bg: #4caf50;
+    --btn-hover: #45a049;
+    --shadow: #000000;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg-color: #f4f6f9;
+    --form-bg: #ccc8c8;
+    --input-bg: #ffffff;
+    --border-color: #000000;
+    --text-primary: #111827;
+    --text-secondary: #374151;
+    --text-error: #dc2626;
+    --btn-bg: #4caf50;
+    --btn-hover: #45a049;
+    --shadow: #000000;
+  }
+}
+
+body {
+  background: var(--bg-color);
+}

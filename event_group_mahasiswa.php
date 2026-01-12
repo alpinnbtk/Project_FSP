@@ -10,26 +10,38 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Event</title>
+    <link rel="stylesheet" href="theme.css">
 
     <style>
         body {
-            background: #f4f6f9;
+            background: var(--bg-color);
             font-family: Arial;
         }
 
         form {
-            background: #fff;
+            background: var(--form-bg);
             padding: 20px 30px;
             border-radius: 10px;
             text-align: left;
             width: 1000px;
         }
 
+        h2 {
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+
+        label {
+            text-align: left;
+            color: var(--text-primary);
+        }
+
         table,
         th,
         tr,
         td {
-            border: 1px solid black;
+            border: 1px solid var(--border-color);
         }
 
         table {
@@ -39,6 +51,12 @@ session_start();
         th,
         td {
             padding: 10px;
+            color: var(--text-primary);
+
+        }
+
+        a {
+            color: var(--text-secondary);
         }
 
         form {

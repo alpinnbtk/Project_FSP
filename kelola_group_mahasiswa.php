@@ -9,22 +9,57 @@ require_once("Class/group.php");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kelola Group Mahasiswa</title>
+    <link rel="stylesheet" href="theme.css">
+
     <style>
+        body {
+            background: var(--bg-color);
+            font-family: Arial;
+        }
+
+        form {
+            background: var(--form-bg);
+            padding: 20px 30px;
+            border-radius: 10px;
+            text-align: center;
+            width: 300px;
+        }
+
+        h2,
+        p {
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        input {
+            border-radius: 6px;
+            padding: 7px;
+            margin: 6px;
+            color: var(--text-primary);
+
+        }
+
+        label {
+            text-align: left;
+            color: var(--text-primary);
+        }
+
         table,
         th,
         tr,
         td {
-            border: 1px solid black;
+            border: 1px solid var(--border-color);
         }
 
         table {
             border-collapse: collapse;
-            background: white;
+
         }
 
         th,
         td {
             padding: 10px;
+            color: var(--text-primary);
         }
 
         @media (max-width: 768px) {
@@ -40,7 +75,8 @@ require_once("Class/group.php");
                 font-size: 14px;
             }
 
-            th, td {
+            th,
+            td {
                 padding: 8px;
             }
 
@@ -49,6 +85,7 @@ require_once("Class/group.php");
             }
 
             a {
+                color: var(--text-secondary);
                 font-size: 14px;
                 display: inline-block;
             }
@@ -64,7 +101,8 @@ require_once("Class/group.php");
                 font-size: 13px;
             }
 
-            th, td {
+            th,
+            td {
                 padding: 6px;
             }
 
@@ -74,6 +112,7 @@ require_once("Class/group.php");
             }
 
             a {
+                color: var(--text-secondary);
                 font-size: 13px;
             }
         }
@@ -117,7 +156,7 @@ require_once("Class/group.php");
     }
     ?>
 
-    <a href="home_mahasiswa.php">Kembali</a>
+    <a href="home_mahasiswa.php" id='kembali'>Kembali</a>
 </body>
 
 </html>

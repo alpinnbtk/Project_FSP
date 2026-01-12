@@ -9,18 +9,71 @@ require_once("Class/group.php");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gabung ke Group</title>
+    <link rel="stylesheet" href="theme.css">
+
     <style>
+        body {
+            background: var(--bg-color);
+            font-family: Arial;
+        }
+
+        form {
+            background: var(--form-bg);
+            padding: 20px 30px;
+            border-radius: 10px;
+            text-align: center;
+            width: 300px;
+        }
+
+        h2,
+        p {
+            margin-bottom: 20px;
+            color: var(--text-primary);
+
+        }
+
+        input {
+            border-radius: 6px;
+            padding: 7px;
+            margin: 6px;
+            color: var(--text-primary);
+
+        }
+
+        label {
+            text-align: left;
+            color: var(--text-primary);
+        }
+
+        .button {
+            background: #4CAF50;
+            color: white;
+            padding: 10px 120px;
+            border-radius: 6px;
+            margin: 6px;
+            font-size: 16px;
+        }
+
+        .button:hover {
+            background: #45a049;
+        }
+
+
         table {
             border-collapse: collapse;
         }
 
-        table, th, td {
+        table,
+        th,
+        td {
             border: 1px solid black;
         }
 
-        th, td {
+        th,
+        td {
             padding: 8px;
         }
+
         @media (max-width: 768px) {
 
             form {
@@ -35,7 +88,8 @@ require_once("Class/group.php");
                 min-width: 700px;
             }
 
-            th, td {
+            th,
+            td {
                 font-size: 14px;
                 padding: 6px;
             }
@@ -47,7 +101,8 @@ require_once("Class/group.php");
                 min-width: 700px;
             }
 
-            th, td {
+            th,
+            td {
                 font-size: 13px;
                 padding: 5px;
             }
@@ -107,7 +162,7 @@ require_once("Class/group.php");
         <label>Kode Pendaftaran : </label>
         <input type='text' name='txtKode' required><br>
 
-        <input type="submit" name="btnSubmit" value="Submit">
+        <input type="submit" name="btnSubmit" value="Submit" class="button">
 
         <br><br>
         <a href="home_mahasiswa.php">Kembali</a>

@@ -15,7 +15,28 @@ $member = new member_group();
 <head>
     <meta charset="UTF-8">
     <title>Detail Grup</title>
+    <link rel="stylesheet" href="theme.css">
 
+    <style>
+        body {
+            background: var(--bg-color);
+            font-family: Arial;
+        }
+
+        h2,
+        li {
+            margin-bottom: 20px;
+            color: var(--text-primary);
+
+        }
+
+
+        a {
+            color: var(--text-secondary);
+            font-size: 14px;
+            display: inline-block;
+        }
+    </style>
 </head>
 
 <body>

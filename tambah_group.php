@@ -5,18 +5,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tambah Group</title>
+    <link rel="stylesheet" href="theme.css">
+
     <style>
         body {
-            background: #f4f6f9;
+            background: var(--bg-color);
             font-family: Arial;
         }
 
         form {
-            background: #fff;
+            background: var(--form-bg);
             padding: 20px 30px;
             border-radius: 10px;
             text-align: left;
             width: 900px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        label {
+            text-align: left;
+            color: var(--text-primary);
         }
 
         table,
@@ -77,11 +89,14 @@
             .btnSubmit {
                 width: 100%;
                 padding: 12px;
+                background-color: var(--btn-bg);
+                color: var(--text-primary);
             }
 
             a {
                 display: inline-block;
                 margin-top: 10px;
+                color: var(--text-secondary);
             }
         }
 
@@ -114,12 +129,16 @@
             .btnSubmit {
                 font-size: 15px;
                 padding: 12px;
+                background-color: var(--btn-bg);
+                color: var(--text-primary);
+
             }
 
             a {
                 display: block;
                 margin-top: 15px;
                 text-align: center;
+                color: var(--text-secondary);
             }
         }
     </style>

@@ -8,25 +8,47 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kelola Group Dosen</title>
+    <link rel="stylesheet" href="theme.css">
+
     <style>
         body {
-            background: #f4f6f9;
+            background: var(--bg-color);
             font-family: Arial;
         }
 
         form {
-            background: #fff;
+            background: var(--form-bg);
             padding: 20px 30px;
             border-radius: 10px;
             text-align: left;
             width: 900px;
         }
 
+        h2,
+        p {
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        input {
+            border-radius: 6px;
+            padding: 7px;
+            margin: 6px;
+            color: var(--text-primary);
+
+        }
+
+        label {
+            text-align: left;
+            color: var(--text-primary);
+        }
+
         table,
         th,
         tr,
         td {
-            border: 1px solid black;
+            border: 1px solid var(--border-color);
+
         }
 
         table {
@@ -36,6 +58,7 @@ session_start();
         th,
         td {
             padding: 10px;
+            color: var(--text-primary);
         }
 
         form {
@@ -113,7 +136,8 @@ session_start();
                 overflow-x: auto;
             }
 
-            th, td {
+            th,
+            td {
                 padding: 8px;
             }
 
@@ -124,6 +148,8 @@ session_start();
             a {
                 display: inline-block;
                 margin: 3px 0;
+                color: var(--text-secondary);
+
             }
         }
 
@@ -144,7 +170,8 @@ session_start();
                 overflow-x: auto;
             }
 
-            th, td {
+            th,
+            td {
                 padding: 6px;
             }
 
@@ -155,6 +182,8 @@ session_start();
 
             a {
                 font-size: 13px;
+                color: var(--text-secondary);
+
             }
 
             #page {

@@ -10,16 +10,44 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Halaman Detail Group</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="theme.css">
 
     <style>
         body {
-            background: #f4f6f9;
+            background: var(--bg-color);
             font-family: Arial;
+        }
+
+        form {
+            background: var(--form-bg);
+            padding: 20px 30px;
+            border-radius: 10px;
+            text-align: center;
+            width: 300px;
+        }
+
+        h2,
+        h3 {
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        input {
+            border-radius: 6px;
+            padding: 7px;
+            margin: 6px;
+            color: var(--text-primary);
+
+        }
+
+        label {
+            text-align: left;
+            color: var(--text-primary);
         }
 
 
         .detail {
-            background: #cfcfcfff;
+            background: var(--form-bg);
             padding: 20px 30px;
             border-radius: 10px;
             max-width: 900px;
@@ -42,7 +70,7 @@ session_start();
                 width: calc(100% - 52px);
                 margin: 10px auto;
                 padding: 15px;
-                background: #ffffff;
+                background: var(--form-bg);
                 border: 1px solid #9e9e9eff;
                 border-radius: 10px;
             }
@@ -70,7 +98,7 @@ session_start();
                 width: calc(40% - 52px);
                 margin: 10px auto;
                 padding: 15px;
-                background: #ffffff;
+                background: var(--bg-color);
                 border: 1px solid #9e9e9eff;
                 border-radius: 10px;
             }
@@ -79,36 +107,44 @@ session_start();
                 width: calc(60% - 52px);
                 margin: 10px auto;
                 padding: 15px;
-                background: #ffffff;
+                background: var(--bg-color);
                 border: 1px solid #9e9e9eff;
                 border-radius: 10px;
             }
         }
 
         form {
-            background: #fff;
+            background: var(--form-bg);
             padding: 20px 30px;
             border-radius: 10px;
-            width: 350px;
+            width: 300px;
             margin-bottom: 20px;
+            color: var(--text-primary);
         }
 
         table,
         th,
         tr,
         td {
-            border: 1px solid black;
+            border: 1px solid var(--border-color);
+
         }
 
         table {
             border-collapse: collapse;
-            background: white;
+
             min-width: 500px;
         }
 
         th,
         td {
             padding: 10px;
+            color: var(--text-primary);
+
+        }
+
+        a {
+            color: var(--text-secondary);
         }
 
 

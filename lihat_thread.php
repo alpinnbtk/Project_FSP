@@ -5,14 +5,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thread</title>
+    <link rel="stylesheet" href="theme.css">
 
     <style>
+        body {
+            background: var(--bg-color);
+            font-family: Arial;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        a {
+            color: var(--text-secondary);
+        }
+
         table,
         th,
         tr,
         td {
-            border: 1px solid black;
+            border: 1px solid var(--border-color);
             text-align: center;
+            color: var(--text-primary);
         }
 
         table {
@@ -37,7 +53,8 @@
                 font-size: 14px;
             }
 
-            th, td {
+            th,
+            td {
                 padding: 8px;
             }
 
@@ -62,7 +79,8 @@
                 font-size: 13px;
             }
 
-            th, td {
+            th,
+            td {
                 padding: 6px;
             }
 
@@ -130,11 +148,11 @@
     ?>
 
     <?php
-        if ($_SESSION['role'] == 'dosen') {
-            echo "<a href='kelola_group_dosen.php?username=" . $_SESSION['username'] . "'>Kembali</a>";
-        } else if ($_SESSION['role'] == 'mahasiswa') {
-            echo "<a href='kelola_group_mahasiswa.php?username=" . $_SESSION['username'] . "'>Kembali</a>";
-        }
+    if ($_SESSION['role'] == 'dosen') {
+        echo "<a href='kelola_group_dosen.php?username=" . $_SESSION['username'] . "'>Kembali</a>";
+    } else if ($_SESSION['role'] == 'mahasiswa') {
+        echo "<a href='kelola_group_mahasiswa.php?username=" . $_SESSION['username'] . "'>Kembali</a>";
+    }
     ?>
 
     <br>

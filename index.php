@@ -5,10 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Halaman Login</title>
+    <link rel="stylesheet" href="theme.css">
 
     <style>
         body {
-            background: #f4f6f9;
+            background: var(--bg-color);
             font-family: Arial;
             display: flex;
             justify-content: center;
@@ -19,7 +20,7 @@
 
 
         form {
-            background: #fff;
+            background: var(--form-bg);
             padding: 20px 30px;
             border-radius: 10px;
             text-align: center;
@@ -28,10 +29,12 @@
 
         h2 {
             margin-bottom: 20px;
+            color: var(--text-primary);
         }
 
         label {
             text-align: left;
+            color: var(--text-primary);
         }
 
         input {
