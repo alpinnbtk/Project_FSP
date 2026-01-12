@@ -206,12 +206,14 @@ session_start();
             <input type='text' name='txtSearch'>
             <input type="button" value="Submit" id="btnSearch" class="btnSearch">
 
-            <table>
-                <thead id="head">
-                    <tr></tr>
-                </thead>
-                <tbody id="body"></tbody>
-            </table>
+            <div class="table-geser">
+                <table>
+                    <thead id="head">
+                        <tr></tr>
+                    </thead>
+                    <tbody id="body"></tbody>
+                </table>
+            </div>
 
             <?php
             if (isset($_GET['error'])) {

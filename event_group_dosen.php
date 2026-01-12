@@ -116,10 +116,12 @@ session_start();
                 height: auto;
             }
 
-            th, td {
+            th,
+            td {
                 padding: 8px;
                 font-size: 14px;
             }
+
         }
 
         @media (max-width: 480px) {
@@ -132,17 +134,25 @@ session_start();
                 width: 80px;
             }
 
-            th, td {
+            th,
+            td {
                 padding: 6px;
                 font-size: 13px;
             }
 
-            input, .btnSearch {
+            input,
+            .btnSearch {
                 width: 100%;
                 box-sizing: border-box;
             }
-        }
 
+            .table-geser {
+                width: 100%;
+                overflow-x: auto;
+                margin-top: 15px;
+                border: 1px solid black;
+            }
+        }
     </style>
 </head>
 
@@ -192,6 +202,7 @@ session_start();
     $res = $stmt->get_result();
 
     if ($res->num_rows > 0) {
+        echo "<div class='table-geser'>";
         echo "<table> 
                 <tr> 
                     <th>ID Event</th> 
@@ -214,11 +225,12 @@ session_start();
             echo "<td><img src = 'foto_poster/" . $row['idevent'] . "." . $row['poster_extension'] . "'></td>";
 
 
-            echo "<td><a href='edit_event.php?idgroup=" .  $idgroup . "&idevent=" . $row['idevent']. "'>Edit Event</a></td>";
-            echo "<td><a href='hapus_event.php?idgroup=" .  $idgroup . "&idevent=" . $row['idevent']. "'>Hapus Event</a></td>";
+            echo "<td><a href='edit_event.php?idgroup=" .  $idgroup . "&idevent=" . $row['idevent'] . "'>Edit Event</a></td>";
+            echo "<td><a href='hapus_event.php?idgroup=" .  $idgroup . "&idevent=" . $row['idevent'] . "'>Hapus Event</a></td>";
             echo "</tr>";
         }
         echo "</table>";
+        echo "</div>";
     } else {
         echo "<p>Belum ada event yang terdaftar!</p>";
     }
