@@ -36,4 +36,22 @@ class akun extends orangtua
             return "password_salah";
         }
     }
+
+    public function login(string $username, string $password)
+    {
+        $sql = "SELECT * FROM akun WHERE username = ?";
+
+        $stmt = $this->mysqli->prepare($sql);
+
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+
+        $res = $stmt->get_result();
+
+        if ($row = $res->fetch_assoc()) {
+            if (password_verify($password, $row['password'])) {
+                return $row;
+            }
+        }
+    }
 }

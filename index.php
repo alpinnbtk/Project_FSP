@@ -38,7 +38,7 @@
             border-radius: 6px;
             padding: 7px;
             margin: 6px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
 
         button {
@@ -120,7 +120,7 @@
 </head>
 
 <body>
-    <div class = "login-container">
+    <div class="login-container">
         <h2>Login</h2>
 
         <form method="POST">
@@ -139,53 +139,33 @@
 
             <?php
             session_start();
-
-            $mysqli = new mysqli("localhost", "root", "", "fullstack");
-            if ($mysqli->connect_errno) {
-                echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-            }
+            require_once("Class/akun.php");
 
             if (isset($_POST['login'])) {
                 $username = $_POST['username'];
                 $password = $_POST['password'];
 
-                $stmt = $mysqli->prepare("SELECT * FROM akun WHERE username LIKE ?");
-                $stmt->bind_param(
-                    "s",
-                    $username,
-                );
+                $akun = new akun();
+                $dataAkun = $akun->login($username, $password);
 
-                $stmt->execute();
-                $res = $stmt->get_result();
+                if ($dataAkun) {
 
-                if ($row = $res->fetch_assoc()) {
+                    $_SESSION['username'] = $username;
 
-                    $is_authenticated = password_verify($_POST['password'], $row['password']);
-
-                    if ($is_authenticated) {
-                        if ($row['isadmin'] == 0) {
-                            $_SESSION['username'] = $username;
-                            // header('location:home.php');
-
-                            if ($row['nrp_mahasiswa'] != "") {
-                                $_SESSION['role'] = 'mahasiswa';
-                                header('location:home_mahasiswa.php');
-                            }
-
-                            if ($row['npk_dosen'] != "") {
-                                $_SESSION['role'] = 'dosen';
-                                header('location:home_dosen.php');
-                            }
-                        } else {
-                            $_SESSION['username'] = $username;
-
-                            header('location:dashboard_admin.php');
+                    if ($dataAkun['isadmin'] == 0) {
+                        if ($dataAkun['nrp_mahasiswa'] != "") {
+                            $_SESSION['role'] = 'mahasiswa';
+                            header('location:home_mahasiswa.php');
+                        }
+                        if ($dataAkun['npk_dosen'] != "") {
+                            $_SESSION['role'] = 'dosen';
+                            header('location:home_dosen.php');
                         }
                     } else {
-                        echo "<p>Password anda salah</p>";
+                        header('location:dashboard_admin.php');
                     }
                 } else {
-                    echo "<p>User tidak terdaftar!</p>";
+                    echo "<p>Username atau password salah!</p>";
                 }
             }
 
