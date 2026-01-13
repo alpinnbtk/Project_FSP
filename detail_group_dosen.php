@@ -76,7 +76,9 @@ session_start();
             }
 
             form {
-                width: calc(100% - 60px);
+                width: 100%;
+                max-width: 300px;
+                background-color: #45a049;
             }
 
             img {

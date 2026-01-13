@@ -24,28 +24,34 @@ $res = $member->getMemberByGroup($idgroup, $search);
 
     <style>
         body {
-            background: #f4f6f9;
+            background: var(--bg-color);
             font-family: Arial;
         }
 
         form {
-            background: #fff;
+            background: var(--form-bg);
             padding: 20px 30px;
             border-radius: 10px;
             width: 500px;
             margin-bottom: 20px;
         }
 
+        h2,
+        label {
+            margin-bottom: 20px;
+            color: var(--text-primary);
+
+        }
+
         table,
         th,
         tr,
         td {
-            border: 1px solid black;
+            border: 1px solid var(--border-color);
         }
 
         table {
             border-collapse: collapse;
-            background: white;
             width: auto;
         }
 
@@ -53,6 +59,12 @@ $res = $member->getMemberByGroup($idgroup, $search);
         td {
             padding: 10px;
             text-align: center;
+            color: var(--text-primary);
+        }
+
+
+        a {
+            color: var(--text-secondary);
         }
 
         img {

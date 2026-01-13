@@ -23,18 +23,27 @@ $member = new member_group();
             font-family: Arial;
         }
 
-        h2,
-        li {
+        h2 {
             margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        li {
+
             color: var(--text-primary);
 
         }
-
 
         a {
             color: var(--text-secondary);
             font-size: 14px;
             display: inline-block;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                font-size: 15px;
+            }
         }
     </style>
 </head>

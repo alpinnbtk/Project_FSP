@@ -7,7 +7,6 @@
     <title>Edit Event</title>
     <link rel="stylesheet" href="theme.css">
 
-
     <style>
         body {
             background: var(--bg-color);

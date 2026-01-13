@@ -10,18 +10,22 @@ require_once("Class/group.php");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Group</title>
+    <link rel="stylesheet" href="theme.css">
+
     <style>
         body {
-            background: #f4f6f9;
+            background: var(--bg-color);
             font-family: Arial;
         }
 
-        h2 {
+        h2,
+        label {
             margin-bottom: 15px;
+            color: var(--text-primary);
         }
 
         form {
-            background: #fff;
+            background: var(--form-bg);
             padding: 20px 30px;
             border-radius: 10px;
             width: 400px;
@@ -50,6 +54,10 @@ require_once("Class/group.php");
 
         button:hover {
             background: #45a049;
+        }
+
+        a {
+            color: var(--text-secondary);
         }
 
 

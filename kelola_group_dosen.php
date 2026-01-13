@@ -220,7 +220,7 @@ session_start();
                     <th>Nama Group</th> 
                     <th>Detail</th> 
                     <th>Anggota</th>
-                    <th>Event</th>
+           
                     <th>Thread</th>
                     <th>Edit</th>
                     <th>Hapus</th>
@@ -233,7 +233,7 @@ session_start();
 
             echo "<td><a href='detail_group_dosen.php?idgrup=" . $row['idgrup'] . "&username=" . $_SESSION['username'] . "'>Detail Group</a></td>";
             echo "<td><a href='anggota_group_dosen.php?idgrup=" .  $row['idgrup'] . "'>Lihat Anggota Group</a></td>";
-            echo "<td><a href='event_group_dosen.php?idgrup=" .  $row['idgrup'] . "'>Event Group</a></td>";
+
             echo "<td><a href='lihat_thread.php?idgrup=" .  $row['idgrup'] . "'>Lihat Thread</a></td>";
             echo "<td><a href='edit_group.php?idgrup=" .  $row['idgrup'] . "'>Edit Group</a></td>";
             echo "<td><a href='hapus_group.php?idgrup=" .  $row['idgrup'] . "'>Hapus Group</a></td>";
