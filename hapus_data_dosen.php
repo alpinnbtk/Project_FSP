@@ -17,17 +17,6 @@
     $npk_dosen = $_GET['npk'];
     $ext = $_GET['ext'];
 
-    // $mysqli = new mysqli("localhost", "root", "", "fullstack");
-    // if ($mysqli->connect_errno) {
-    //     echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-    //     exit();
-    // }
-
-    // $sql = "DELETE FROM dosen WHERE npk = ?";
-    // $stmt = $mysqli->prepare($sql);
-
-    // $stmt->bind_param('i', $npk_dosen);
-
     $response = $dosen->deleteDosen($npk_dosen);
 
     if ($response) {
@@ -37,19 +26,6 @@
             unlink($pathFoto);
         }
     }
-
-    // if (file_exists("foto_dosen/" . $npk_dosen . "." . $ext)) {
-    //     unlink("foto_dosen/" . $npk_dosen . "." . $ext);
-    // }
-
-    // if ($stmt->execute()) {
-    //     echo "Data berhasil dihapus!";
-    // } else {
-    //     echo "Error: " . $stmt->error;
-    // }
-
-    // $stmt->close();
-    // $mysqli->close();
 
     header("location: tabel_data_dosen.php");
 

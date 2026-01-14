@@ -201,11 +201,6 @@
     <h2>Tabel Data Mahasiswa</h2>
     <?php
 
-    // $mysqli = new mysqli("localhost", "root", "", "fullstack");
-    // if ($mysqli->connect_errno) {
-    //     echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-    // }
-
     require_once("Class/mahasiswa.php");
 
     $mahasiswa = new mahasiswa();
@@ -232,29 +227,6 @@
     echo "<input type = 'submit' name = 'btnSearch' class='btnSearch'>";
     echo "";
 
-    // $sql = "SELECT * FROM mahasiswa";
-
-    // if (!empty($prompt)) {
-    //     if (is_numeric($prompt)) {
-    //         $sql .= " WHERE nrp LIKE ?";
-    //     } else {
-    //         $sql .= " WHERE nama LIKE ?";
-    //     }
-    // }
-
-    // if (!is_null($offset)) $sql .= " LIMIT ?,?";
-
-    // $stmt = $mysqli->prepare($sql);
-
-    // if (!empty($searched) && !is_null($offset)) {
-    //     $stmt->bind_param('sii', $searched, $offset, $limit);
-    // } else if (!empty($searched)) {
-    //     $stmt->bind_param('s', $searched);
-    // } else if (empty($searched) && !is_null($offset)) {
-    //     $stmt->bind_param('ii', $offset, $limit);
-    // }
-
-    // $stmt->execute();
     $res = $mahasiswa->getMahasiswa($prompt, $offset, $limit);
 
     if ($res->num_rows > 0) {
@@ -288,26 +260,6 @@
     } else {
         echo "<p>Tidak ada data ditemukan.</p>";
     }
-
-
-    // $sql = "SELECT * FROM mahasiswa";
-
-    // if (!empty($searched)) {
-    //     if (is_numeric($searched)) {
-    //         $sql .= " WHERE nrp LIKE ?";
-    //     } else {
-    //         $sql .= " WHERE nama LIKE ?";
-    //     }
-    // }
-
-    // $stmtPage = $mysqli->prepare($sql);
-
-    // if (!empty($searched)) {
-    //     $stmtPage->bind_param('s', $searched);
-    // }
-
-    // $stmtPage->execute();
-    // $resPage = $stmtPage->get_result();
 
     $total = $mahasiswa->getTotalData($prompt);
     $total_pages = ceil($total / $limit);

@@ -196,16 +196,6 @@ session_start();
 <body>
     <h2>Semua Group</h2>
     <?php
-    // $mysqli = new mysqli("localhost", "root", "", "fullstack");
-    // if ($mysqli->connect_errno) {
-    //     echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-    // }
-
-    // $sql = "SELECT * FROM grup where username_pembuat = ?";
-    // $stmt = $mysqli->prepare($sql);
-    // $stmt->bind_param("s", $_SESSION['username']);
-    // $stmt->execute();
-    // $res = $stmt->get_result();
 
     require_once("Class/group.php");
 

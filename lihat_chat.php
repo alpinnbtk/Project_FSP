@@ -204,7 +204,6 @@
     $thread = new thread();
 
     $idThread = $_GET['idthread'];
-    // $dataChat = $chat->getChat($idThread);
 
     $dataThread = $thread->getThreadById($idThread);
     $statusThread = $dataThread['status'];
@@ -254,7 +253,6 @@
                         html += "<p id='username'>" + item.nama_dosen + "</p>";
 
                     }
-                    // html += "<p id='username'>" + item.username_pembuat + "</p>";
                     html += "<p>" + item.isi + "</p>";
                     html += "<p id='waktuKirim'>" + item.tanggal_pembuatan + "</p>";
                     html += "</div>";

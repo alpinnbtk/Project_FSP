@@ -21,7 +21,6 @@
     $mahasiswa = new mahasiswa();
 
     $nrp_awal = $_POST['nrp_awal'];
-    $nrp_baru    = $_POST['txtNRP'];
     $nama    = $_POST['txtNama'];
     $gender = $_POST['genderMhs'];
     $tanggal_lahir = $_POST['txtTanggalLahir'];
@@ -30,7 +29,6 @@
 
     $data = [
         'nrp_awal' => $nrp_awal,
-        'nrp_baru' => $nrp_baru,
         'nama' => $nama,
         'gender' => $gender,
         'tanggal_lahir' => $tanggal_lahir,
@@ -54,33 +52,9 @@
         echo "Gagal mengubah data!<br>";
     }
 
-    // if (!empty($foto['name'])) {
-    //     $sql = "UPDATE mahasiswa SET nama = ?, gender = ?, tanggal_lahir = ?, angkatan = ?, foto_extention = ? WHERE nrp = ?";
-    //     $stmt = $mysqli->prepare($sql);
-    //     $stmt->bind_param('ssssss', $nama, $gender, $tanggal_lahir, $angkatan, $ext, $nrp_awal);
-
-    //     if (file_exists("foto_mahasiswa/" . $nrp_baru . "." . $ext)) {
-    //         unlink("foto_mahasiswa/" . $nrp_baru . "." . $ext);
-    //     }
-    //     move_uploaded_file($foto['tmp_name'], "foto_mahasiswa/" . $nrp_baru . "." . $ext);
-    // } else {
-    //     $sql = "UPDATE mahasiswa SET nama = ?, gender = ?, tanggal_lahir = ?, angkatan = ? WHERE nrp = ?";
-    //     $stmt = $mysqli->prepare($sql);
-    //     $stmt->bind_param('sssss', $nama, $gender, $tanggal_lahir, $angkatan, $nrp_awal);
-    // }
-
-    // if ($stmt->execute()) {
-    //     echo "Data berhasil diubah!<br>";
-    // } else {
-    //     echo "Error: " . $stmt->error . "<br>";
-    // }
-
     echo "<a href = 'tabel_data_mahasiswa.php'>Kembali ke Tabel Data</a><br>";
-    // echo "<a href = 'edit_data_mahasiswa.php?'>Kembali ke Halaman Edit</a><br>";
     echo "<td><a href='edit_data_mahasiswa.php?nrp=" . $nrp_awal . "'>Kembali ke Halaman Edit</a></td>";
 
-    // $stmt->close();
-    // $mysqli->close();
     ?>
 </body>
 

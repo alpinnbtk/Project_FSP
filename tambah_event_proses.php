@@ -44,7 +44,6 @@ if ($result === "duplicate") {
     exit();
 }
 
-// UPLOAD POSTER
 $targetFile = "foto_poster/" . $result . "." . $ext;
 move_uploaded_file($poster['tmp_name'], $targetFile);
 

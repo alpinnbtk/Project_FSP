@@ -181,10 +181,6 @@ session_start();
 <body>
 
     <?php
-    // $mysqli = new mysqli("localhost", "root", "", "fullstack");
-    // if ($mysqli->connect_errno) {
-    //     echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-    // }
 
     require_once("Class/group.php");
     require_once("Class/member_group.php");
@@ -197,24 +193,11 @@ session_start();
     $idgroup = $_GET['idgrup'];
     $username = $_GET['username'];
 
-    // $sql = "SELECT * FROM grup where idgrup = ?";
-    // $stmt = $mysqli->prepare($sql);
-    // $stmt->bind_param('i', $idgroup);
-    // $stmt->execute();
-    // $res = $stmt->get_result();
     $dataGroup = $group->getGroupById($idgroup);
 
     if ($dataGroup) {
 
         $dataCount = $memberGroup->countMember($idgroup);
-
-        // $sql2 = "SELECT COUNT(*) FROM member_grup where idgrup = ?";
-        // $stmt2 = $mysqli->prepare($sql2);
-        // $stmt2->bind_param('i', $idgroup);
-        // $stmt2->execute();
-        // $stmt2->bind_result($count);
-        // $stmt2->fetch();
-        // $stmt2->close();
 
         echo "<div class='detail'>";
         echo "<h2>Grup " . $dataGroup['nama'] . "</h2>";
@@ -226,10 +209,6 @@ session_start();
         echo "</div>";
     }
     ?>
-
-    <!-- <table>
-        <tr>
-            <td id="member"> -->
 
     <div class="container">
         <div class="member">
@@ -303,12 +282,6 @@ session_start();
             ?>
         </div>
     </div>
-    <!-- </td> -->
-
-    <!-- <td id="event"> -->
-    <!-- </td>
-        </tr>
-    </table> -->
 
     <a href="kelola_group_dosen.php?username=<?php echo $_SESSION['username']; ?>">Kembali</a>
 </body>
