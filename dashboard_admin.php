@@ -15,16 +15,20 @@ if (!isset($_SESSION['username'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Admin</title>
+    <link rel="stylesheet" href="theme.css">
+
 
     <style>
         body {
-            background: #f4f6f9;
+            background: var(--bg-color);
             font-family: Arial;
             color: #373737ff;
         }
 
-        h2 {
-            color: #2c3e50;
+        h2,
+        h4,
+        p {
+            color: var(--text-primary);
         }
 
         .menu ul {
@@ -60,6 +64,7 @@ if (!isset($_SESSION['username'])) {
         }
 
         @media (max-width: 480px) {
+
             h2,
             p {
                 text-align: center;

@@ -41,6 +41,18 @@ class dosen extends orangtua
         return $res;
     }
 
+    public function getDosenByNpk($npk)
+    {
+        $sql = 'SELECT * FROM dosen WHERE npk = ?';
+
+        $stmt = $this->mysqli->prepare($sql);
+        $stmt->bind_param("s", $npk);
+        $stmt->execute();
+        $res = $stmt->get_result();
+
+        return $res->fetch_assoc();
+    }
+
     public function getTotalData($keyword_judul)
     {
         $sql = "select count(*) as total from dosen";

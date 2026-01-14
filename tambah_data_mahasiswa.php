@@ -5,27 +5,34 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Tambah Data Mahasiswa</title>
+      <link rel="stylesheet" href="theme.css">
+
 
       <style>
             body {
-                  background: #f4f6f9;
+                  background: var(--bg-color);
                   font-family: Arial;
             }
 
             form {
-                  background: #fff;
+                  background: var(--form-bg);
                   padding: 20px 30px;
                   border-radius: 10px;
                   text-align: left;
                   width: 450px;
             }
 
-            h2 {
+            h2,
+            p {
                   margin-bottom: 20px;
+                  color: var(--text-primary);
             }
+
 
             label {
                   text-align: left;
+                  color: var(--text-primary);
+
             }
 
             input {
@@ -64,7 +71,8 @@
                         padding: 20px;
                   }
 
-                  input, select {
+                  input,
+                  select {
                         width: 90%;
                         box-sizing: border-box;
                   }
@@ -95,7 +103,8 @@
                         margin-top: 10px;
                   }
 
-                  input, select {
+                  input,
+                  select {
                         width: 100%;
                         margin: 5px 0;
                   }
@@ -112,11 +121,6 @@
 <body>
       <h2>Tambah Data Mahasiswa</h2>
       <?php
-      $mysqli = new mysqli("localhost", "root", "", "fullstack");
-      if ($mysqli->connect_errno) {
-            echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-            exit();
-      }
 
       echo "<form method = 'POST' action = 'tambah_data_mahasiswa_proses.php?' enctype = 'multipart/form-data'>";
       echo "<label>NRP Mahasiswa : </label>

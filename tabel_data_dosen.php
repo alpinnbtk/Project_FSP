@@ -5,25 +5,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tabel Data Dosen</title>
+    <link rel="stylesheet" href="theme.css">
+
     <style>
         body {
-            background: #f4f6f9;
+            background: var(--bg-color);
             font-family: Arial;
         }
 
         form {
-            background: #fff;
+            background: var(--form-bg);
             padding: 20px 30px;
             border-radius: 10px;
             text-align: left;
             width: 900px;
         }
 
+        h2,
+        label,
+        p {
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
         table,
         th,
         tr,
         td {
-            border: 1px solid black;
+            border: 1px solid var(--border-color);
         }
 
         table {
@@ -33,10 +42,11 @@
         th,
         td {
             padding: 10px;
+            color: var(--text-primary);
         }
 
-        form {
-            margin-bottom: 20px;
+        a {
+            color: var(--text-secondary);
         }
 
         img {

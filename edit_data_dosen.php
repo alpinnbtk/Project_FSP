@@ -1,22 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Data Dosen</title>
+    <link rel="stylesheet" href="theme.css">
 
     <style>
         body {
-            background: #f4f6f9;
+            background: var(--bg-color);
             font-family: Arial;
         }
 
         form {
-            background: #fff;
+            background: var(--form-bg);
             padding: 20px 30px;
             border-radius: 10px;
             text-align: left;
             width: 700px;
+        }
+
+        h2,
+        label,
+        p {
+            margin-bottom: 20px;
+            color: var(--text-primary);
         }
 
         img {
@@ -43,6 +52,10 @@
 
         .btnEdit:hover {
             background: #45a049;
+        }
+
+        #npk {
+            color: var(--text-primary);
         }
 
         @media (max-width: 768px) {
@@ -94,26 +107,22 @@
 <body>
     <h2>Edit Data Dosen</h2>
     <?php
+    require_once("Class/dosen.php");
+
     $npk_dosen = $_GET['npk'];
-    $mysqli = new mysqli("localhost", "root", "", "fullstack");
-    if ($mysqli->connect_errno) {
-        echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-    }
-    $stmt = $mysqli->prepare('SELECT * FROM dosen WHERE npk = ?');
-    $stmt->bind_param("s", $npk_dosen); 
-    $stmt->execute();
 
-    $result = $stmt->get_result();
+    $dosen = new dosen();
+    $dataDosen = $dosen->getDosenByNpk($npk_dosen);
 
-    if ($row = $result->fetch_assoc()) {
+    if ($dataDosen) {
         echo "<form method = 'POST' action = 'edit_data_dosen_proses.php' enctype = 'multipart/form-data'>";
-        echo "<label>NPK Dosen : </label><input type = 'text' value = '" . $row['npk'] . "' disabled><br>";
-        echo "<input type = 'hidden' value = '" . $row['npk'] . "' name = 'txtNPK'><br>";
+        echo "<label>NPK Dosen : </label><input type = 'text' id='npk' value = '" . $dataDosen['npk'] . "' disabled><br>";
+        echo "<input type = 'hidden' value = '" . $dataDosen['npk'] . "' name = 'txtNPK'><br>";
 
-        echo "<input type='hidden' name='npk_awal' value='" . $row['npk'] . "'>";
-        echo "<label>Nama Dosen : </label><input type = 'text' value = '" . $row['nama'] . "' name = 'txtNama'><br>";
+        echo "<input type='hidden' name='npk_awal' value='" . $dataDosen['npk'] . "'>";
+        echo "<label>Nama Dosen : </label><input type = 'text' value = '" . $dataDosen['nama'] . "' name = 'txtNama'><br>";
         echo "<label>Foto Dosen : </label><br>";
-        echo "<img src = 'foto_dosen/" . $npk_dosen . "." . $row['foto_extension'] . "' alt = 'Foto Dosen'><br>";
+        echo "<img src = 'foto_dosen/" . $npk_dosen . "." . $dataDosen['foto_extension'] . "' alt = 'Foto Dosen'><br>";
         echo "<input type = 'file' name = 'fotoBaru' accept='image/jpeg, image/png'><br>";
         echo "<button type = 'submit' name = 'btnEdit' class='btnEdit'>Edit Data</button>";
         echo "</form>";

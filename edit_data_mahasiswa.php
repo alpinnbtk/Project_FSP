@@ -15,18 +15,26 @@ $row = $result->fetch_assoc();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Data Mahasiswa</title>
+    <link rel="stylesheet" href="theme.css">
 
     <style>
         body {
-            background: #f4f6f9;
+            background: var(--bg-color);
             font-family: Arial;
         }
 
         form {
-            background: #fff;
+            background: var(--form-bg);
             padding: 20px 30px;
             border-radius: 10px;
             width: 700px;
+        }
+
+        h2,
+        label,
+        p {
+            margin-bottom: 20px;
+            color: var(--text-primary);
         }
 
         img {
@@ -53,6 +61,10 @@ $row = $result->fetch_assoc();
 
         .btnEdit:hover {
             background: #45a049;
+        }
+
+        #nrp {
+            color: var(--text-primary);
         }
 
         @media (max-width: 768px) {
@@ -111,7 +123,7 @@ $row = $result->fetch_assoc();
         <form method="POST" action="edit_data_mahasiswa_proses.php" enctype="multipart/form-data">
 
             <label>NRP Mahasiswa :</label>
-            <input type="text" value="<?= $row['nrp']; ?>" disabled>
+            <input id="nrp" type="text" value="<?= $row['nrp']; ?>" disabled>
             <input type="hidden" name="nrp_awal" value="<?= $row['nrp']; ?>">
 
             <br>
