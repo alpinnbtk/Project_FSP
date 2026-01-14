@@ -129,4 +129,29 @@ class event extends orangtua
 
         return $result;
     }
+
+    public function getEventsByGroup($idgroup, $search = "")
+    {
+        $sql = "SELECT * FROM event WHERE idgrup = ?";
+
+
+        if (!empty($search)) {
+        $sql .= " AND judul LIKE ?";
+        }
+
+
+        $stmt = $this->mysqli->prepare($sql);
+
+
+        if (!empty($search)) {
+        $searched = "%" . $search . "%";
+        $stmt->bind_param("is", $idgroup, $searched);
+        } else {
+        $stmt->bind_param("i", $idgroup);
+        }
+
+
+        $stmt->execute();
+        return $stmt->get_result();
+    }
 }

@@ -22,7 +22,7 @@ require_once("Class/group.php");
             padding: 20px 30px;
             border-radius: 10px;
             text-align: center;
-            width: 300px;
+            width: 400px;
         }
 
         h2,
@@ -36,7 +36,7 @@ require_once("Class/group.php");
             border-radius: 6px;
             padding: 7px;
             margin: 6px;
-            color: var(--text-primary);
+            color: #000000;
 
         }
 
@@ -66,12 +66,13 @@ require_once("Class/group.php");
         table,
         th,
         td {
-            border: 1px solid black;
+            border: 1px solid var(--text-primary);
         }
 
         th,
         td {
             padding: 8px;
+            color: var(--text-primary);
         }
 
         @media (max-width: 768px) {
